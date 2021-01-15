@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 // Routes App
 $route['login'] = "Main/Login";
+$route['admin'] = "Main/Admin";
