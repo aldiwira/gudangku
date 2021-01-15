@@ -1,0 +1,25 @@
+a {
+    color : white;
+}
+
+a:hover {
+    color: white;
+}
+.overlay-wrapper{
+    color: white;
+    background-color:rgba(0, 0, 0, 0.50);
+}
+.roboto-font-bold-center {
+	font-family: "Roboto Bold";
+    text-align: center;
+}
+
+
+.bg-charcoal {
+    background-color: #333333;
+}
+
+.header-item {
+    font-family: "PT Sans";
+    text-transform: uppercase;
+}
