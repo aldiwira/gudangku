@@ -1,0 +1,28 @@
+/* Login Responsive  */
+
+@media all and (max-width: 768px) {
+	.w-35 {
+		width: 50% !important;
+	}
+	.w-65 {
+		width: 50% !important;
+	}
+}
+
+@media all and (max-width: 425px) {
+	.w-35 {
+		width: 70% !important;
+	}
+	.w-65 {
+		width: 30% !important;
+	}
+}
+
+@media all and (max-width: 320px) {
+	.w-35 {
+		width: 90% !important;
+	}
+	.w-65 {
+		width: 10% !important;
+	}
+}
