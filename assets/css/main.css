@@ -1,79 +1,56 @@
 @font-face {
-    font-family: "PT Sans";
-    src: url("../fonts/PTSansRegular.ttf") format('truetype');
-    font-style: normal;
-    font-weight: 100;
+	font-family: "PT Sans";
+	src: url("../fonts/PTSansRegular.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 100;
 }
 @font-face {
-    font-family: "PT Sans Bold";
-    src: url("../fonts/PTSansBold.ttf") format('truetype');
-    font-style: normal;
-    font-weight: 100;
+	font-family: "PT Sans Bold";
+	src: url("../fonts/PTSansBold.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 100;
 }
 @font-face {
-    font-family: "PT Sans Italic";
-    src: url("../fonts/PTSansItalic.ttf") format('truetype');
+	font-family: "PT Sans Italic";
+	src: url("../fonts/PTSansItalic.ttf") format("truetype");
 }
-@font-face{
-    font-family: "Roboto";
-    src: url("../fonts/RobotoRegular.ttf") format('truetype');
-    font-style: normal;
-    font-weight: 100;
+@font-face {
+	font-family: "Roboto";
+	src: url("../fonts/RobotoRegular.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 100;
 }
-@font-face{
-    font-family: "Roboto Bold";
-    src: url("../fonts/RobotoBold.ttf") format('truetype');
+@font-face {
+	font-family: "Roboto Bold";
+	src: url("../fonts/RobotoBold.ttf") format("truetype");
 }
 
 :root {
-    --charcoal : #333333;
-    --charcoalgrad : #121415;
-    --donker : #333652;
-    --whitesnow : #F2F2F2;
+	--charcoal: #333333;
+	--charcoalgrad: #121415;
+	--donker: #333652;
+	--whitesnow: #f2f2f2;
 }
 
 body {
-    font-family: "PT Sans", "Roboto";
-    padding: 0;
-    margin: 0;
+	font-family: "PT Sans", "Roboto";
+	padding: 0;
+	margin: 0;
 }
 
 .bg-main {
 	background: rgb(18, 20, 21);
-	background: linear-gradient(0deg, rgba(18, 20, 21, 1) 0%, rgba(51, 51, 51, 1) 100%);
+	background: linear-gradient(
+		0deg,
+		rgba(18, 20, 21, 1) 0%,
+		rgba(51, 51, 51, 1) 100%
+	);
 }
 
-.text-charcoal {
-    color: var(--charcoal);
+.w-35 {
+	width: 35% !important;
 }
 
-.rounded-2 {
-    border-radius: 30px;
-}
-.img-1 {
-     background-position: center center;
-     background-repeat: no-repeat;
-}
-.title-style {
-    font-family: "PT Sans Bold";
-}
-
-.dot-item{
-    height: 20px;
-    width: 20px;
-    margin-bottom: 20px;
-    background-color: var(--charcoal);
-    border-radius: 100px;
-    display: inline-block;
-}
-
-.address-style {
-    font-family: "PT Sans Italic";
-}
-
-.line-footer {
-    border-bottom: 2px solid var(--donker);
-}
-.line-footer-white {
-    border-bottom: 2px solid var(--whitesnow);
+.w-65 {
+	width: 65% !important;
 }
