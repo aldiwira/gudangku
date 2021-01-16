@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title><?= $title ?></title>
 
-        <!-- Bootstrap css -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="<?= base_url() ?>assets/bootstraps/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><?= $title ?></title>
 
-        <!-- custom css -->
-        <link rel="stylesheet" href="<?= base_url() ?>assets/css/font-responsive.css">
-        
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/bootstraps/css/bootstrap.min.css">
 
-    </head>
-    <body>
-        
-        <!-- your content is loaded at here -->
-        <div class="content">
-            <? $content ?>
-        </div>
+    <!-- custom css -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/font-responsive.css">
 
-        <!-- Bootstrap js -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-        <!-- offline -->
-        <script src="<?= base_url() ?>assets/bootstraps/js/jquery.slim.js"></script>
-        <script src="<?= base_url() ?>assets/bootstraps/js/popper.min.js"></script>
-        <script src="<?= base_url() ?>assets/bootstraps/js/bootstrap.min.js"></script>
-        <script src="<?= base_url() ?>assets/bootstraps/js/bootstrap.bundle.min.js"></script>
-        
-    </body>
+</head>
+
+<body>
+
+    <!-- your content is loaded at here -->
+    <div class="content">
+        <? $content ?>
+    </div>
+
+    <!-- Bootstrap js -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script> -->
+
+    <!-- offline -->
+    <script src="<?= base_url() ?>assets/bootstraps/js/jquery.slim.js"></script>
+    <script src="<?= base_url() ?>assets/bootstraps/js/popper.min.js"></script>
+    <script src="<?= base_url() ?>assets/bootstraps/js/bootstrap.min.js"></script>
+    <script src="<?= base_url() ?>assets/bootstraps/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
 </html>
