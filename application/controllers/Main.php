@@ -4,6 +4,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Main extends CI_Controller
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        //Do your magic here
+        $this->load->helper('cookie');
+
+        // Check cookies session
+        if (!get_cookie('SID')) {
+            redirect('/');
+        }
+    }
+
     public function Admin()
     {
         $data['title'] = "Admin Dashboard";

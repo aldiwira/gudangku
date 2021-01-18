@@ -13,6 +13,11 @@ class User extends CI_Controller
         $this->load->library('session');
         $this->load->helper('cookie');
         $this->load->model('cruder', 'cruder');
+
+        // Check cookies session
+        if (get_cookie('SID')) {
+            redirect('/admin');
+        }
     }
 
     public function index()
