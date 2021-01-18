@@ -56,3 +56,6 @@ $route['translate_uri_dashes'] = FALSE;
 // Routes App
 $route['login'] = "User";
 $route['admin'] = "Main/Admin";
+$route['peminjaman'] = "Main/Peminjaman";
+$route['pengembalian'] = "Main/Pengembalian";
+$route['tambah'] = "Main/Tambah";

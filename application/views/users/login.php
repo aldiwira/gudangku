@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <div class="d-flex flex-row h-100 clearfix">
     <div class="d-flex flex-column align-items-start justify-content-center p-5 w-35 h-100">
         <!-- Left content here -->
@@ -17,7 +18,7 @@
                     <small id="helpId" class="text-danger"><?= form_error('password') ?></small>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block btn-lg my-4">Login</button>
+                <button type="submit" class="btn btn-primary my-4 btn-block"><i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i></i>Login</button>
             </form>
         </div>
     </div>
