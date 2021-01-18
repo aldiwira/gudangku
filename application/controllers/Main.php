@@ -7,8 +7,8 @@ class Main extends CI_Controller
     public function Admin()
     {
         $data['title'] = "Admin Dashboard";
-        $this->load->view('template/main', $data);
         $data['content'] = $this->load->view('admin/dashboard');
+        $this->load->view('template/main', $data);
     }
 }
     
