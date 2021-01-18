@@ -3,7 +3,7 @@
         <!-- Left content here -->
         <!-- Login Content -->
         <h1 class="font-weight-bold">Login</h1>
-        <p class="font-italic">Login menggunakan username dan password yang valid</p>
+        <p>Login menggunakan username dan password yang valid</p>
         <div class="w-100 mt-3">
             <form method="POST" action="">
                 <div class="form-group">
@@ -13,15 +13,16 @@
                 </div>
                 <div class="form-group">
                     <label for="passwordfor">Password</label>
-                    <input type="password" name="password" id="" class="form-control" value="<?php echo set_value('password') ?>" placeholder="********" aria-describedby="helpId">
+                    <input type="password" name="password" id="" class="form-control" placeholder="********" aria-describedby="helpId">
                     <small id="helpId" class="text-danger"><?= form_error('password') ?></small>
                 </div>
 
-                <button type="submit" class="btn btn-primary my-4">Login</button>
+                <button type="submit" class="btn btn-primary btn-block btn-lg my-4">Login</button>
             </form>
         </div>
     </div>
     <div class="left-wrapper bg-main d-flex w-65">
         <!-- Left content here -->
+
     </div>
 </div>

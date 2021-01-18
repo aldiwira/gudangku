@@ -2,10 +2,10 @@
 
 @media all and (max-width: 768px) {
 	.w-35 {
-		width: 50% !important;
+		width: 60% !important;
 	}
 	.w-65 {
-		width: 50% !important;
+		width: 40% !important;
 	}
 }
 

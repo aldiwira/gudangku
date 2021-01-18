@@ -11,6 +11,7 @@ class User extends CI_Controller
         //Do your magic here
         $this->load->library('form_validation');
         $this->load->library('session');
+        $this->load->helper('cookie');
         $this->load->model('cruder', 'cruder');
     }
 
@@ -26,9 +27,9 @@ class User extends CI_Controller
             $username = $this->input->post('username');
             $password = $this->input->post('password');
             $filter = array('username' => $username, 'password' => $password);
-            $resp = $this->cruder->where('user', $filter)->row();
-
+            $resp = $this->cruder->where('pengguna', $filter)->row();
             if ($resp != null) {
+                $this->input->set_cookie('SID', $resp->id_pengguna, 36000);
                 redirect('/admin');
             } else {
                 $data['callback'] = "Pastikan username dan password benar";
@@ -40,7 +41,7 @@ class User extends CI_Controller
     public function username_check($str)
     {
         $filter = array('username' => $str);
-        $resp = $this->cruder->where('user', $filter)->row();
+        $resp = $this->cruder->where('pengguna', $filter)->row();
         if ($resp != null) {
             return true;
         } else {
@@ -51,7 +52,7 @@ class User extends CI_Controller
     public function password_check($str)
     {
         $filter = array('password' => $str);
-        $resp = $this->cruder->where('user', $filter)->row();
+        $resp = $this->cruder->where('pengguna', $filter)->row();
         if ($resp != null) {
             return true;
         } else {
