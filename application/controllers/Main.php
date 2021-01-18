@@ -6,9 +6,30 @@ class Main extends CI_Controller
 {
     public function Admin()
     {
-        $data['title'] = "Admin Dashboard";
+        $data['title'] = "Dashboard";
         $this->load->view('template/main', $data);
         $data['content'] = $this->load->view('admin/dashboard');
+    }
+
+    public function Peminjaman()
+    {
+        $data['title'] = "Peminjaman Barang";
+        $this->load->view('template/main', $data);
+        $data['content'] = $this->load->view('admin/peminjaman_barang');
+    }
+
+    public function Pengembalian()
+    {
+        $data['title'] = "Pengembalian Barang";
+        $this->load->view('template/main', $data);
+        $data['content'] = $this->load->view('admin/pengembalian_barang');
+    }
+
+    public function Tambah()
+    {
+        $data['title'] = "Tambah Barang";
+        $this->load->view('template/main', $data);
+        $data['content'] = $this->load->view('admin/tambah_barang');
     }
 }
     
