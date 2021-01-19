@@ -68,7 +68,7 @@
             <div class="row">
                 <div class="col-xl-4">
                     <div class="card mb-4">
-                        <div class="card-header">
+                        <div class="card-header"><i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i>
                             Petugas: User1
                         </div>
                         <div class="card-body">
@@ -93,14 +93,14 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card mb-4">
-                        <div class="card-header">
+                        <div class="card-header"><i class="fas fa-table"></i>
                             Data Peminjaman
                         </div>
                         <div class="card-body">
                             <div class="alert alert-success" role="alert">
                                 <strong>Meja</strong> hanya tersisa <strong>69</strong>
                             </div>
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>

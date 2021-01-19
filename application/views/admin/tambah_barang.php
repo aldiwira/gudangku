@@ -68,7 +68,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-10">
                     <div class="card mb-4">
-                        <div class="card-header">
+                        <div class="card-header"><i class="fa fa-plus" style="margin-right: 10px;" aria-hidden="true"></i>
                             Tambah Barang
                         </div>
                         <div class="card-body">

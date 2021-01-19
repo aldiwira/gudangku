@@ -112,11 +112,11 @@
             </div>
 
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header"><i class="fas fa-table"></i>
                     Still Feeling Alone
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-bordered style=" width: 100%;"">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

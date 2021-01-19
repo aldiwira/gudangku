@@ -66,32 +66,27 @@
                 <li class="breadcrumb-item active">Pengembalian Barang</li>
             </ol>
             <div class="row">
-                <div class="col-xl-4">
+                <div class="col">
                     <div class="card mb-4">
-                        <div class="card-header">
-                            Petugas: User1
+                        <div class="card-header"><i class="fas fa-table"></i>
+                            Pengembalian Barang
                         </div>
                         <div class="card-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="formGroupExampleInput">Nama Peminjam</label>
-                                    <input type="text" class="form-control" name="" id="" placeholder="Nama peminjam">
-                                </div>
-                                <button class="btn btn-primary float-right"><i class="fa fa-search" style="margin-right: 10px;" aria-hidden="true"></i>Cari</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-8">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            Data Barang
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered">
+                            <div class="float-left">
+                                <form>
+                                    <div class="form-group">
+                                        <!-- <label for="formGroupExampleInput">Nama Peminjam</label> -->
+                                        <input type="text" class="form-control" name="" id="" placeholder="Nama peminjam">
+                                    </div>
+                                    <button class="btn btn-primary float-left"><i class="fa fa-search" style="margin-right: 10px;" aria-hidden="true"></i>Cari</button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                            <table class="table table-bordered table-hover" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
+                                        <th scope="col">Nama Peminjam</th>
                                         <th scope="col">Nama Barang</th>
                                         <th scope="col">Jumlah Barang</th>
                                         <th scope="col">Aksi</th>
@@ -101,14 +96,28 @@
                                     <tr>
                                         <th scope="row">1</th>
                                         <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                                        <td>
+                                            <li>Meja</li>
+                                            <li>Layar</li>
+                                            <li>Kursi</li>
+                                        </td>
+                                        <td>
+                                            <li>1 Buah</li>
+                                            <li>1 Buah</li>
+                                            <li>1 Buah</li>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-success"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden="true"></i>Pengembalian</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">2</th>
                                         <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
+                                        <td>Kursi</td>
+                                        <td>1 Buah</td>
+                                        <td>
+                                            <button class="btn btn-success"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden="true"></i>Pengembalian</button>
+                                        </td>
                                     </tr>
 
                                 </tbody>
