@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-xl-4">
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header"><i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i>
                     Petugas: User1
                 </div>
                 <div class="card-body">
@@ -32,14 +32,14 @@
         </div>
         <div class="col-xl-8">
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header"><i class="fa fa-table" style="margin-right: 10px;" aria-hidden="true"></i>
                     Data Peminjaman
                 </div>
                 <div class="card-body">
                     <div class="alert alert-success" role="alert">
                         <strong>Meja</strong> hanya tersisa <strong>69</strong>
                     </div>
-                    <table class="table table-bordered">
+                    <table id="dataPinjam" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
@@ -88,7 +88,51 @@
                         <div class="clearfix"></div>
                     </div>
                     <br>
-                    <button class="btn btn-success btn-block">Proses</button>
+                    <button class="btn btn-success btn-block" data-toggle="modal" data-target="#pinjamBarang">Proses</button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="pinjamBarang" tabindex="-1" aria-labelledby="pinjamBarang" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="pinjamBarang">Review barang yang akan dipinjamkan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <label>Nama Peminjam: Mark</label>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Nama Barang</th>
+                                            <th scope="col">Jumlah Barang</th>
+                                            <th scope="col">Kondisi Barang</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Meja</td>
+                                            <td>1</td>
+                                            <td>Baik</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Kursi</td>
+                                            <td>1</td>
+                                            <td>Baik</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                                <button type="button" class="btn btn-success">Proses</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -26,8 +26,8 @@
                         <i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i>Admin
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#changePassword"> Change Password </button>
-                        <button class="dropdown-item" type="button">Logout</button>
+                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#changePassword"><i class="fa fa-cog" style="margin-right: 10px;" aria-hidden="true"></i>Change Password </button>
+                        <button class="dropdown-item" type="button"><i class="fa fa-sign-out-alt" style="margin-right: 10px;" aria-hidden="true"></i>Logout</button>
                     </div>
                 </div>
                 <!-- Modal -->
