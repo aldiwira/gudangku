@@ -24,7 +24,7 @@ class Main extends CI_Controller
         $data_main['content'] = $this->load->view('admin/dashboard', '', true);
         // Main
         $data["title"] = "Admin Dashboard";
-        $data['content'] = $this->load->view('admin/main', $data_main);
+        $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
 
@@ -35,7 +35,7 @@ class Main extends CI_Controller
         $data_main['content'] = $this->load->view('admin/peminjaman_barang', '', true);
         // Main
         $data['title'] = "Peminjaman Barang";
-        $data['content'] = $this->load->view('admin/main', $data_main);
+        $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
 
@@ -46,7 +46,7 @@ class Main extends CI_Controller
         $data_main['content'] = $this->load->view('admin/pengembalian_barang', '', true);
         // Main
         $data['title'] = "Pengembalian Barang";
-        $data['content'] = $this->load->view('admin/main', $data_main);
+        $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
 
@@ -57,7 +57,7 @@ class Main extends CI_Controller
         $data_main['content'] = $this->load->view('admin/tambah_barang', '', true);
         // Main
         $data['title'] = "Tambah Barang";
-        $data['content'] = $this->load->view('admin/main', $data_main);
+        $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
 }

@@ -18,10 +18,9 @@
 </head>
 
 <body>
-
     <!-- your content is loaded at here -->
     <div class="content">
-        <? $content ?>
+        <?= $content ?>
     </div>
 
     <!-- Bootstrap js -->

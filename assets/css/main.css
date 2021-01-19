@@ -26,10 +26,18 @@
 }
 
 :root {
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 	--charcoal: #333333;
 	--charcoalgrad: #121415;
 	--donker: #333652;
 	--whitesnow: #f2f2f2;
+}
+
+a:hover {
+	text-decoration: none;
 }
 
 body {
@@ -105,5 +113,9 @@ body {
 	#wrapper.toggled #sidebar-wrapper {
 		margin-left: -15rem;
 	}
+}
+
+.loading-wrapper {
+	background-color: #1214158b;
 }
 /* End Admin Dashboard */
