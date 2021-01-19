@@ -50,7 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'User';
-$route['404_override'] = '';
+$route['404_override'] = 'Handling';
 $route['translate_uri_dashes'] = FALSE;
 
 // Routes App
