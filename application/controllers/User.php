@@ -12,7 +12,9 @@ class User extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('session');
         $this->load->helper('cookie');
-        $this->load->model('cruder', 'cruder');
+        $this->load->model('Cruder_model', 'cruder');
+        $this->load->model('User_model', 'user_m');
+
 
         // Check cookies session
         if (get_cookie('SID')) {
@@ -26,15 +28,15 @@ class User extends CI_Controller
         $this->form_validation->set_rules('password', 'password', 'required|callback_password_check', array('required' => 'Harap masukan password dengan benar'));
         if ($this->form_validation->run() == false) {
             $data['title'] = "Login";
-            $data['content'] = $this->load->view('users/login');
+            $data['content'] = $this->load->view('users/login', '', true);
             $this->load->view('template/main', $data);
         } else {
             $username = $this->input->post('username');
             $password = $this->input->post('password');
             $filter = array('username' => $username, 'password' => $password);
-            $resp = $this->cruder->where('pengguna', $filter)->row();
-            if ($resp != null) {
-                $this->input->set_cookie('SID', $resp->id_pengguna, 36000);
+            $loging = $this->user_m->login($filter);
+            if ($loging != null) {
+                $this->input->set_cookie('SID', $loging->id_pengguna, 36000);
                 redirect('/admin');
             } else {
                 $data['callback'] = "Pastikan username dan password benar";
