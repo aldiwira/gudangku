@@ -61,7 +61,7 @@
         <!-- End Navbar -->
 
         <!-- Content -->
-        <div class="container my-3">
+        <div class="my-3">
             <?= $content ?>
         </div>
         <!-- End of Content -->
