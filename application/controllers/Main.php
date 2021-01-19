@@ -19,29 +19,45 @@ class Main extends CI_Controller
 
     public function Admin()
     {
-        $data['title'] = "Admin Dashboard";
-        $data['content'] = $this->load->view('admin/dashboard');
+        // Data dashboard admin
+        $data_main['segment'] = $this->uri->segment(1);
+        $data_main['content'] = $this->load->view('admin/dashboard', '', true);
+        // Main
+        $data["title"] = "Admin Dashboard";
+        $data['content'] = $this->load->view('admin/main', $data_main);
         $this->load->view('template/main', $data);
     }
 
     public function Peminjaman()
     {
+        // Data dashboard admin
+        $data_main['segment'] = $this->uri->segment(1);
+        $data_main['content'] = $this->load->view('admin/peminjaman_barang', '', true);
+        // Main
         $data['title'] = "Peminjaman Barang";
-        $data['content'] = $this->load->view('admin/peminjaman_barang');
+        $data['content'] = $this->load->view('admin/main', $data_main);
         $this->load->view('template/main', $data);
     }
 
     public function Pengembalian()
     {
+        // Data dashboard admin
+        $data_main['segment'] = $this->uri->segment(1);
+        $data_main['content'] = $this->load->view('admin/pengembalian_barang', '', true);
+        // Main
         $data['title'] = "Pengembalian Barang";
-        $data['content'] = $this->load->view('admin/pengembalian_barang');
+        $data['content'] = $this->load->view('admin/main', $data_main);
         $this->load->view('template/main', $data);
     }
 
     public function Tambah()
     {
+        // Data dashboard admin
+        $data_main['segment'] = $this->uri->segment(1);
+        $data_main['content'] = $this->load->view('admin/tambah_barang', '', true);
+        // Main
         $data['title'] = "Tambah Barang";
-        $data['content'] = $this->load->view('admin/tambah_barang');
+        $data['content'] = $this->load->view('admin/main', $data_main);
         $this->load->view('template/main', $data);
     }
 }
