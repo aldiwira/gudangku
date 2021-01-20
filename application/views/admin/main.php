@@ -8,7 +8,7 @@
             <a href="<?= base_url() ?>tambah" class="list-group-item list-group-item-action <?php echo $segment == 'tambah' ? "active" : "bg-light"; ?>"><i class="fa fa-book" style="margin-right: 10px;" aria-hidden=" true"></i></i>Tambah Barang</a>
             <a href="<?= base_url() ?>peminjaman" class="list-group-item list-group-item-action <?php echo $segment == 'peminjaman' ? "active" : "bg-light"; ?>"><i class="fa fa-share" style="margin-right: 10px;" aria-hidden=" true"></i>Peminjaman Barang</a>
             <a href="<?= base_url() ?>pengembalian" class="list-group-item list-group-item-action <?php echo $segment == 'pengembalian' ? "active" : "bg-light"; ?>"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden=" true"></i>Pengembalian Barang</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-check-square" style="margin-right: 10px;" aria-hidden="true"></i>Status Barang</a>
+            <a href="<?= base_url() ?>status" class="list-group-item list-group-item-action <?php echo $segment == 'status' ? "active" : "bg-light"; ?>"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List Barang</a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->

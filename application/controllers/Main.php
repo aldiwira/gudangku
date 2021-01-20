@@ -30,7 +30,7 @@ class Main extends CI_Controller
 
     public function Peminjaman()
     {
-        // Data dashboard admin
+        // Data peminjaman admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/peminjaman_barang', '', true);
         // Main
@@ -41,7 +41,7 @@ class Main extends CI_Controller
 
     public function Pengembalian()
     {
-        // Data dashboard admin
+        // Data pengembalian admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/pengembalian_barang', '', true);
         // Main
@@ -52,11 +52,22 @@ class Main extends CI_Controller
 
     public function Tambah()
     {
-        // Data dashboard admin
+        // Data tambah barang admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/tambah_barang', '', true);
         // Main
         $data['title'] = "Tambah Barang";
+        $data['content'] = $this->load->view('admin/main', $data_main, true);
+        $this->load->view('template/main', $data);
+    }
+
+    public function Status()
+    {
+        // Data status barang admin
+        $data_main['segment'] = $this->uri->segment(1);
+        $data_main['content'] = $this->load->view('admin/status_barang', '', true);
+        // Main
+        $data['title'] = "Status Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }

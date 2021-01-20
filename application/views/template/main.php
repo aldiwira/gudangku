@@ -30,6 +30,13 @@
 
     <!-- custom -->
     <script src="<?= base_url() ?>assets/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#listBarang").DataTable();
+        });
+    </script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 </body>
 
 </html>

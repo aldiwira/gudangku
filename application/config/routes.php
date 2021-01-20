@@ -59,3 +59,4 @@ $route['admin'] = "Main/Admin";
 $route['peminjaman'] = "Main/Peminjaman";
 $route['pengembalian'] = "Main/Pengembalian";
 $route['tambah'] = "Main/Tambah";
+$route['status'] = "Main/Status";

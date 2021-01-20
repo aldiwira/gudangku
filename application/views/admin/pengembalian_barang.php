@@ -15,7 +15,7 @@
                         <div class="form-group">
                             <input type="text" class="form-control" name="" id="" placeholder="Nama Peminjam">
                         </div>
-                        <button class="btn btn-primary"><i class="fa fa-search" style="margin-right: 10px;" aria-hidden="true"></i>Cari</button>
+                        <button class="btn btn-primary mb-2"><i class="fa fa-search" style="margin-right: 10px;" aria-hidden="true"></i>Cari</button>
                     </form>
                     <div class="table-responsive-xl">
                         <table class="table table-bordered">
