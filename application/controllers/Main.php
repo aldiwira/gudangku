@@ -36,6 +36,7 @@ class Main extends CI_Controller
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/peminjaman_barang', '', true);
+        $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data['title'] = "Peminjaman Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -47,6 +48,7 @@ class Main extends CI_Controller
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/pengembalian_barang', '', true);
+        $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data['title'] = "Pengembalian Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -58,10 +60,37 @@ class Main extends CI_Controller
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/tambah_barang', '', true);
+        $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data['title'] = "Tambah Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
+    }
+
+
+    /// Form Handler
+
+    public function Katagori()
+    {
+        $this->form_validation->set_rules('katagoritxt', 'katagoritxt', 'required|callback_katagori_check', array('required' => 'Harap masukan katagori dengan benar'));
+        if ($this->form_validation->run() == false) {
+            $this->Tambah();
+        } else {
+            $katagoriName = $this->input->post('katagoritxt');
+            $arrData = array('nama_katagori' => $katagoriName);
+            $this->cruder->create('kategori', $arrData);
+            redirect('tambah');
+        }
+    }
+    public function katagori_check($str)
+    {
+        $check = $this->cruder->whereLike('kategori', array('nama_katagori' => $str))->row();
+        if ($check == null) {
+            return true;
+        } else {
+            $this->form_validation->set_message('katagori_check', 'Katagori yang anda masukan sudah tersedia');
+            return false;
+        }
     }
 }
     

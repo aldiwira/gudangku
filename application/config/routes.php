@@ -59,3 +59,6 @@ $route['admin'] = "Main/Admin";
 $route['peminjaman'] = "Main/Peminjaman";
 $route['pengembalian'] = "Main/Pengembalian";
 $route['tambah'] = "Main/Tambah";
+
+// form handling
+$route['tambah/katagori'] = "Main/Katagori";

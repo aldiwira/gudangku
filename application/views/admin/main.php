@@ -32,7 +32,7 @@
                 </div>
                 <!-- Modal Change Password -->
                 <div class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="user" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog h-100 d-flex justify-content-center align-items-center">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="changePassword">Change Password</h5>
@@ -41,14 +41,16 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="<?= base_url() ?>" method="post">
+                                <form action="<?= base_url() ?>changepassword" method="post">
                                     <div class="form-group">
-                                        <label for="oldPassword">Password Baru</label>
-                                        <input type="password" class="form-control">
+                                        <label for="oldpassword">Password lama</label>
+                                        <input type="text" name="" id="oldpassword" class="form-control" placeholder="" aria-describedby="helpId">
+                                        <small id="helpId" class="text-muted"><?= form_error('newpassword') ?></small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="newPass">Konfirmasi Password Baru</label>
-                                        <input type="password" class="form-control" id="newPass">
+                                        <label for="newpassword">Password Baru</label>
+                                        <input type="text" name="" id="newpassword" class="form-control" placeholder="" aria-describedby="helpId">
+                                        <small id="helpId" class="text-muted"><?= form_error('newpassword') ?></small>
                                     </div>
                                     <button type="submit" class="btn btn-primary float-right">Submit</button>
                                 </form>
