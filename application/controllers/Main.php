@@ -72,6 +72,7 @@ class Main extends CI_Controller
         // Data status barang admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/status_barang', '', true);
+        $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data['title'] = "Status Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
