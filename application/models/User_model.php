@@ -9,17 +9,35 @@ class User_model extends CI_Model
     {
         parent::__construct();
         //Do your magic here
-        $this->load->model('Cruder_Model', 'cruder');
-        $this->load->helper('Date');
+        $this->load->model('Cruder_model', 'cruder');
+        $this->load->helper('Date_Helper');
+    }
+
+    private function getDateLocal()
+    {
+        date_default_timezone_set("Asia/Bangkok");
+        return date("Y-m-d H:i:s", time());
     }
 
     public function login($data)
     {
         $loginCheck = $this->cruder->where('pengguna', $data)->row();
         if ($loginCheck != null) {
-            $update = array('updatedAt' => getDateNow());
+            date_default_timezone_set("Asia/Bangkok");
+            $update = array('updatedAt' => $this->getDateLocal());
             echo $this->cruder->update('pengguna', $data, $update);
             return $loginCheck;
+        } else {
+            return null;
+        }
+    }
+
+    public function getUserDatas()
+    {
+        $userID =  get_cookie('SID');
+        $userDatas = $this->cruder->where('pengguna', array('id_pengguna' => $userID))->row();
+        if ($userDatas != null) {
+            return $userDatas;
         } else {
             return null;
         }
