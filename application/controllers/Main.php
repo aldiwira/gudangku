@@ -10,6 +10,8 @@ class Main extends CI_Controller
         parent::__construct();
         //Do your magic here
         $this->load->helper('cookie');
+        $this->load->library('form_validation');
+        $this->load->model('User_model', 'user_m');
 
         // Check cookies session
         if (!get_cookie('SID')) {
@@ -22,6 +24,7 @@ class Main extends CI_Controller
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/dashboard', '', true);
+        $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data["title"] = "Admin Dashboard";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
