@@ -21,32 +21,32 @@
                     <div class="row">
                         <div class="col-xl-4">
                             <div class="card mb-4">
-                                <div class="card-header"><i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i>
-                                    Petugas: User1
+                                <div class="card-header"><i class="fab fa-dropbox" style="margin-right: 10px;" aria-hidden="true"></i>
+                                    Isi data peminjaman barang
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" name="datapinjaman" action="">
                                         <div class="form-group">
                                             <label for="formGroupExampleInput">Kategori Barang</label>
-                                            <select id="inputState" class="form-control">
+                                            <select id="inputState" name="katbrginput" class="form-control">
                                                 <option selected>Pilih kategori Barang</option>
-                                                <option>...</option>
+                                                <option>Meja</option>
                                                 <option>...</option>
                                                 <option>...</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="formGroupExampleInput">Nama Barang</label>
-                                            <select id="inputState" class="form-control">
+                                            <select name="namabrginput" id="inputState" class="form-control">
                                                 <option selected>Pilih Barang</option>
-                                                <option>...</option>
+                                                <option>Furnitur</option>
                                                 <option>...</option>
                                                 <option>...</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="formGroupExampleInput2">Jumlah Barang</label>
-                                            <input type="number" class="form-control" id="formGroupExampleInput2" placeholder="Jumlah Barang">
+                                            <input name="jmlbrginput" type="number" class="form-control" id="formGroupExampleInput2" placeholder="Jumlah Barang">
                                         </div>
                                         <button class="btn btn-primary float-right"><i class="fa fa-keyboard" style="margin-right: 10px;" aria-hidden="true"></i>Input Barang</button>
                                     </form>
@@ -58,110 +58,68 @@
                                 <div class="card-header"><i class="fa fa-table" style="margin-right: 10px;" aria-hidden="true"></i>
                                     Data Peminjaman
                                 </div>
-                                <div class="card-body">
-                                    <div class="alert alert-success" role="alert">
-                                        <strong>Meja</strong> hanya tersisa <strong>69</strong>
-                                    </div>
-                                    <div class="table-responsive-xl">
-                                        <table id="dataPinjam" class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">No</th>
-                                                    <th scope="col">Nama Barang</th>
-                                                    <th scope="col">Kategori Barang</th>
-                                                    <th scope="col">Jumlah Barang</th>
-                                                    <th scope="col">Kondisi Barang</th>
-                                                    <th scope="col">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Meja</td>
-                                                    <td>Furnitur</td>
-                                                    <td>1</td>
-                                                    <td>Baik</td>
-                                                    <td>
-                                                        <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
-                                                        <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Kursi</td>
-                                                    <td>Furnitur</td>
-                                                    <td>1</td>
-                                                    <td>Baik</td>
-                                                    <td>
-                                                        <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
-                                                        <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm ">
-                                            <label>Tanggal Pengambilan</label>
-                                            <input type="date" class="form-control" name="" id="">
+                                <form action="" method="post">
+                                    <div class="card-body">
+                                        <div class="alert alert-success" role="alert">
+                                            <strong>Meja</strong> hanya tersisa <strong>69</strong>
                                         </div>
-                                        <div class="col-sm">
-                                            <label>Tanggal Pengembalian</label>
-                                            <input type="date" class="form-control" name="" id="">
+                                        <div class="table-responsive-xl">
+                                            <table id="listBarang" class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">No</th>
+                                                        <th scope="col">Nama Barang</th>
+                                                        <th scope="col">Kategori Barang</th>
+                                                        <th scope="col">Jumlah Barang</th>
+                                                        <th scope="col">Kondisi Barang</th>
+                                                        <th scope="col">Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Meja</td>
+                                                        <td>Furnitur</td>
+                                                        <td>1</td>
+                                                        <td>Baik</td>
+                                                        <td>
+                                                            <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
+                                                            <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Kursi</td>
+                                                        <td>Furnitur</td>
+                                                        <td>1</td>
+                                                        <td>Baik</td>
+                                                        <td>
+                                                            <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
+                                                            <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="col-sm">
-                                            <label>Nama Peminjam</label>
-                                            <input type="text" class="form-control" id="namaPeminjam" placeholder="Nama peminjam">
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <br>
-                                    <button class="btn btn-success btn-block" data-toggle="modal" data-target="#pinjamBarang">Proses</button>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="pinjamBarang" tabindex="-1" aria-labelledby="pinjamBarang" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="pinjamBarang">Review barang yang akan dipinjamkan</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <label>Nama Peminjam</label>
+                                                <input type="text" class="form-control" id="namaPeminjam" placeholder="Nama peminjam">
                                             </div>
-                                            <div class="modal-body">
-                                                <label>Nama Peminjam: Mark</label>
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">No</th>
-                                                            <th scope="col">Nama Barang</th>
-                                                            <th scope="col">Jumlah Barang</th>
-                                                            <th scope="col">Kondisi Barang</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Meja</td>
-                                                            <td>1</td>
-                                                            <td>Baik</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Kursi</td>
-                                                            <td>1</td>
-                                                            <td>Baik</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                            <div class="col-sm ">
+                                                <label>Tanggal Pengambilan</label>
+                                                <input type="date" class="form-control" name="" id="">
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-                                                <button type="button" class="btn btn-success">Proses</button>
+                                            <div class="col-sm">
+                                                <label>Tanggal Pengembalian</label>
+                                                <input type="date" class="form-control" name="" id="">
                                             </div>
+                                            <div class="clearfix"></div>
                                         </div>
+                                        <br>
+                                        <button class="btn btn-success btn-block">Proses</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -173,7 +131,7 @@
                                 List Barang
                             </div>
                             <div class="card-body">
-                                <table id="listBarang" class="table table-striped table-bordered">
+                                <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th scope="col">No ID</th>
