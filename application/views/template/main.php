@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/font-responsive.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/main.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/responsive.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/toastr.min.css">
 
 </head>
 
@@ -30,6 +31,7 @@
 
     <!-- custom -->
     <script src="<?= base_url() ?>assets/js/main.js"></script>
+    <script src="<?= base_url() ?>assets/js/toastr.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#listBarang").DataTable();
