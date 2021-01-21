@@ -30,6 +30,16 @@ $(document).ready(function () {
 			$("#barang-fa").attr("class", "fa fa-chevron-up mr-3");
 		}
 	});
+
+	//focus click add katagori
+	document.getElementById("tambahtrgr").addEventListener("click", (e) => {
+		if ($("#katagori-fa").attr("class") === "fa fa-chevron-down mr-3") {
+			$("#katagori-fa").attr("class", "fa fa-chevron-up mr-3");
+		} else {
+			$("#katagori-fa").attr("class", "fa fa-chevron-down mr-3");
+		}
+		document.getElementById("tambahkategori").focus();
+	});
 });
 
 // End Admin JS

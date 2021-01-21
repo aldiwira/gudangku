@@ -18,6 +18,12 @@ class Cruder_model extends CI_Model
         $this->db->like($filter);
         return $this->db->get($table);
     }
+    public function wherelikecondition($table, $where, $like)
+    {
+        $this->db->like($like);
+        $this->db->where($where);
+        return $this->db->get($table);
+    }
     public function create($table, $data)
     {
         $this->db->insert($table, $data);

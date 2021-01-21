@@ -23,6 +23,7 @@ class Admin_model extends CI_Model
         $this->db->select_sum("barang.jumlah_barang");
         $this->db->group_by("barang.kondisi_barang");
         $this->db->group_by("barang.status_barang");
+        $this->db->group_by("barang.nama_barang");
         $this->db->where("barang.status_barang", "ada");
         $this->db->from("barang");
         $this->db->join("kategori", "kategori.id_katagori = barang.id_katagori");
@@ -38,8 +39,23 @@ class Admin_model extends CI_Model
             "kondisi_barang" => $this->input->post('kondisibarang'),
             "id_katagori" => $this->input->post('katagoribarang')
         );
-        $this->cruder->create('barang', $datas);
-        return true;
+        $checker = $this->cruder->whereLikeCondition(
+            "barang",
+            array("nama_barang" => $datas["nama_barang"]),
+            array("kondisi_barang" => $datas["kondisi_barang"], "status_barang" => "ada", "id_katagori" => $datas["id_katagori"])
+        )->row();
+
+        if ($checker != null) {
+            $this->cruder->update(
+                "barang",
+                array("kode_barang" => $checker->kode_barang, "id_katagori" => $datas["id_katagori"]),
+                array("jumlah_barang" => $checker->jumlah_barang + $datas["jumlah_barang"])
+            );
+            return true;
+        } else {
+            $this->cruder->create('barang', $datas);
+            return true;
+        }
     }
 }
 

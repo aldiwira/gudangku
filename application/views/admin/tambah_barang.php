@@ -20,7 +20,7 @@
                         <form method="POST" action="<?= base_url('tambah/katagori') ?>">
                             <div class="form-group">
                                 <label for="katagoritxt">Nama Kategori</label>
-                                <input type="text" name="katagoritxt" id="" class="form-control" placeholder="Nama Kategori" aria-describedby="helpId">
+                                <input type="text" name="katagoritxt" id="tambahkategori" class="form-control" placeholder="Nama Kategori" aria-describedby="helpId">
                                 <small id="helpId" class="text-danger"><?= form_error('katagoritxt') ?></small>
                             </div>
                             <button type="submit" class="btn btn-primary float-right"><i class="fa fa-plus" style="margin-right: 10px;" aria-hidden="true"></i>Tambah Kategori</button>
@@ -50,13 +50,21 @@
                                 <small id="helpId" class="form-text text-danger"><?= form_error('jumlahbarangtxt') ?></small>
                             </div>
                             <div class="form-group">
-                                <label for="">Katagori Barang</label>
+                                <label for="">Kategori Barang</label>
                                 <select class="form-control" name="katagoribarang" id="">
                                     <option selected></option>
-                                    <?php foreach ($kategoriDatas as $key) {
-                                        echo "<option value=" . $key->id_katagori . " >" . $key->nama_katagori . "</option>";
-                                    } ?>
+                                    <?php if ($kategoriDatas == null) {
+                                        echo "<option>kategori kosong</option>";
+                                    } else {
+                                        foreach ($kategoriDatas as $key => $value) {
+                                            echo "<option value=" . $value->id_katagori . " >" . $value->nama_katagori . "</option>";
+                                        }
+                                    }
+                                    ?>
                                 </select>
+                                <a id="tambahtrgr" class="collapse-link d-flex flex-row align-items-center" data-toggle="collapse" href="#collapsekategori" role="button" aria-expanded="false" aria-controls="collapsebarang">
+                                    <p class="mb-0">Tambah Katagori</p>
+                                </a>
                                 <small id="helpId" class="form-text text-danger"><?= form_error('katagoribarang') ?></small>
                             </div>
                             <div class="form-group">
@@ -82,31 +90,35 @@
                     <h5>Daftar Barang</h5>
                 </div>
                 <div class="card-body">
-                    <p>Daftar barang yang ada digudang</p>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nama Barang</th>
-                                <th scope="col">Katagori Barang</th>
-                                <th scope="col">Jumlah Barang</th>
-                                <th scope="col">Kondisi Barang</th>
-                                <th scope="col">Status Barang</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($barangDatas as $key => $value) { ?>
+                    <?php if ($barangDatas == null) {
+                        echo "<tr><h4 class='text-center'>Barang digudang masih kosong</h4><p class='text-center'>Tambahkan barang pada menu yang tersedia</p></tr>";
+                    } else { ?>
+                        <p>Daftar barang yang ada digudang</p>
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <th scope="row"><?= $key + 1 ?></th>
-                                    <td><?= $value->nama_barang ?></td>
-                                    <td><?= $value->nama_katagori ?></td>
-                                    <td><?= $value->jumlah_barang ?></td>
-                                    <td><?= $value->kondisi_barang ?></td>
-                                    <td><?= $value->status_barang ?></td>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nama Barang</th>
+                                    <th scope="col">Katagori Barang</th>
+                                    <th scope="col">Jumlah Barang</th>
+                                    <th scope="col">Kondisi Barang</th>
+                                    <th scope="col">Status Barang</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($barangDatas as $key => $value) { ?>
+                                    <tr>
+                                        <th scope="row"><?= $key + 1 ?></th>
+                                        <td><?= $value->nama_barang ?></td>
+                                        <td><?= $value->nama_katagori ?></td>
+                                        <td><?= $value->jumlah_barang ?></td>
+                                        <td><?= $value->kondisi_barang ?></td>
+                                        <td><?= $value->status_barang ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    <?php } ?>
                 </div>
             </div>
         </div>
