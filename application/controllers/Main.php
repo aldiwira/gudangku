@@ -9,10 +9,9 @@ class Main extends CI_Controller
     {
         parent::__construct();
         //Do your magic here
-        $this->load->helper('cookie');
         $this->load->library('session');
-
         $this->load->library('form_validation');
+        $this->load->helper('cookie');
         $this->load->model('User_model', 'user_m');
         $this->load->model('Admin_model', 'admin_m');
 
@@ -92,10 +91,10 @@ class Main extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->Tambah();
         } else {
-            $this->session->set_flashdata('success', 'User Updated successfully');
             $katagoriName = $this->input->post('katagoritxt');
             $arrData = array('nama_katagori' => $katagoriName);
             $this->cruder->create('kategori', $arrData);
+            $this->session->set_flashdata('toast', 'success:Berhasil memasukkan katagori ' . $katagoriName . '');
             redirect('tambah');
         }
     }
@@ -105,7 +104,6 @@ class Main extends CI_Controller
         if ($check == null) {
             return true;
         } else {
-            $this->session->set_flashdata('success', 'User Updated successfully');
             $this->form_validation->set_message('katagori_check', 'Katagori yang anda masukan sudah tersedia');
             return false;
         }
@@ -122,8 +120,56 @@ class Main extends CI_Controller
             $this->Tambah();
         } else {
             if ($this->admin_m->addBarang()) {
+                $this->session->set_flashdata('toast', 'success:Berhasil menambahkan barang baru');
                 redirect('tambah');
             }
+        }
+    }
+
+    private function handlingPage()
+    {
+        $uri = $this->uri->segment(1);
+        if ($uri == "tambah") {
+            $this->Tambah();
+        } else if ($uri == "admin") {
+            $this->Admin();
+        } else if ($uri == "peminjaman") {
+            $this->Peminjaman();
+        } else if ($uri == "pengembalian") {
+            $this->Pengembalian();
+        } else if ($uri == "status") {
+            $this->Status();
+        }
+    }
+
+    public function ChangePassword()
+    {
+        $this->form_validation->set_rules("oldpassword", "oldpassword", "required|callback_check_password", array('required' => 'Harap masukan password dengan benar'));
+        $this->form_validation->set_rules("newpassword", "newpassword", "required", array('required' => 'Harap masukan password dengan benar'));
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata("failedchange", "show");
+            $this->handlingPage();
+        } else {
+            $newpassword = $this->input->post('newpassword');
+
+            $check = $this->admin_m->changePassword(array("password" => $newpassword));
+            if ($check) {
+                $this->session->set_flashdata("toast", "success:Success change password");
+                $this->handlingPage();
+            }
+        }
+    }
+    public function check_password($str)
+    {
+        $userID = get_cookie('SID');
+        $oldpass = $str;
+        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID, "password" => $oldpass))->row();
+        if ($check != null) {
+            return true;
+        } else {
+            $this->form_validation->set_message('check_password', 'Password yang anda masukkan salah');
+            return false;
         }
     }
 }

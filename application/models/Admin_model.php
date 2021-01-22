@@ -57,6 +57,12 @@ class Admin_model extends CI_Model
             return true;
         }
     }
+    public function changePassword($datas)
+    {
+        $userID =  get_cookie('SID');
+        $this->cruder->update("pengguna", array("id_pengguna" => $userID), $datas);
+        return true;
+    }
 }
 
 /* End of file Admin.php */

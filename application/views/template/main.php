@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/font-responsive.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/main.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/responsive.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/toastr.min.css">
 
 </head>
 
@@ -23,20 +24,41 @@
         <?= $content ?>
     </div>
 
-    <!-- Bootstrap js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!-- Bootstrap js and app-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="<?= base_url() ?>assets/js/toastr.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 
     <!-- custom -->
     <script src="<?= base_url() ?>assets/js/main.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#listBarang").DataTable();
+
+    <script type='text/javascript'>
+        $(document).ready(() => {
+            $('#changePassword').on('hidden.bs.modal', function(e) {
+                <?php session_destroy() ?>
+            })
+            <?php if (isset($_SESSION['toast'])) { ?>
+                toastr.options.closeButton = true;
+                var toastvalue = "<?php echo $_SESSION['toast'] ?>";
+                var status = toastvalue.split(":")[0];
+                var message = toastvalue.split(":")[1];
+                if (status === "success") {
+                    toastr.success(message, status);
+                } else if (status === "error") {
+                    toastr.error(message, status);
+                }
+            <?php } ?>
+            <?php if (isset($_SESSION['failedchange'])) { ?>
+                var stt = "<?php echo $_SESSION['failedchange'] ?>";
+                if (stt === "show") {
+                    $("#changePassword").modal('show');
+                }
+            <?php } ?>
         });
     </script>
-    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 </body>
 
 </html>

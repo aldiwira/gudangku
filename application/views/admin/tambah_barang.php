@@ -62,9 +62,12 @@
                                     }
                                     ?>
                                 </select>
-                                <a id="tambahtrgr" class="collapse-link d-flex flex-row align-items-center" data-toggle="collapse" href="#collapsekategori" role="button" aria-expanded="false" aria-controls="collapsebarang">
-                                    <p class="mb-0">Tambah Katagori</p>
-                                </a>
+                                <div class="d-flex flex-row">
+                                    <a id="tambahtrgr" class="collapse-link m-1 d-flex flex-row align-items-center" data-toggle="collapse" href="#collapsekategori" role="button" aria-expanded="false" aria-controls="collapsebarang">
+                                        <label class="form-text mb-0"><i class="fa fa-plus mr-2"></i>Tambah Katagori</label>
+                                    </a>
+                                </div>
+
                                 <small id="helpId" class="form-text text-danger"><?= form_error('katagoribarang') ?></small>
                             </div>
                             <div class="form-group">
@@ -94,7 +97,7 @@
                         echo "<tr><h4 class='text-center'>Barang digudang masih kosong</h4><p class='text-center'>Tambahkan barang pada menu yang tersedia</p></tr>";
                     } else { ?>
                         <p>Daftar barang yang ada digudang</p>
-                        <table class="table table-striped">
+                        <table id="listBarang" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

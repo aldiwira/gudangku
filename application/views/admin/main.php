@@ -27,7 +27,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#changePassword"><i class="fa fa-cog" style="margin-right: 10px;" aria-hidden="true"></i>Change Password </button>
-                        <button class="dropdown-item" onclick="doLogout()" type="button"><i class="fa fa-sign-out-alt" style="margin-right: 10px;" aria-hidden="true"></i>Logout</button>
+                        <button class="dropdown-item" id="doLogout" type="button"><i class="fa fa-sign-out-alt" style="margin-right: 10px;" aria-hidden="true"></i>Logout</button>
                     </div>
                 </div>
                 <!-- Modal Change Password -->
@@ -41,16 +41,16 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="<?= base_url() ?>changepassword" method="post">
+                                <form action="<?= base_url() ?><?= $this->uri->segment(1) ?>/changepassword/" method="post">
                                     <div class="form-group">
                                         <label for="oldpassword">Password lama</label>
-                                        <input type="text" name="" id="oldpassword" class="form-control" placeholder="" aria-describedby="helpId">
-                                        <small id="helpId" class="text-muted"><?= form_error('newpassword') ?></small>
+                                        <input type="text" name="oldpassword" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        <small id="helpId" class="text-danger"><?= form_error('oldpassword') ?></small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="newpassword">Password Baru</label>
-                                        <input type="text" name="" id="newpassword" class="form-control" placeholder="" aria-describedby="helpId">
-                                        <small id="helpId" class="text-muted"><?= form_error('newpassword') ?></small>
+                                        <label for="newpassword">Password baru</label>
+                                        <input type="text" name="newpassword" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        <small id="helpId" class="text-danger"><?= form_error('newpassword') ?></small>
                                     </div>
                                     <button type="submit" class="btn btn-primary float-right">Submit</button>
                                 </form>

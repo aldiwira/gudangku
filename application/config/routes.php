@@ -64,3 +64,4 @@ $route['status'] = "Main/Status";
 // form handling
 $route['tambah/katagori'] = "Main/Katagori";
 $route['tambah/barang'] = "Main/Barang";
+$route['(:any)/changepassword'] = "Main/ChangePassword";
