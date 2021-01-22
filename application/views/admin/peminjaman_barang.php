@@ -1,3 +1,4 @@
+`
 <!-- Content -->
 <div class="container-fluid">
     <h2>Peminjaman Barang</h2>
@@ -28,27 +29,27 @@
                                     <form method="POST" name="datapinjaman" action="">
                                         <div class="form-group">
                                             <label for="formGroupExampleInput">Kategori Barang</label>
-                                            <select id="inputState" name="katbrginput" class="form-control">
+                                            <select name="katbrginput" id="inputState" class="form-control">
                                                 <option selected>Pilih kategori Barang</option>
-                                                <option>Meja</option>
-                                                <option>...</option>
-                                                <option>...</option>
+                                                <?php foreach ($kategoriDatas as $key => $kat) {
+                                                    echo "<option value=" . $kat->nama_katagori . " >" . $kat->nama_katagori . "</option>";
+                                                } ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="formGroupExampleInput">Nama Barang</label>
                                             <select name="namabrginput" id="inputState" class="form-control">
                                                 <option selected>Pilih Barang</option>
-                                                <option>Furnitur</option>
-                                                <option>...</option>
-                                                <option>...</option>
+                                                <?php foreach ($barangDatas as $key => $value) { ?>
+                                                    <option value="<?= $value->nama_barang ?>"><?= $value->nama_barang ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="formGroupExampleInput2">Jumlah Barang</label>
                                             <input name="jmlbrginput" type="number" class="form-control" id="formGroupExampleInput2" placeholder="Jumlah Barang">
                                         </div>
-                                        <button class="btn btn-primary float-right"><i class="fa fa-keyboard" style="margin-right: 10px;" aria-hidden="true"></i>Input Barang</button>
+                                        <button class="btn btn-primary float-right" name="inputbrg"><i class="fa fa-keyboard" style="margin-right: 10px;" aria-hidden="true"></i>Input Barang</button>
                                     </form>
                                 </div>
                             </div>
@@ -64,7 +65,15 @@
                                             <strong>Meja</strong> hanya tersisa <strong>69</strong>
                                         </div>
                                         <div class="table-responsive-xl">
-                                            <table id="listBarang" class="table table-bordered">
+                                            <table id="" class="table table-bordered">
+                                                <?php
+                                                $kat = "";
+                                                $kat = isset($_POST['katbrginput']) ? $_POST['katbrginput'] : '';
+                                                $nama = "";
+                                                $nama = isset($_POST['namabrginput']) ? $_POST['namabrginput'] : '';
+                                                $jml = 0;
+                                                $jml = isset($_POST['jmlbrginput']) ? $_POST['jmlbrginput'] : '';
+                                                ?>
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">No</th>
@@ -76,32 +85,71 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php
+                                                    if (isset($_SESSION["temp"])) {
+                                                        $datas = array($_SESSION["temp"]);
+                                                        array_push(
+                                                            $datas,
+                                                            array(
+                                                                'nama' => $nama,
+                                                                'kat' => $kat,
+                                                                'jml' => $jml
+                                                            )
+                                                        );
+                                                        $this->session->set_flashdata("temp", $datas);
+                                                    } else {
+                                                        $datas = array();
+                                                        array_push(
+                                                            $datas,
+                                                            array(
+                                                                'nama' => $nama,
+                                                                'kat' => $kat,
+                                                                'jml' => $jml
+                                                            )
+                                                        );
+                                                        $this->session->set_flashdata("temp", $datas);
+                                                    }
+                                                    print_r($datas);
+                                                    ?>
+                                                    <?php foreach($datas as $key => $value){ ?>
                                                     <tr>
                                                         <th scope="row">1</th>
-                                                        <td>Meja</td>
-                                                        <td>Furnitur</td>
-                                                        <td>1</td>
+                                                        <td>
+                                                            <?php if ($nama == null) {
+                                                                echo "Pilih nama barang";
+                                                            } else {
+                                                                echo "$nama";
+                                                            } ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php if ($kat == null) {
+                                                                echo "Pilih kategori barang";
+                                                            } else {
+                                                                echo "$kat";
+                                                            } ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php if ($jml == 0) {
+                                                                echo "Isi jumlah barang";
+                                                            } else {
+                                                                echo "$jml";
+                                                            } ?>
+                                                        </td>
                                                         <td>Baik</td>
                                                         <td>
                                                             <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
                                                             <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Kursi</td>
-                                                        <td>Furnitur</td>
-                                                        <td>1</td>
-                                                        <td>Baik</td>
-                                                        <td>
-                                                            <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
-                                                            <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
-                                                        </td>
-                                                    </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="row">
+                                            <div class="col-sm">
+                                                <label>Nama Tempat</label>
+                                                <input type="text" class="form-control" id="namaPeminjam" placeholder="Nama tempat">
+                                            </div>
                                             <div class="col-sm">
                                                 <label>Nama Peminjam</label>
                                                 <input type="text" class="form-control" id="namaPeminjam" placeholder="Nama peminjam">
@@ -169,4 +217,4 @@
         </div>
     </div>
 </div>
-<!-- End of Content -->
+<!-- End of Content -->`

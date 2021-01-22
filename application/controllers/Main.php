@@ -36,9 +36,11 @@ class Main extends CI_Controller
 
     public function Peminjaman()
     {
+        $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
+        $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data peminjaman admin
         $data_main['segment'] = $this->uri->segment(1);
-        $data_main['content'] = $this->load->view('admin/peminjaman_barang', '', true);
+        $data_main['content'] = $this->load->view('admin/peminjaman_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data['title'] = "Peminjaman Barang";
