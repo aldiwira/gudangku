@@ -97,7 +97,7 @@ class Admin_model extends CI_Model
                     ),
                     array(
                         "jumlah_barang" => $updateJumlah,
-                        "updateAt" => getDateNow()
+                        "updatedAt" => getDateNow()
                     )
                 );
                 // update jumlah yang ada
@@ -109,7 +109,7 @@ class Admin_model extends CI_Model
                     ),
                     array(
                         "jumlah_barang" => $check->jumlah_barang - $value["qty"],
-                        "updateAt" => getDateNow()
+                        "updatedAt" => getDateNow()
                     )
                 );
                 // Insert ke detail catatan
@@ -134,7 +134,7 @@ class Admin_model extends CI_Model
                     ),
                     array(
                         "jumlah_barang" => $check->jumlah_barang - $value["qty"],
-                        "updateAt" => getDateNow()
+                        "updatedAt" => getDateNow()
                     )
                 );
                 // Insert ke detail catatan
