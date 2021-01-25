@@ -11,6 +11,7 @@ class Admin_model extends CI_Model
         //Do your magic here
         $this->load->model('Cruder_Model', 'cruder');
         $this->load->helper('Varrand');
+        $this->load->library('cart');
     }
 
     public function getKategori()
@@ -61,6 +62,86 @@ class Admin_model extends CI_Model
     {
         $userID =  get_cookie('SID');
         $this->cruder->update("pengguna", array("id_pengguna" => $userID), $datas);
+        return true;
+    }
+    public function addRecord()
+    {
+        $id_catatan = randomId(10);
+        $kode_barang_baru = randomId(10);
+        // masukkan data pada catatan
+        $catatan = array(
+            "id_catatan" => $id_catatan,
+            "nama_catatan" => $this->input->post('namatempattxt'),
+            "penanggung" => $this->input->post('namapeminjamtxt'),
+            "id_pengguna" => get_cookie("SID"),
+            "tipe_catatan" => "keluar",
+            "tanggal_ambil" => $this->input->post('tglambiltxt'),
+            "tanggal_kembali" => $this->input->post('tglkembalitxt'),
+        );
+        $this->cruder->create("catatan", $catatan);
+
+        // masukkan data pada detail catatan
+        $record = $this->cart->contents();
+        foreach ($record as $key => $value) {
+            // Pertama check barang yang sama dengan status keluar
+            $check = $this->cruder->where("barang", array("kode_barang" => $value["name"]))->row();
+            $checkKeluar = $this->cruder->where("barang", array("nama_barang" => $check->nama_barang, "status_barang" => "keluar"))->row();
+            if ($checkKeluar !== null) {
+                // Kedua jika ada maka update ID tersebut
+                $updateJumlah = $value["qty"] + $checkKeluar->jumlah_barang;
+                $this->cruder->update(
+                    "barang",
+                    array(
+                        "kode_barang" => $checkKeluar->kode_barang,
+                        "status_barang" => "keluar"
+                    ),
+                    array(
+                        "jumlah_barang" => $updateJumlah,
+                        "updateAt" => getDateNow()
+                    )
+                );
+                // update jumlah yang ada
+                $this->cruder->update(
+                    "barang",
+                    array(
+                        "kode_barang" => $check->kode_barang,
+                        "status_barang" => "ada"
+                    ),
+                    array(
+                        "jumlah_barang" => $check->jumlah_barang - $value["qty"],
+                        "updateAt" => getDateNow()
+                    )
+                );
+                // Insert ke detail catatan
+                $detail = array("id_detail_catatan" => $value["id"], "id_barang" => $checkKeluar->kode_barang, "id_catatan" => $id_catatan, "jumlah" => $value["qty"]);
+                $this->cruder->create("detail_catatan", $detail);
+            } else {
+                // Kedua Jika tidak ada maka insert baru
+                $datas = array(
+                    "kode_barang" => $kode_barang_baru,
+                    "nama_barang" => $check->nama_barang,
+                    "jumlah_barang" => $value["qty"],
+                    "id_katagori" => $check->id_katagori,
+                    "status_barang" => "keluar",
+                    "kondisi_barang" => $check->kondisi_barang
+                );
+                $this->cruder->create("barang", $datas);
+                $this->cruder->update(
+                    "barang",
+                    array(
+                        "kode_barang" => $check->kode_barang,
+                        "status_barang" => "ada"
+                    ),
+                    array(
+                        "jumlah_barang" => $check->jumlah_barang - $value["qty"],
+                        "updateAt" => getDateNow()
+                    )
+                );
+                // Insert ke detail catatan
+                $detail = array("id_detail_catatan" => $value["id"], "id_barang" => $kode_barang_baru, "id_catatan" => $id_catatan, "jumlah" => $value["qty"]);
+                $this->cruder->create("detail_catatan", $detail);
+            }
+        }
         return true;
     }
 }
