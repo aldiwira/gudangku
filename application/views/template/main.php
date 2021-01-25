@@ -49,6 +49,8 @@
                     toastr.success(message, status);
                 } else if (status === "error") {
                     toastr.error(message, status);
+                } else if (status == "warn") {
+                    toastr.warning(message, status);
                 }
             <?php } ?>
             <?php if (isset($_SESSION['failedchange'])) { ?>
@@ -57,6 +59,76 @@
                     $("#changePassword").modal('show');
                 }
             <?php } ?>
+
+            // start script for pinjam barang
+
+            // start script for tambah barang
+            $("#tambahBarangBtn").on("click", () => {
+                var nama_barang = document.getElementById("namabarangId").value;
+                var kategori_barang = document.getElementById("kategoribarangId").value;
+                var jumlah_barang = document.getElementById("jumlahbarangId").value;
+                var stock = document.getElementById("disabledTextInput");
+
+                if (jumlah_barang > stock.value || stock.value === "0") {
+                    toastr.error("Jumlah barang yang anda masukkan melebihi stock barang yang tersedia");
+                } else {
+                    if (jumlah_barang == "0") {
+                        toastr.error("Anda belum memasukkan jumlah barang, masukkan jumlah barang terlebih dahulu");
+                    } else {
+                        $.ajax({
+                            url: "<?php echo base_url("peminjaman/tambah"); ?>",
+                            method: "POST",
+                            data: {
+                                namabrginput: nama_barang,
+                                katbrginput: kategori_barang,
+                                jmlbrginput: jumlah_barang
+                            },
+                            success: (data) => {
+                                $("#detail_cart").html(data);
+                                var stockAfter = parseInt(stock.value) - parseInt(jumlah_barang);
+                                stock.setAttribute("value", stockAfter);
+
+                            }
+                        });
+                    }
+                }
+
+            });
+            // end script for tambah barang
+            var listennerKategori = document.getElementById("kategoribarangId");
+            listennerKategori.addEventListener("change", (e) => {
+                var values = listennerKategori.value;
+
+                if (values !== "") {
+                    $.ajax({
+                        url: `<?php echo base_url("peminjaman/check/kategori"); ?>/${listennerKategori.value}`,
+                        method: "POST",
+                        success: (data) => {
+                            $("#namabarangId").html(data);
+                        }
+                    })
+                } else {
+                    $("#namabarangId").html("<option value='' selected>Pilih Katagori barang terlebih dahulu</option>");
+                }
+            });
+            var listennerNamaBarang = document.getElementById("namabarangId");
+            listennerNamaBarang.addEventListener("change", (e) => {
+                var values = listennerNamaBarang.value;
+
+                $.ajax({
+                    url: `<?php echo base_url("peminjaman/check/stok"); ?>/${listennerNamaBarang.value}`,
+                    method: "POST",
+                    success: (data) => {
+                        document.getElementById("disabledTextInput").setAttribute("value", data);
+                        document.getElementById("jumlahbarangId").setAttribute("value", 0);
+                    }
+                })
+            });
+
+
+
+            // end script for pinjam barang
+
         });
     </script>
 </body>

@@ -67,3 +67,7 @@ $route['tambah/katagori'] = "Main/Katagori";
 $route['tambah/barang'] = "Main/Barang";
 $route['user/register'] = "Main/Register";
 $route['(:any)/changepassword'] = "Main/ChangePassword";
+$route['peminjaman/pinjam'] = "Main/addPinjam";
+$route['peminjaman/tambah'] = "Main/addCart";
+$route['peminjaman/check/kategori/(:any)'] = "Handling/check";
+$route['peminjaman/check/stok/(:any)'] = "Handling/check";

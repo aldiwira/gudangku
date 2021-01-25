@@ -11,6 +11,8 @@ class Main extends CI_Controller
         //Do your magic here
         $this->load->library('session');
         $this->load->library('form_validation');
+        $this->load->library('cart');
+
         $this->load->helper('cookie');
         $this->load->model('User_model', 'user_m');
         $this->load->model('Admin_model', 'admin_m');
@@ -35,6 +37,7 @@ class Main extends CI_Controller
 
     public function Peminjaman()
     {
+
         $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data peminjaman admin
@@ -101,6 +104,7 @@ class Main extends CI_Controller
         $this->load->view('template/main', $data);
     }
     /// Form Handler
+    /// start Form Handler
 
     public function Katagori()
     {
@@ -126,6 +130,7 @@ class Main extends CI_Controller
         }
     }
 
+    // add barang function
     public function Barang()
     {
         $this->form_validation->set_rules('namabarangtxt', 'namabarangtxt', 'required');
@@ -157,6 +162,7 @@ class Main extends CI_Controller
         }
     }
 
+    // handling page by uri page
     private function handlingPage()
     {
         $uri = $this->uri->segment(1);
@@ -172,7 +178,7 @@ class Main extends CI_Controller
             $this->Status();
         }
     }
-
+    // start change password func
     public function ChangePassword()
     {
         $this->form_validation->set_rules("oldpassword", "oldpassword", "required|callback_check_password", array('required' => 'Harap masukan password dengan benar'));
@@ -203,6 +209,63 @@ class Main extends CI_Controller
             return false;
         }
     }
+    // end change password func
+
+    // management items to tempt cart
+
+    private function showCart()
+    {
+        $output = '';
+        $count = 0;
+        foreach ($this->cart->contents() as $key => $value) {
+            $count++;
+            $output .= "<tr>";
+            $output .= "<td>" . $count . "</td>";
+            $output .= "<td>" . $value["name"] . "</td>";
+            $output .= "<td>" . $value["options"]["kategori"] . "</td>";
+            $output .= "<td>" . $value["qty"] . "</td>";
+            $output .= "<td>Baik</td>";
+            $output .= "</tr>";
+        }
+        return $output;
+    }
+
+    public function addCart()
+    {
+        $datas = array(
+            'id'      => randomId(10),
+            'qty'     => $this->input->post('jmlbrginput'),
+            'price'   => 0,
+            'name'    => $this->input->post('namabrginput'),
+            'options' => array("kategori" => $this->input->post("katbrginput"))
+        );
+        $this->cart->insert($datas);
+        echo $this->showCart();
+    }
+
+    public function addPinjam()
+    {
+        $this->form_validation->set_rules("namatempattxt", "namatempattxt", "required", array('required' => 'Harap masukkan nama tempat peminjam'));
+        $this->form_validation->set_rules("namapeminjamtxt", "namapeminjamtxt", "required", array('required' => 'Harap masukkan nama peminjam'));
+        $this->form_validation->set_rules("tglambiltxt", "tglambiltxt", "required", array('required' => 'Harap masukkan tanggal pengambilan'));
+        $this->form_validation->set_rules("tglkembalitxt", "tglkembalitxt", "required", array('required' => 'Harap masukkan tanggal pengembalian'));
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata("toast", "warn:Pastikan terdapat barang yang dimasukkan");
+            $this->Peminjaman();
+        } else {
+            if ($this->cart->contents() != null) {
+                $stat = $this->admin_m->addRecord();
+                if ($stat) {
+                    redirect("peminjaman");
+                }
+            } else {
+                $this->session->set_flashdata("toast", "warn:Pastikan terdapat barang yang dimasukkan");
+            }
+        }
+    }
+
+    /// start Form Handler
 }
     
     /* End of file Main.php */
