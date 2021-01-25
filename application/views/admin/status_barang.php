@@ -5,7 +5,7 @@
         <li class="breadcrumb-item active">List barang</li>
     </ol>
     <div class="accordion" id="accordionExample">
-        <div class="card">
+        <div class="card mb-4 border">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
                     <button class="btn btn-link btn-block text-left" style="color: black; text-decoration: none;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>
@@ -25,24 +25,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Meja</td>
-                                <td>20 Buah</td>
-                                <td>Baik</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            <?php foreach ($barangDatas as $key => $value) { ?>
+                                <tr>
+                                    <th scope="row"><?= $key + 1 ?></th>
+                                    <td><?= $value->nama_barang ?></td>
+                                    <td><?= $value->jumlah_barang ?></td>
+                                    <td><?= $value->kondisi_barang ?></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

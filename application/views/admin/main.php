@@ -8,8 +8,18 @@
             <a href="<?= base_url() ?>admin" class="list-group-item list-group-item-action <?php echo $segment == 'admin' ? "active" : "bg-light"; ?>"><i class="fa fa-tachometer" style="margin-right: 10px;" aria-hidden="true"></i>Dashboard</a>
             <a href="<?= base_url() ?>tambah" class="list-group-item list-group-item-action <?php echo $segment == 'tambah' ? "active" : "bg-light"; ?>"><i class="fa fa-book" style="margin-right: 10px;" aria-hidden=" true"></i></i>Tambah Barang</a>
             <a href="<?= base_url() ?>peminjaman" class="list-group-item list-group-item-action <?php echo $segment == 'peminjaman' ? "active" : "bg-light"; ?>"><i class="fa fa-share" style="margin-right: 10px;" aria-hidden=" true"></i>Peminjaman Barang</a>
+            <a href="<?= base_url() ?>booking" class="list-group-item list-group-item-action <?php echo $segment == 'booking' ? "active" : "bg-light"; ?>"><i class="fas fa-shopping-cart" style="margin-right: 10px;" aria-hidden=" true"></i>Booking Barang</a>
             <a href="<?= base_url() ?>pengembalian" class="list-group-item list-group-item-action <?php echo $segment == 'pengembalian' ? "active" : "bg-light"; ?>"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden=" true"></i>Pengembalian Barang</a>
             <a href="<?= base_url() ?>status" class="list-group-item list-group-item-action <?php echo $segment == 'status' ? "active" : "bg-light"; ?>"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List Barang</a>
+            <div class="dropdown">
+                <button class="dropdown-toggle list-group-item list-group-item-action bg-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i>User
+                </button>
+                <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                    <a href="<?= base_url() ?>user" class="list-group-item list-group-item-action "><i class="fa fa-plus" style="margin-right: 10px;" aria-hidden="true"></i>Tambah User</a>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- /#sidebar-wrapper -->

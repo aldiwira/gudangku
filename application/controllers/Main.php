@@ -76,12 +76,27 @@ class Main extends CI_Controller
 
     public function Status()
     {
+        $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data status barang admin
         $data_main['segment'] = $this->uri->segment(1);
-        $data_main['content'] = $this->load->view('admin/status_barang', '', true);
+        $data_main['content'] = $this->load->view('admin/status_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data['title'] = "Status Barang";
+        $data['content'] = $this->load->view('admin/main', $data_main, true);
+        $this->load->view('template/main', $data);
+    }
+
+    public function User()
+    {
+        $data_sec['users'] = $this->user_m->getUsers();
+        // Data dashboard admin
+        $data_main['segment'] = $this->uri->segment(1);
+        $data_main['stat_segment'] = $this->uri->segment(2);
+        $data_main['userDatas'] = $this->user_m->getUserDatas();
+        $data_main['content'] = $this->load->view('admin/register', $data_sec, true);
+        // Main
+        $data["title"] = "Admin Dashboard";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
@@ -124,6 +139,20 @@ class Main extends CI_Controller
             if ($this->admin_m->addBarang()) {
                 $this->session->set_flashdata('toast', 'success:Berhasil menambahkan barang baru');
                 redirect('tambah');
+            }
+        }
+    }
+
+    public function Register()
+    {
+        $this->form_validation->set_rules('usernameInput', 'usernameInput', 'required', array('required' => 'Harap isi username terlebih dahulu'));
+        $this->form_validation->set_rules('passwordInput', 'passwordInput', 'required', array('required' => 'Harap isi password terlebih dahulu'));
+        if ($this->form_validation->run() == false) {
+            $this->User();
+        } else {
+            if ($this->user_m->addUser()) {
+                $this->session->set_flashdata('toast', 'success:Berhasil menambahkan user baru');
+                redirect('user');
             }
         }
     }

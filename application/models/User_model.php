@@ -32,6 +32,22 @@ class User_model extends CI_Model
         }
     }
 
+    public function getUsers()
+    {
+        return $this->cruder->get('pengguna')->result();
+    }
+
+    public function addUser()
+    {
+        $data = array(
+            "id_pengguna" => randomId(10),
+            "username" => $this->input->post('usernameInput'),
+            "password" => $this->input->post('passwordInput'),
+        );
+        $this->cruder->create('pengguna', $data);
+        return true;
+    }
+
     public function getUserDatas()
     {
         $userID =  get_cookie('SID');

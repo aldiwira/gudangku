@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 // Routes App
 $route['login'] = "User";
+$route['user'] = "Main/User";
 $route['admin'] = "Main/Admin";
 $route['peminjaman'] = "Main/Peminjaman";
 $route['pengembalian'] = "Main/Pengembalian";
@@ -64,4 +65,5 @@ $route['status'] = "Main/Status";
 // form handling
 $route['tambah/katagori'] = "Main/Katagori";
 $route['tambah/barang'] = "Main/Barang";
+$route['user/register'] = "Main/Register";
 $route['(:any)/changepassword'] = "Main/ChangePassword";
