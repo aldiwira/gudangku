@@ -257,6 +257,7 @@ class Main extends CI_Controller
             if ($this->cart->contents() != null) {
                 $stat = $this->admin_m->addRecord();
                 if ($stat) {
+                    $this->session->set_flashdata('toast', 'success:Berhasil Menambahkan peminjaman baru');
                     redirect("peminjaman");
                 }
             } else {
