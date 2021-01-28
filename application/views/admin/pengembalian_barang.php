@@ -23,7 +23,7 @@
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tableBarangPinjam">
                                 <?php foreach ($semuaPinjaman as $key => $value) { ?>
                                     <tr>
                                         <td><?= $value->id_catatan ?></td>

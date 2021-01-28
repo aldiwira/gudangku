@@ -194,17 +194,19 @@
                     method: "POST",
                     success: (data) => {
                         //hide modal when success
-                        if (data) {
+                        let status = JSON.parse(data);
+                        if (status) {
                             $("#pinjamModal").modal("hide");
-                            toastr.success(`Pengembalian barang kode ${idCatatan} berhasil`);
+                            setTimeout(() => {
+                                location.reload();
+                            }, 500);
+
                         }
                     },
                     error: (err) => {
                         console.error(err.state);
                     }
                 })
-            } else {
-                toastr.error("Error Hore");
             }
 
         }

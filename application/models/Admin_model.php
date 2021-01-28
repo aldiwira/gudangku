@@ -86,7 +86,7 @@ class Admin_model extends CI_Model
             // Pertama check barang yang sama dengan status keluar
             $check = $this->cruder->where("barang", array("kode_barang" => $value["name"]))->row();
             $checkKeluar = $this->cruder->where("barang", array("nama_barang" => $check->nama_barang, "status_barang" => "keluar"))->row();
-            if ($checkKeluar !== null) {
+            if ($checkKeluar != null) {
                 // Kedua jika ada maka update ID tersebut
                 $updateJumlah = $value["qty"] + $checkKeluar->jumlah_barang;
                 $this->cruder->update(
@@ -148,6 +148,7 @@ class Admin_model extends CI_Model
     // start peminjaman barang
     public function getPinjaman($id = 0)
     {
+
         $this->db->select("catatan.id_catatan, detail_catatan.id_detail_catatan, catatan.nama_catatan, catatan.penanggung, pengguna.username, catatan.tanggal_kembali");
         $this->db->group_by("catatan.id_catatan");
         $this->db->join("detail_catatan", "detail_catatan.id_catatan = catatan.id_catatan", "inner");
@@ -159,7 +160,7 @@ class Admin_model extends CI_Model
             $this->db->where(array("id_detail_catatan" => $id));
         }
         $this->db->from("catatan");
-        if ($id != 0) {
+        if ($id !== 0) {
             $data = $this->db->get()->row();
         } else {
             $this->db->order_by("catatan.tanggal_kembali", "DSC");
@@ -189,8 +190,6 @@ class Admin_model extends CI_Model
         );
         $checkBarangNormal = $this->cruder->where("barang", $filter)->row();
 
-
-
         if ($checkBarangNormal == null) {
             $newData = array(
                 "kode_barang" => $idBaru,
@@ -210,27 +209,6 @@ class Admin_model extends CI_Model
             $this->cruder->update("barang", $filter, $update);
             $this->updateCatatan($detail_catatan, $checkBarangNormal->kode_barang);
         }
-        // if (count($checkBarangNormal) == 0) {
-        //     // jika barang dengan barang normal kosong insert
-        //     $newData = array(
-        //         "kode_barang" => $idBaru,
-        //         "id_katagori" => $filter["id_katagori"],
-        //         "nama_barang" => $data["nama_barang"],
-        //         "jumlah_barang" => $data["jumlah_normal"],
-        //         "kondisi_barang" => "normal"
-        //     );
-        //     // // insert data
-        //     $this->cruder->create("barang", $newData);
-        //     $this->updateCatatan($detail_catatan, $idBaru);
-        // } else {
-        //     // jika barang dengan barang normal ada update
-        //     $update = array(
-        //         "jumlah_barang" => (int)$checkBarangNormal[0]->jumlah_barang - (int)$data["jumlah_normal"],
-        //         "updatedAt" => getDateNow()
-        //     );
-        //     $this->cruder->update("barang", $filter, $update);
-        //     $this->updateCatatan($detail_catatan, $checkBarangNormal[0]->kode_barang);
-        // }
     }
 
     private function updateCatatan($detail_catatan, $id_barang)

@@ -315,10 +315,13 @@ class Main extends CI_Controller
         $datas = $this->input->post('datas');
 
         $asdsa = $this->admin_m->doneBarangPinjam($idDetail, $datas);
-
-
-        $this->session->set_flashdata('toast', 'success:BErhasil');
-        redirect(base_url(), "refresh");
+        $status = json_encode($asdsa);
+        if ($status) {
+            $this->session->set_flashdata('toast', 'success:Berhasil Mengembalikan barang');
+            print_r(true);
+        } else {
+            print_r(false);
+        }
     }
     // end fun pengembalian
 
