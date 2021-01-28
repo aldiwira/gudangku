@@ -144,6 +144,124 @@ class Admin_model extends CI_Model
         }
         return true;
     }
+
+    // start peminjaman barang
+    public function getPinjaman($id = 0)
+    {
+        $this->db->select("catatan.id_catatan, detail_catatan.id_detail_catatan, catatan.nama_catatan, catatan.penanggung, pengguna.username, catatan.tanggal_kembali");
+        $this->db->group_by("catatan.id_catatan");
+        $this->db->join("detail_catatan", "detail_catatan.id_catatan = catatan.id_catatan", "inner");
+        $this->db->join("barang", "barang.kode_barang = detail_catatan.id_barang");
+        $this->db->join("pengguna", "pengguna.id_pengguna = catatan.id_pengguna");
+        $this->db->where(array("tipe_catatan" => "keluar"));
+        if ($id != 0) {
+
+            $this->db->where(array("id_detail_catatan" => $id));
+        }
+        $this->db->from("catatan");
+        if ($id != 0) {
+            $data = $this->db->get()->row();
+        } else {
+            $this->db->order_by("catatan.tanggal_kembali", "DSC");
+            $data = $this->db->get()->result();
+        }
+        return $data;
+    }
+    public function getBarangPinjam($id = 0)
+    {
+        $this->db->where(array("detail_catatan.id_catatan" => $id));
+        $this->db->join('barang', 'barang.kode_barang = detail_catatan.id_barang');
+        $this->db->join('kategori', 'kategori.id_katagori = barang.id_katagori');
+        $this->db->join('catatan', 'catatan.id_catatan = detail_catatan.id_catatan');
+        $this->db->from("detail_catatan");
+        $data = $this->db->get()->result();
+        return $data;
+    }
+
+    private function changeBarang($status, $data, $detail_catatan)
+    {
+        $idBaru = randomId(10);
+        $filter = array(
+            "nama_barang" => $data["nama_barang"],
+            "id_katagori" => $this->cruder->whereLike("kategori", array("nama_katagori" => $data["kategori_barang"]))->row()->id_katagori,
+            "status_barang" => "ada",
+            "kondisi_barang" => $status
+        );
+        $checkBarangNormal = $this->cruder->where("barang", $filter)->row();
+
+
+
+        if ($checkBarangNormal == null) {
+            $newData = array(
+                "kode_barang" => $idBaru,
+                "id_katagori" => $filter["id_katagori"],
+                "nama_barang" => $data["nama_barang"],
+                "jumlah_barang" => $data["jumlah_normal"],
+                "kondisi_barang" => "normal"
+            );
+            // // insert data
+            $this->cruder->create("barang", $newData);
+            $this->updateCatatan($detail_catatan, $idBaru);
+        } else {
+            $update = array(
+                "jumlah_barang" => (int)$checkBarangNormal->jumlah_barang - (int)$data["jumlah_normal"],
+                "updatedAt" => getDateNow()
+            );
+            $this->cruder->update("barang", $filter, $update);
+            $this->updateCatatan($detail_catatan, $checkBarangNormal->kode_barang);
+        }
+        // if (count($checkBarangNormal) == 0) {
+        //     // jika barang dengan barang normal kosong insert
+        //     $newData = array(
+        //         "kode_barang" => $idBaru,
+        //         "id_katagori" => $filter["id_katagori"],
+        //         "nama_barang" => $data["nama_barang"],
+        //         "jumlah_barang" => $data["jumlah_normal"],
+        //         "kondisi_barang" => "normal"
+        //     );
+        //     // // insert data
+        //     $this->cruder->create("barang", $newData);
+        //     $this->updateCatatan($detail_catatan, $idBaru);
+        // } else {
+        //     // jika barang dengan barang normal ada update
+        //     $update = array(
+        //         "jumlah_barang" => (int)$checkBarangNormal[0]->jumlah_barang - (int)$data["jumlah_normal"],
+        //         "updatedAt" => getDateNow()
+        //     );
+        //     $this->cruder->update("barang", $filter, $update);
+        //     $this->updateCatatan($detail_catatan, $checkBarangNormal[0]->kode_barang);
+        // }
+    }
+
+    private function updateCatatan($detail_catatan, $id_barang)
+    {
+        $filter = array("id_catatan" => $detail_catatan->id_catatan, "id_barang" => $detail_catatan->id_barang);
+        $update = array("id_barang" => $id_barang, "createdAt" => getDateNow());
+        $this->cruder->update("detail_catatan", $filter, $update);
+
+        $filter2 = array("id_catatan" => $detail_catatan->id_catatan);
+        $update2 = array("tipe_catatan" => "masuk", "createdAt" => getDateNow());
+        $this->cruder->update("catatan", $filter2, $update2);
+    }
+
+    public function doneBarangPinjam($id = 0, $datas = null)
+    {
+        // mengecheck detail barang
+        $detail = $this->getBarangPinjam($id);
+        foreach ($detail as $key => $value) {
+            // check id barang dari detail barang
+            $data = $datas[$key];
+
+            if ($data["kondisi_barang_normal"] == "true") {
+                $this->changeBarang("normal", $data, $value);
+            }
+            if ($data["kondisi_barang_rusak"] == "true") {
+                $this->changeBarang("rusak", $data, $value);
+            }
+        }
+        return true;
+    }
+    // end peminjaman barang
 }
 
 /* End of file Admin.php */

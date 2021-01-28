@@ -52,9 +52,11 @@ class Main extends CI_Controller
 
     public function Pengembalian()
     {
+        $data_sec["semuaPinjaman"] = $this->admin_m->getPinjaman();
+
         // Data pengembalian admin
         $data_main['segment'] = $this->uri->segment(1);
-        $data_main['content'] = $this->load->view('admin/pengembalian_barang', '', true);
+        $data_main['content'] = $this->load->view('admin/pengembalian_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data['title'] = "Pengembalian Barang";
@@ -265,6 +267,60 @@ class Main extends CI_Controller
             }
         }
     }
+
+    // start fun pengembalian
+
+    private function printTableBarang($data)
+    {
+        $output = '';
+        $output .= "<label value=" . $data->id_catatan . " id='kodecatatan'><strong>Kode Catatan</strong> : " . $data->id_catatan . "</label><br/>";
+        $output .= "<label> <strong>Nama Peminjam</strong> : " . $data->penanggung . "</label><br/>";
+        $output .= "<label><strong>Nama Tempat</strong> : " . $data->nama_catatan . "</label><p class='text-info'>Informasi : Pastikan untuk memasukkan jumlah barang normal dan rusak, harap mencentang terlebih dahulu</p><form action='' method='post'>";
+        $output .= "<div class='table-responsive-xl'><table id='dataPinjam' class='table table-bordered'><thead><tr>";
+        $rowAtas = array("Kode Barang", "Nama Barang", "Kategori Barang", 'Jumlah Barang', "Kondisi Barang Normal", "Kondisi Barang Rusak");
+        foreach ($rowAtas as $key => $value) {
+            $output .= "<th scope='col'>" . $value . "</th>";
+        }
+        $output .= "</tr></thead><tbody>";
+        $datasBarang = $this->admin_m->getBarangPinjam($data->id_catatan);
+        foreach ($datasBarang as $key => $value) {
+            $output .= "<tr>";
+            $output .= "<td>" . $value->kode_barang . "</td>";
+            $output .= "<td>" . $value->nama_barang . "</td>";
+            $output .= "<td>" . $value->nama_katagori . "</td>";
+            $output .= "<td>" . $value->jumlah . "</td>";
+            $output .= "<td><div class='input-group mb-3'><div class='input-group-prepend'><div class='input-group-text'>";
+            $output .= "<input type='checkbox' aria-label='Checkbox for following text input'>";
+            $output .= "</div></div><input type='number' id='valueNormal" . $key . "' class='form-control' placeholder='Jika ada centang terlebih dahulu' aria-label='Text input with checkbox'>";
+            $output .= "</div></td>";
+            $output .= "<td><div class='input-group mb-3'><div class='input-group-prepend'><div class='input-group-text'>";
+            $output .= "<input type='checkbox' aria-label='Checkbox for following text input'>";
+            $output .= "</div></div><input type='number' id='valueRusak" . $key . "' class='form-control' placeholder='Jika ada centang terlebih dahulu' aria-label='Text input with checkbox'>";
+            $output .= "</div></td>";
+            $output .= "</tr>";
+        }
+        $output .= "</tr></tbody></table></div></form>";
+        return $output;
+    }
+
+    public function showKembaliBarang()
+    {
+        $idDetail = $this->uri->segment(3);
+        $dataPinjaman = $this->admin_m->getPinjaman($idDetail);
+        echo $this->printTableBarang($dataPinjaman);
+    }
+    public function kembaliBarang()
+    {
+        $idDetail = $this->uri->segment(3);
+        $datas = $this->input->post('datas');
+
+        $asdsa = $this->admin_m->doneBarangPinjam($idDetail, $datas);
+
+
+        $this->session->set_flashdata('toast', 'success:BErhasil');
+        redirect(base_url(), "refresh");
+    }
+    // end fun pengembalian
 
     /// start Form Handler
 }

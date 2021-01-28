@@ -34,8 +34,10 @@
 
     <!-- custom -->
     <script src="<?= base_url() ?>assets/js/main.js"></script>
+    <script src="<?= base_url() ?>assets/js/parseTable.js"></script>
 
     <script type='text/javascript'>
+        toastr.options.closeButton = true;
         $(document).ready(() => {
             $('#changePassword').on('hidden.bs.modal', function(e) {
                 <?php session_destroy() ?>
@@ -68,8 +70,9 @@
                 var kategori_barang = document.getElementById("kategoribarangId").value;
                 var jumlah_barang = document.getElementById("jumlahbarangId").value;
                 var stock = document.getElementById("disabledTextInput");
+                var stockValue = parseInt(stock.value);
 
-                if (jumlah_barang > stock.value || stock.value === "0") {
+                if (parseInt(jumlah_barang) > stockValue || stockValue === 0) {
                     toastr.error("Jumlah barang yang anda masukkan melebihi stock barang yang tersedia");
                 } else {
                     if (jumlah_barang == "0") {
@@ -96,40 +99,115 @@
             });
             // end script for tambah barang
             var listennerKategori = document.getElementById("kategoribarangId");
-            listennerKategori.addEventListener("change", (e) => {
-                var values = listennerKategori.value;
+            if (listennerKategori) {
+                listennerKategori.addEventListener("change", (e) => {
+                    var values = listennerKategori.value;
+                    document.getElementById("jumlahbarangId").setAttribute("value", 0);
+                    document.getElementById("disabledTextInput").setAttribute("value", 0);
 
-                if (values !== "") {
+                    if (values !== "") {
+                        $.ajax({
+                            url: `<?php echo base_url("peminjaman/check/kategori"); ?>/${listennerKategori.value}`,
+                            method: "POST",
+                            success: (data) => {
+                                $("#namabarangId").html(data);
+                            }
+                        })
+                    } else {
+                        $("#namabarangId").html("<option value='' selected>Pilih Katagori barang terlebih dahulu</option>");
+                    }
+                });
+            }
+            var listennerNamaBarang = document.getElementById("namabarangId");
+            if (listennerNamaBarang) {
+                listennerNamaBarang.addEventListener("change", (e) => {
+                    var values = listennerNamaBarang.value;
+
                     $.ajax({
-                        url: `<?php echo base_url("peminjaman/check/kategori"); ?>/${listennerKategori.value}`,
+                        url: `<?php echo base_url("peminjaman/check/stok"); ?>/${listennerNamaBarang.value}`,
                         method: "POST",
                         success: (data) => {
-                            $("#namabarangId").html(data);
+                            document.getElementById("disabledTextInput").setAttribute("value", data);
+                            document.getElementById("jumlahbarangId").setAttribute("value", 0);
+                            document.getElementById("jumlahDisable").removeAttribute("disabled");
+
                         }
                     })
-                } else {
-                    $("#namabarangId").html("<option value='' selected>Pilih Katagori barang terlebih dahulu</option>");
+                });
+            }
+            // end script for pinjam barang
+        });
+
+        function onModalBarang(idDetail) {
+            var url = `<?php echo base_url("pengembalian/tampilkan"); ?>/${idDetail}`;
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: (data) => {
+                    $("#modalBarangAmbil").html(data);
                 }
             });
-            var listennerNamaBarang = document.getElementById("namabarangId");
-            listennerNamaBarang.addEventListener("change", (e) => {
-                var values = listennerNamaBarang.value;
+        };
 
+        function doSubmitKembali() {
+            pinjamDatas = document.getElementById("dataPinjam");
+            const datas = parseTable(pinjamDatas);
+            var datasFinal = [];
+            // check input kondisi barang
+            datas.map((currElement, index) => {
+
+                let jumlah = parseInt(currElement.jumlah_barang);
+                let inputJumlah = 0;
+                let element = currElement;
+                var jumlahRusak = document.getElementById(`valueRusak${index}`);
+                var jumlahNormal = document.getElementById(`valueNormal${index}`);
+                if (currElement.kondisi_barang_rusak) {
+                    inputJumlah = inputJumlah + parseInt(jumlahRusak.value);
+                    element = {
+                        ...element,
+                        jumlah_rusak: parseInt(jumlahRusak.value)
+                    };
+                }
+                if (currElement.kondisi_barang_normal) {
+                    inputJumlah = inputJumlah + parseInt(jumlahNormal.value);
+                    element = {
+                        ...element,
+                        jumlah_normal: parseInt(jumlahNormal.value)
+                    };
+                }
+                if (jumlah === inputJumlah) {
+                    datasFinal.push(element);
+                } else {
+                    toastr.warning(`Pastikan anda memasukkan jumlah ${element.nama_barang} sesuai dengan jumlah barang`);
+                }
+
+            })
+            // check all inserted
+            if (datasFinal.length === datas.length) {
+                const idCatatan = document.getElementById("kodecatatan").getAttribute("value");
+                var url = `<?php echo base_url("pengembalian/kembali"); ?>/${idCatatan}`;
                 $.ajax({
-                    url: `<?php echo base_url("peminjaman/check/stok"); ?>/${listennerNamaBarang.value}`,
+                    url: url,
+                    data: {
+                        datas: datasFinal
+                    },
                     method: "POST",
                     success: (data) => {
-                        document.getElementById("disabledTextInput").setAttribute("value", data);
-                        document.getElementById("jumlahbarangId").setAttribute("value", 0);
+                        //hide modal when success
+                        if (data) {
+                            $("#pinjamModal").modal("hide");
+                            toastr.success(`Pengembalian barang kode ${idCatatan} berhasil`);
+                        }
+                    },
+                    error: (err) => {
+                        console.error(err.state);
                     }
                 })
-            });
+            } else {
+                toastr.error("Error Hore");
+            }
 
-
-
-            // end script for pinjam barang
-
-        });
+        }
     </script>
 </body>
 
