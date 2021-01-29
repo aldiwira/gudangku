@@ -11,26 +11,28 @@
                     Data Barang
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive-xl">
-                        <table id="listBarang" class="table table-bordered">
+                    <div id="listBarang" class="table-responsive-xl">
+                        <table id="listkembaliBarang" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">No Id</th>
                                     <th scope="col">Nama Tempat</th>
                                     <th scope="col">Nama Peminjam</th>
+                                    <th scope="col">Petugas</th>
                                     <th scope="col">Tanggal Kembali</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <?php foreach ($record as $key => $value) { ?>
+                            <tbody id="tableBarangPinjam">
+                                <?php foreach ($semuaPinjaman as $key => $value) { ?>
                                     <tr>
-                                        <th scope="row"><?= $key + 1 ?></th>
+                                        <td><?= $value->id_catatan ?></td>
                                         <td><?= $value->nama_catatan ?></td>
                                         <td><?= $value->penanggung ?></td>
-                                        <td><?= $value->tanggal_kembali ?></td>
+                                        <td><?= $value->username ?></td>
+                                        <td><?= date("d - m -Y", strtotime($value->tanggal_kembali)) ?></td>
                                         <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden="true"></i>Pengembalian</button>
+                                            <button id="kembaliBarang" onclick="onModalBarang('<?= $value->id_detail_catatan ?>')" type="button" data-toggle="modal" data-target="#pinjamModal" class="btn btn-primary">Pengembalian</button>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -39,7 +41,7 @@
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="pinjamModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header bg-light">
@@ -50,64 +52,12 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <label>Nama Peminjam: "Nama"</label>
-                                <form action="" method="post">
-                                    <div class="table-responsive-xl">
-                                        <table id="dataPinjam" class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">No</th>
-                                                    <th scope="col">Nama Barang</th>
-                                                    <th scope="col">Kategori Barang</th>
-                                                    <th scope="col">Jumlah Barang</th>
-                                                    <th scope="col">Kondisi Barang</th>
-                                                    <th scope="col">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Meja</td>
-                                                    <td>Furnitur</td>
-                                                    <td>1 Buah</td>
-                                                    <td>
-                                                        <select id="inputState" class="form-control">
-                                                            <option selected>Pilih kondisi Barang</option>
-                                                            <option>Normal</option>
-                                                            <option>Rusak</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
-                                                        <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Kursi</td>
-                                                    <td>Furnitur</td>
-                                                    <td>1 Buah</td>
-                                                    <td>
-                                                        <select id="inputState" class="form-control">
-                                                            <option selected>Pilih kondisi Barang</option>
-                                                            <option>Normal</option>
-                                                            <option>Rusak</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
-                                                        <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
+                            <div id="modalBarangAmbil" class="modal-body">
+                                <!-- ada di main js -->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-                                <button type="button" class="btn btn-success">Selesai</button>
+                                <button type="button" onclick="doSubmitKembali()" class="btn btn-success">Selesai</button>
                             </div>
                         </div>
                     </div>

@@ -71,3 +71,5 @@ $route['peminjaman/pinjam'] = "Main/addPinjam";
 $route['peminjaman/tambah'] = "Main/addCart";
 $route['peminjaman/check/kategori/(:any)'] = "Handling/check";
 $route['peminjaman/check/stok/(:any)'] = "Handling/check";
+$route['pengembalian/tampilkan/(:any)'] = "Main/showkembaliBarang";
+$route['pengembalian/kembali/(:any)'] = "Main/kembaliBarang";
