@@ -254,13 +254,11 @@ class Admin_model extends CI_Model
                 $data = array("id_detail_catatan" => randomId(10), "id_catatan" => $detail_catatan->id_catatan, "id_barang" => $id_barang["rusak"], "jumlah" => $dta["jumlah_rusak"]);
                 $this->cruder->create("detail_catatan", $data);
             }
-        }
-        if ($status === "normal") {
+        } else if ($status === "normal") {
             $filter = array("id_catatan" => $detail_catatan->id_catatan, "id_barang" => $detail_catatan->id_barang);
             $update = array("id_barang" => $id_barang, "createdAt" => getDateNow());
             $this->cruder->update("detail_catatan", $filter, $update);
-        }
-        if ($status === "rusak") {
+        } else if ($status === "rusak") {
             $filter = array("id_catatan" => $detail_catatan->id_catatan, "id_barang" => $detail_catatan->id_barang);
             $update = array("id_barang" => $id_barang, "createdAt" => getDateNow());
             $this->cruder->update("detail_catatan", $filter, $update);
@@ -279,7 +277,6 @@ class Admin_model extends CI_Model
             // check id barang dari detail barang
             $data = $datas[$key];
             if ($data["kondisi_barang_normal"] == "true" && $data["kondisi_barang_rusak"] == "true") {
-
                 $one = $this->changeBarang("normal", $data);
                 $two = $this->changeBarang("rusak", $data);
                 $this->updateBarangOdd($data);
