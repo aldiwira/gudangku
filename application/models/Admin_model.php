@@ -117,8 +117,9 @@ class Admin_model extends CI_Model
                 $this->cruder->create("detail_catatan", $detail);
             } else {
                 // Kedua Jika tidak ada maka insert baru
+                $kdesdas = randomId(10);
                 $datas = array(
-                    "kode_barang" => $kode_barang_baru,
+                    "kode_barang" => $kdesdas,
                     "nama_barang" => $check->nama_barang,
                     "jumlah_barang" => $value["qty"],
                     "id_katagori" => $check->id_katagori,
@@ -138,7 +139,7 @@ class Admin_model extends CI_Model
                     )
                 );
                 // Insert ke detail catatan
-                $detail = array("id_detail_catatan" => $value["id"], "id_barang" => $kode_barang_baru, "id_catatan" => $id_catatan, "jumlah" => $value["qty"]);
+                $detail = array("id_detail_catatan" => $value["id"], "id_barang" => $kdesdas, "id_catatan" => $id_catatan, "jumlah" => $value["qty"]);
                 $this->cruder->create("detail_catatan", $detail);
             }
         }
@@ -179,7 +180,7 @@ class Admin_model extends CI_Model
         return $data;
     }
 
-    private function changeBarang($status, $data, $detail_catatan)
+    private function changeBarang($status, $data)
     {
         $idBaru = randomId(10);
         $filter = array(
@@ -190,7 +191,7 @@ class Admin_model extends CI_Model
         );
         $checkBarangNormal = $this->cruder->where("barang", $filter)->row();
 
-        if ($checkBarangNormal == null) {
+        if ($status === "normal") {
             $newData = array(
                 "kode_barang" => $idBaru,
                 "id_katagori" => $filter["id_katagori"],
@@ -198,24 +199,72 @@ class Admin_model extends CI_Model
                 "jumlah_barang" => $data["jumlah_normal"],
                 "kondisi_barang" => "normal"
             );
-            // // insert data
-            $this->cruder->create("barang", $newData);
-            $this->updateCatatan($detail_catatan, $idBaru);
-        } else {
             $update = array(
-                "jumlah_barang" => (int)$checkBarangNormal->jumlah_barang - (int)$data["jumlah_normal"],
+                "jumlah_barang" => (int)$checkBarangNormal->jumlah_barang + (int)$data["jumlah_normal"],
                 "updatedAt" => getDateNow()
             );
+        } else if ($status === "rusak") {
+            $newData = array(
+                "kode_barang" => $idBaru,
+                "id_katagori" => $filter["id_katagori"],
+                "nama_barang" => $data["nama_barang"],
+                "jumlah_barang" => $data["jumlah_rusak"],
+                "kondisi_barang" => "rusak"
+            );
+            $update = array(
+                "jumlah_barang" => (int)$checkBarangNormal->jumlah_barang + (int)$data["jumlah_rusak"],
+                "updatedAt" => getDateNow()
+            );
+        }
+
+        if ($checkBarangNormal == null) {
+            // // insert data
+            $this->cruder->create("barang", $newData);
+            return $idBaru;
+        } else {
             $this->cruder->update("barang", $filter, $update);
-            $this->updateCatatan($detail_catatan, $checkBarangNormal->kode_barang);
+            return $checkBarangNormal->kode_barang;
         }
     }
 
-    private function updateCatatan($detail_catatan, $id_barang)
+    private function updateBarangOdd($data)
     {
-        $filter = array("id_catatan" => $detail_catatan->id_catatan, "id_barang" => $detail_catatan->id_barang);
-        $update = array("id_barang" => $id_barang, "createdAt" => getDateNow());
-        $this->cruder->update("detail_catatan", $filter, $update);
+        $fil = array("kode_barang" => $data["kode_barang"], "status_barang" => "keluar");
+        $check = $this->cruder->where("barang", $fil)->row();
+
+        if ($check !== null) {
+            $upd = array("jumlah_barang" => (int)$check->jumlah_barang - (int)$data["jumlah_barang"]);
+            $this->cruder->update("barang", $fil, $upd);
+        }
+    }
+
+    private function updateCatatan($status, $detail_catatan, $id_barang, $datas = null)
+    {
+        if ($status === "both") {
+            // delete first than insert
+            $this->cruder->remove("detail_catatan", array("id_catatan" => $detail_catatan->id_catatan, "id_barang" => $detail_catatan->id_barang));
+            $dta = $datas;
+            if ($dta["kondisi_barang_normal"] == "true") {
+                # code...
+                $data = array("id_detail_catatan" => randomId(10), "id_catatan" => $detail_catatan->id_catatan, "id_barang" => $id_barang["normal"], "jumlah" => $dta["jumlah_normal"]);
+                $this->cruder->create("detail_catatan", $data);
+            }
+            if ($dta["kondisi_barang_rusak"] == "true") {
+                # code...
+                $data = array("id_detail_catatan" => randomId(10), "id_catatan" => $detail_catatan->id_catatan, "id_barang" => $id_barang["rusak"], "jumlah" => $dta["jumlah_rusak"]);
+                $this->cruder->create("detail_catatan", $data);
+            }
+        }
+        if ($status === "normal") {
+            $filter = array("id_catatan" => $detail_catatan->id_catatan, "id_barang" => $detail_catatan->id_barang);
+            $update = array("id_barang" => $id_barang, "createdAt" => getDateNow());
+            $this->cruder->update("detail_catatan", $filter, $update);
+        }
+        if ($status === "rusak") {
+            $filter = array("id_catatan" => $detail_catatan->id_catatan, "id_barang" => $detail_catatan->id_barang);
+            $update = array("id_barang" => $id_barang, "createdAt" => getDateNow());
+            $this->cruder->update("detail_catatan", $filter, $update);
+        }
 
         $filter2 = array("id_catatan" => $detail_catatan->id_catatan);
         $update2 = array("tipe_catatan" => "masuk", "createdAt" => getDateNow());
@@ -229,12 +278,22 @@ class Admin_model extends CI_Model
         foreach ($detail as $key => $value) {
             // check id barang dari detail barang
             $data = $datas[$key];
+            if ($data["kondisi_barang_normal"] == "true" && $data["kondisi_barang_rusak"] == "true") {
 
-            if ($data["kondisi_barang_normal"] == "true") {
-                $this->changeBarang("normal", $data, $value);
-            }
-            if ($data["kondisi_barang_rusak"] == "true") {
-                $this->changeBarang("rusak", $data, $value);
+                $one = $this->changeBarang("normal", $data);
+                $two = $this->changeBarang("rusak", $data);
+                $this->updateBarangOdd($data);
+                $this->updateCatatan("both", $value, array("normal" => $one, "rusak" =>  $two), $data);
+            } else if ($data["kondisi_barang_normal"] == "true") {
+
+                $idCatatan = $this->changeBarang("normal", $data);
+                $this->updateBarangOdd($data);
+                $this->updateCatatan("normal", $value, $idCatatan);
+            } else if ($data["kondisi_barang_rusak"] == "true") {
+
+                $idCatatann = $this->changeBarang("rusak", $data);
+                $this->updateBarangOdd($data);
+                $this->updateCatatan("rusak", $value, $idCatatann);
             }
         }
         return true;

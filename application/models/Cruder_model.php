@@ -33,6 +33,10 @@ class Cruder_model extends CI_Model
         $this->db->where($filter);
         $this->db->update($table, $update, $filter);
     }
+    public function remove($table, $filter)
+    {
+        $this->db->delete($table, $filter);
+    }
 }
     
     /* End of file cruder.php */
