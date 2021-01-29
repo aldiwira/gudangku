@@ -33,7 +33,7 @@ class Handling extends CI_Controller
                 $html = "";
                 $html .= "<option value='0'>Silahkan pilih barang yang tersedia</option>";
                 foreach ($datas as $value) {
-                    $html .= "<option value=" . $value->kode_barang . ">" . $value->nama_barang . "</option>";
+                    $html .= "<option value=" . $value->kode_barang . ">" . $value->nama_barang . " (Kondisi Barang : " . $value->kondisi_barang . ")</option>";
                 }
                 print_r($html);
             }
