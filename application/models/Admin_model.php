@@ -144,6 +144,11 @@ class Admin_model extends CI_Model
         }
         return true;
     }
+
+    public function getRecord()
+    {
+        return $this->cruder->get('catatan')->result();
+    }
 }
 
 /* End of file Admin.php */

@@ -11,29 +11,29 @@
                     Data Barang
                 </div>
                 <div class="card-body">
-                    <form method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="" id="" placeholder="Nama Peminjam">
-                        </div>
-                        <button class="btn btn-primary mb-2"><i class="fa fa-search" style="margin-right: 10px;" aria-hidden="true"></i>Cari</button>
-                    </form>
                     <div class="table-responsive-xl">
-                        <table class="table table-bordered">
+                        <table id="listBarang" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">No Id</th>
+                                    <th scope="col">Nama Tempat</th>
                                     <th scope="col">Nama Peminjam</th>
+                                    <th scope="col">Tanggal Kembali</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden="true"></i>Pengembalian</button>
-                                    </td>
-                                </tr>
+                                <?php foreach ($record as $key => $value) { ?>
+                                    <tr>
+                                        <th scope="row"><?= $key + 1 ?></th>
+                                        <td><?= $value->nama_catatan ?></td>
+                                        <td><?= $value->penanggung ?></td>
+                                        <td><?= $value->tanggal_kembali ?></td>
+                                        <td>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden="true"></i>Pengembalian</button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

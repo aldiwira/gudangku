@@ -42,6 +42,7 @@ class Main extends CI_Controller
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data peminjaman admin
         $data_main['segment'] = $this->uri->segment(1);
+        $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['content'] = $this->load->view('admin/peminjaman_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
@@ -52,9 +53,10 @@ class Main extends CI_Controller
 
     public function Pengembalian()
     {
+        $data_sec['record'] = $this->admin_m->getRecord();
         // Data pengembalian admin
         $data_main['segment'] = $this->uri->segment(1);
-        $data_main['content'] = $this->load->view('admin/pengembalian_barang', '', true);
+        $data_main['content'] = $this->load->view('admin/pengembalian_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data['title'] = "Pengembalian Barang";
