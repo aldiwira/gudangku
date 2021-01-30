@@ -11,6 +11,7 @@ class Handling extends CI_Controller
         //Do your magic here
         $this->load->model('Cruder_model', 'cruder');
         $this->load->model('Admin_model', 'admin_m');
+        $this->load->model('Log_model', 'log_m');
     }
 
     // 404 handler page error
@@ -45,6 +46,38 @@ class Handling extends CI_Controller
                 print_r("0");
             }
         }
+    }
+    public function countItems()
+    {
+        $typeItem = $this->uri->segment(3);
+        if ($typeItem == "baru") {
+            $select = "barang.kondisi_barang, barang.status_barang";
+            $where = array("kondisi_barang" => "baru", "status_barang" => "ada");
+            $sum = "jumlah_barang";
+            $group = array("kondisi_barang");
+        } else if ($typeItem == "normal") {
+            $select = "barang.kondisi_barang, barang.status_barang";
+            $where = array("kondisi_barang" => "normal", "status_barang" => "ada");
+            $sum = "jumlah_barang";
+            $group = array("kondisi_barang");
+        } else if ($typeItem == "rusak") {
+            $select = "barang.kondisi_barang, barang.status_barang";
+            $where = array("kondisi_barang" => "rusak", "status_barang" => "ada");
+            $sum = "jumlah_barang";
+            $group = array("kondisi_barang");
+        } else if ($typeItem == "ada") {
+            $select = "barang.status_barang";
+            $where = array("status_barang" => "ada");
+            $sum = "jumlah_barang";
+            $group = array("status_barang");
+        } else if ($typeItem == "keluar") {
+            $select = "barang.status_barang";
+            $where = array("status_barang" => "keluar");
+            $sum = "jumlah_barang";
+            $group = array("status_barang");
+        }
+        $res = $this->log_m->countBarang($select, $where, $group, $sum);
+        print_r(json_encode($res));
     }
 }
     

@@ -22,9 +22,7 @@ class Admin_model extends CI_Model
     {
         $this->db->select("barang.kode_barang, barang.nama_barang, kategori.nama_katagori, barang.jumlah_barang, barang.status_barang, barang.kondisi_barang");
         $this->db->select_sum("barang.jumlah_barang");
-        $this->db->group_by("barang.kondisi_barang");
-        $this->db->group_by("barang.status_barang");
-        $this->db->group_by("barang.nama_barang");
+        $this->db->group_by(array("barang.kondisi_barang", "barang.status_barang", "barang.nama_barang"));
         $this->db->where("barang.status_barang", "ada");
         $this->db->from("barang");
         $this->db->join("kategori", "kategori.id_katagori = barang.id_katagori");

@@ -52,8 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'User';
 $route['404_override'] = 'Handling';
 $route['translate_uri_dashes'] = FALSE;
-
-// Routes App
+// Routes App 
 $route['login'] = "User";
 $route['user'] = "Main/User";
 $route['admin'] = "Main/Admin";
@@ -73,3 +72,4 @@ $route['peminjaman/check/kategori/(:any)'] = "Handling/check";
 $route['peminjaman/check/stok/(:any)'] = "Handling/check";
 $route['pengembalian/tampilkan/(:any)'] = "Main/showkembaliBarang";
 $route['pengembalian/kembali/(:any)'] = "Main/kembaliBarang";
+$route['admin/lihatbarang/(:any)'] = "Handling/countItems";
