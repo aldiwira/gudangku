@@ -8,10 +8,13 @@ $(document).ready(function () {
 	});
 
 	// logout function
-	document.getElementById("doLogout").addEventListener("click", (e) => {
-		document.cookie = "SID=;expires=1000;path=/";
-		document.location.reload(true);
-	});
+	var doLoginBtn = document.getElementById("doLogout");
+	if (doLoginBtn) {
+		doLoginBtn.addEventListener("click", (e) => {
+			document.cookie = "SID=;expires=1000;path=/";
+			document.location.reload(true);
+		});
+	}
 
 	// datatable barang
 	var uri = document.URL.split("/")[4];
