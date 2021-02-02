@@ -16,6 +16,7 @@ class Main extends CI_Controller
         $this->load->helper('cookie');
         $this->load->model('User_model', 'user_m');
         $this->load->model('Admin_model', 'admin_m');
+        $this->load->model('Log_model', 'log_m');
 
         // Check cookies session
         if (!get_cookie('SID')) {
@@ -25,9 +26,10 @@ class Main extends CI_Controller
 
     public function Admin()
     {
+        $data_sec = $this->log_m->getAllCountItems();
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
-        $data_main['content'] = $this->load->view('admin/dashboard', '', true);
+        $data_main['content'] = $this->load->view('admin/dashboard', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data["title"] = "Admin Dashboard";

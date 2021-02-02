@@ -11,6 +11,7 @@ class Handling extends CI_Controller
         //Do your magic here
         $this->load->model('Cruder_model', 'cruder');
         $this->load->model('Admin_model', 'admin_m');
+        $this->load->model('Log_model', 'log_m');
     }
 
     // 404 handler page error
