@@ -151,6 +151,7 @@ class Main extends CI_Controller
         }
     }
 
+    // User Function
     public function Register()
     {
         $this->form_validation->set_rules('usernameInput', 'usernameInput', 'required', array('required' => 'Harap isi username terlebih dahulu'));
@@ -164,6 +165,24 @@ class Main extends CI_Controller
             }
         }
     }
+
+    public function updateUser()
+    {
+        $id = $this->uri->segment(3);
+        $data = $this->user_m->updateUserById($id);
+        $this->session->set_flashdata('toast', 'success:Berhasil menjadikan admin');
+        redirect('user', $data);
+    }
+
+    public function deleteUser()
+    {
+        $id = $this->uri->segment(3);
+        $data = $this->user_m->deleteUserById($id);
+        $this->session->set_flashdata('toast', 'success:Berhasil menghapus user');
+        redirect('user', $data);
+    }
+
+    // End User Function
 
     // handling page by uri page
     private function handlingPage()

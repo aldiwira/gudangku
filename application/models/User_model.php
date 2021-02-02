@@ -58,6 +58,23 @@ class User_model extends CI_Model
             return null;
         }
     }
+
+    public function updateUserById($id)
+    {
+        $id_check = array('id_pengguna' => $id);
+        // print_r($id_check);die;
+        $update = array('isAdmin' => 1);
+        echo $this->cruder->update('pengguna', $id_check, $update);
+        return true;
+    }
+
+    public function deleteUserById($id)
+    {
+        $id_check = array('id_pengguna' => $id);
+        // print_r($id_check);die;
+        echo $this->cruder->remove('pengguna', $id_check);
+        return true;
+    }
 }
 
 /* End of file User.php */
