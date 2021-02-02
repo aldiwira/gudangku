@@ -200,11 +200,10 @@
                             setTimeout(() => {
                                 location.reload();
                             }, 500);
-
                         }
                     },
                     error: (err) => {
-                        console.error(err.state);
+                        toastr.error(err.statusText);
                     }
                 })
             }
