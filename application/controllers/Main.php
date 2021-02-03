@@ -16,6 +16,7 @@ class Main extends CI_Controller
         $this->load->helper('cookie');
         $this->load->model('User_model', 'user_m');
         $this->load->model('Admin_model', 'admin_m');
+        $this->load->model('Log_model', 'log_m');
 
         // Check cookies session
         if (!get_cookie('SID')) {
@@ -23,11 +24,13 @@ class Main extends CI_Controller
         }
     }
 
+    /// end main function
     public function Admin()
     {
+        $data_sec = $this->log_m->getAllCountItems();
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
-        $data_main['content'] = $this->load->view('admin/dashboard', '', true);
+        $data_main['content'] = $this->load->view('admin/dashboard', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         // Main
         $data["title"] = "Admin Dashboard";
@@ -106,6 +109,7 @@ class Main extends CI_Controller
         $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
+    /// end main function
     /// Form Handler
     /// start Form Handler
 
@@ -134,7 +138,7 @@ class Main extends CI_Controller
     }
 
     // add barang function
-    public function Barang()
+    public function addBarang()
     {
         $this->form_validation->set_rules('namabarangtxt', 'namabarangtxt', 'required');
         $this->form_validation->set_rules('jumlahbarangtxt', 'jumlahbarangtxt', 'required');
