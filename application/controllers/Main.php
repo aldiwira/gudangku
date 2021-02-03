@@ -102,7 +102,7 @@ class Main extends CI_Controller
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         $data_main['content'] = $this->load->view('admin/register', $data_sec, true);
         // Main
-        $data["title"] = "Admin Dashboard";
+        $data["title"] = "Manajemen User";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
@@ -168,18 +168,33 @@ class Main extends CI_Controller
 
     public function updateUser()
     {
-        $id = $this->uri->segment(3);
-        $data = $this->user_m->updateUserById($id);
-        $this->session->set_flashdata('toast', 'success:Berhasil menjadikan admin');
-        redirect('user', $data);
+        $userID = get_cookie('SID');
+        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID, "isAdmin" => "0"));
+        if ($check != "1") {
+            // print_r($check);die;
+            $this->session->set_flashdata('toast', 'error:Aksi hanya dapat dilakukan oleh admin');
+            redirect('user');
+        } else {
+            $id = $this->uri->segment(3);
+            $data = $this->user_m->updateUserById($id);
+            $this->session->set_flashdata('toast', 'success:Berhasil menjadikan admin');
+            redirect('user', $data);
+        }
     }
 
     public function deleteUser()
     {
-        $id = $this->uri->segment(3);
-        $data = $this->user_m->deleteUserById($id);
-        $this->session->set_flashdata('toast', 'success:Berhasil menghapus user');
-        redirect('user', $data);
+        $userID = get_cookie('SID');
+        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID, "isAdmin" => "0"));
+        if ($check != "1") {
+            $this->session->set_flashdata('toast', 'error:Aksi hanya dapat dilakukan oleh admin');
+            redirect('user');
+        } else {
+            $id = $this->uri->segment(3);
+            $data = $this->user_m->deleteUserById($id);
+            $this->session->set_flashdata('toast', 'success:Berhasil menghapus user');
+            redirect('user', $data);
+        }
     }
 
     // End User Function
