@@ -23,7 +23,7 @@ class Log_model extends CI_Model {
                 $sum = "jumlah_barang";
                 $group = "kondisi_barang";
             }else if($value == 'ada' || $value == 'keluar') {
-                $where = array("status_barang" => "ada", "kondisi_barang" => $value);
+                $where = array("status_barang" => $value);
                 $sum = "jumlah_barang";
                 $group = "kondisi_barang";
             }
