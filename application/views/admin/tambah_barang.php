@@ -13,8 +13,6 @@
                         <h5 class="mb-0">Kategori</h5>
                     </a>
                 </div>
-
-
                 <div class="card-body">
                     <div class="collapse <?php echo form_error('katagoritxt') != null ? "show" : null; ?>" id="collapsekategori">
                         <form method="POST" action="<?= base_url('tambah/katagori') ?>">
