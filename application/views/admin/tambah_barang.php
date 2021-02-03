@@ -41,12 +41,12 @@
 
                             <div class="form-group">
                                 <label for="">Nama Barang</label>
-                                <input type="text" name="namabarangtxt" id="" class="form-control" placeholder="Masukkan nama barang" aria-describedby="helpId">
+                                <input type="text" name="namabarangtxt" id="" value="<?= set_value('namabarangtxt') ?>" class="form-control" placeholder="Masukkan nama barang" aria-describedby="helpId">
                                 <small id="helpId" class="form-text text-danger"><?= form_error('namabarangtxt') ?></small>
                             </div>
                             <div class="form-group">
                                 <label for="">Jumlah Barang</label>
-                                <input type="number" name="jumlahbarangtxt" id="" class="form-control" placeholder="Masukkan jumlah barang" aria-describedby="helpId">
+                                <input type="number" name="jumlahbarangtxt" id="" value="<?= set_value('jumlahbarangtxt') ?>" class="form-control" placeholder="Masukkan jumlah barang" aria-describedby="helpId">
                                 <small id="helpId" class="form-text text-danger"><?= form_error('jumlahbarangtxt') ?></small>
                             </div>
                             <div class="form-group">
@@ -67,7 +67,6 @@
                                         <label class="form-text mb-0"><i class="fa fa-plus mr-2"></i>Tambah Katagori</label>
                                     </a>
                                 </div>
-
                                 <small id="helpId" class="form-text text-danger"><?= form_error('katagoribarang') ?></small>
                             </div>
                             <div class="form-group">
@@ -77,7 +76,6 @@
                                     <option value="baru">Baru</option>
                                     <option value="rusak">Rusak</option>
                                     <option value="normal">Normal</option>
-
                                 </select>
                                 <small id="helpId" class="form-text text-danger"><?= form_error('kondisibarang') ?></small>
                             </div>

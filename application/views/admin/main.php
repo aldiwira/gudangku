@@ -1,21 +1,21 @@
 <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="bg-sidebar" id="sidebar-wrapper">
         <div class="sidebar-heading">
             <h4>Admin Dashboard</h4>
         </div>
         <div class="list-group list-group-flush">
-            <a href="<?= base_url() ?>admin" class="list-group-item list-group-item-action <?php echo $segment == 'admin' ? "active" : "bg-light"; ?>"><i class="fa fa-tachometer" style="margin-right: 10px;" aria-hidden="true"></i>Dashboard</a>
-            <a href="<?= base_url() ?>tambah" class="list-group-item list-group-item-action <?php echo $segment == 'tambah' ? "active" : "bg-light"; ?>"><i class="fa fa-book" style="margin-right: 10px;" aria-hidden=" true"></i></i>Tambah Barang</a>
-            <a href="<?= base_url() ?>peminjaman" class="list-group-item list-group-item-action <?php echo $segment == 'peminjaman' ? "active" : "bg-light"; ?>"><i class="fa fa-share" style="margin-right: 10px;" aria-hidden=" true"></i>Peminjaman Barang</a>
-            <a href="<?= base_url() ?>pengembalian" class="list-group-item list-group-item-action <?php echo $segment == 'pengembalian' ? "active" : "bg-light"; ?>"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden=" true"></i>Pengembalian Barang</a>
-            <a href="<?= base_url() ?>status" class="list-group-item list-group-item-action <?php echo $segment == 'status' ? "active" : "bg-light"; ?>"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List Barang</a>
-            <a class="list-group-item list-group-item-action dropdown <?php echo $segment == 'user' ? "active" : "bg-light"; ?>" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a href="<?= base_url() ?>admin" class="list-group-item list-group-item-action <?php echo $segment == 'admin' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-tachometer" style="margin-right: 10px;" aria-hidden="true"></i>Dashboard</a>
+            <a href="<?= base_url() ?>tambah" class="list-group-item list-group-item-action <?php echo $segment == 'tambah' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-book" style="margin-right: 10px;" aria-hidden=" true"></i></i>Tambah Barang</a>
+            <a href="<?= base_url() ?>peminjaman" class="list-group-item list-group-item-action <?php echo $segment == 'peminjaman' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-share" style="margin-right: 10px;" aria-hidden=" true"></i>Peminjaman Barang</a>
+            <a href="<?= base_url() ?>pengembalian" class="list-group-item list-group-item-action <?php echo $segment == 'pengembalian' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden=" true"></i>Pengembalian Barang</a>
+            <a href="<?= base_url() ?>status" class="list-group-item list-group-item-action <?php echo $segment == 'status' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List Barang</a>
+            <a class="list-group-item list-group-item-action dropdown <?php echo $segment == 'user' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i>User<i class="dropdown-toggle float-right"></i>
             </a>
             <div class="collapse" id="collapseExample">
                 <div class="">
-                    <a href="<?= base_url() ?>user" class="list-group-item list-group-item-action <?php echo $segment == 'user' ? "active" : "bg-light"; ?> "><i class="fa fa-plus" style="margin-right: 10px;" aria-hidden="true"></i>Tambah User</a>
+                    <a href="<?= base_url() ?>user" class="list-group-item list-group-item-action <?php echo $segment == 'user' ? "bg-sidebar-active" : "bg-sidebar-item"; ?> "><i class="fa fa-plus" style="margin-right: 10px;" aria-hidden="true"></i>Tambah User</a>
                 </div>
             </div>
         </div>
@@ -25,14 +25,17 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <!-- Navbar -->
-        <nav class="navbar navbar-light bg-light border-bottom">
-            <button class="btn btn-white navbar-brand" id="menu-toggle"><i class="fa fa-bars" style="margin-right: 10px;"></i>Menu</button>
+        <nav class="navbar navbar-dark bg-sidebar border-bottom">
+                <button class="btn btn-white navbar-brand" id="menu-toggle">
+                    <i class="fa fa-bars" style="margin-right: 10px;"></i>
+                    Menu
+                </button>
             <div class="user navbar-toggler">
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-white dropdown-toggle text-light" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <!-- Username here -->
                         <i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i><?= $userDatas->username ?>
-                    </button>
+                    </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#changePassword"><i class="fa fa-cog" style="margin-right: 10px;" aria-hidden="true"></i>Change Password </button>
                         <button class="dropdown-item" id="doLogout" type="button"><i class="fa fa-sign-out-alt" style="margin-right: 10px;" aria-hidden="true"></i>Logout</button>
@@ -43,7 +46,7 @@
         <!-- End Navbar -->
 
         <!-- Content -->
-        <div class="my-3">
+        <div class="container py-2">
             <?= $content ?>
         </div>
         <!-- End of Content -->

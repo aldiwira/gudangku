@@ -24,6 +24,7 @@ class Main extends CI_Controller
         }
     }
 
+    /// end main function
     public function Admin()
     {
         $data_sec = $this->log_m->getAllCountItems();
@@ -108,6 +109,7 @@ class Main extends CI_Controller
         $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
+    /// end main function
     /// Form Handler
     /// start Form Handler
 
@@ -136,7 +138,7 @@ class Main extends CI_Controller
     }
 
     // add barang function
-    public function Barang()
+    public function addBarang()
     {
         $this->form_validation->set_rules('namabarangtxt', 'namabarangtxt', 'required');
         $this->form_validation->set_rules('jumlahbarangtxt', 'jumlahbarangtxt', 'required');

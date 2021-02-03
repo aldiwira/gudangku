@@ -1,5 +1,7 @@
 <script type='text/javascript'>
     toastr.options.closeButton = true;
+
+    // start check document ready
     $(document).ready(() => {
         $('#changePassword').on('hidden.bs.modal', function(e) {
             <?php session_destroy() ?>
@@ -99,6 +101,7 @@
         }
         // end script for pinjam barang
     });
+    // end check document ready
 
     function onModalBarang(idDetail) {
         var url = `<?php echo base_url("pengembalian/tampilkan"); ?>/${idDetail}`;

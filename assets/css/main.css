@@ -118,4 +118,29 @@ body {
 .loading-wrapper {
 	background-color: #1214158b;
 }
+
+.bg-sidebar {
+	background-color: #333652;
+	color: #f2f2f2;
+}
+.bg-sidebar-item {
+	background-color: #333652;
+	color: #f2f2f2;
+}
+.bg-sidebar-item:hover {
+	background-color: #373b63;
+	color: #f2f2f2;
+}
+.bg-sidebar-active {
+	background-color: #41456f;
+	color: #f2f2f2;
+}
+.bg-sidebar-active:hover {
+	background-color: #383c68;
+	color: #f2f2f2;
+}
+
+.bg-main-main {
+	background-color: #efefef;
+}
 /* End Admin Dashboard */

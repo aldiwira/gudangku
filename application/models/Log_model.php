@@ -11,7 +11,7 @@ class Log_model extends CI_Model {
         parent::__construct();
         //Do your magic here
     }
-
+    // for count items at dashboard
     public function getAllCountItems()
     {
         $json = [];
