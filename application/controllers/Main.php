@@ -176,7 +176,7 @@ class Main extends CI_Controller
     {
         $userID = get_cookie('SID');
         $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID, "isAdmin" => "0"));
-        if ($check != "1") {
+        if ($check == "0") {
             // print_r($check);die;
             $this->session->set_flashdata('toast', 'error:Aksi hanya dapat dilakukan oleh admin');
             redirect('user');
@@ -192,7 +192,7 @@ class Main extends CI_Controller
     {
         $userID = get_cookie('SID');
         $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID, "isAdmin" => "0"));
-        if ($check != "1") {
+        if ($check == "0") {
             $this->session->set_flashdata('toast', 'error:Aksi hanya dapat dilakukan oleh admin');
             redirect('user');
         } else {
