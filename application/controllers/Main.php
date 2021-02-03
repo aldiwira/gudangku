@@ -85,7 +85,9 @@ class Main extends CI_Controller
 
     public function Status()
     {
-        $data_sec['barangDatas'] = $this->admin_m->getBarang();
+        $data_sec['availableItems'] = $this->cruder->where("barang", array("status_barang" => "ada"))->result();
+        $data_sec['outItems'] = $this->cruder->where("barang", array("status_barang" => "keluar"))->result();
+        
         // Data status barang admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/status_barang', $data_sec, true);
