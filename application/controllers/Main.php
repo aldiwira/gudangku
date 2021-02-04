@@ -14,6 +14,7 @@ class Main extends CI_Controller
         $this->load->library('cart');
 
         $this->load->helper('cookie');
+        $this->load->model('Cruder_model', 'cruder_m');
         $this->load->model('User_model', 'user_m');
         $this->load->model('Admin_model', 'admin_m');
         $this->load->model('Log_model', 'log_m');
@@ -261,18 +262,24 @@ class Main extends CI_Controller
         $output = '';
         $count = 0;
         foreach ($this->cart->contents() as $key => $value) {
+            
             $count++;
             $output .= "<tr>";
             $output .= "<td>" . $count . "</td>";
-            $output .= "<td>" . $value["name"] . "</td>";
-            $output .= "<td>" . $value["options"]["kategori"] . "</td>";
+            $output .= "<td>" . $this->cruder_m->where("barang", array("kode_barang" => $value["name"]), "nama_barang")->row()->nama_barang . "</td>";
+            $output .= "<td>" . $this->cruder_m->where("kategori", array("id_katagori" => $value["options"]["kategori"]), "nama_katagori")->row()->nama_katagori . "</td>";
             $output .= "<td>" . $value["qty"] . "</td>";
-            $output .= "<td>Baik</td>";
+            $output .= "<td>Baik</td>"; 
+            $output .= "<td>";
+            $output .= "<button type='button' value=".$value["rowid"]." id='editCartItem' onClick='editCartItems(`".$value["rowid"]."`)' class='btn btn-sm btn-warning mr-1'><i class='fa fa-pencil' aria-hidden='true'></i></button>";
+            $output .= "<button type='button' value=".$value["rowid"]." id='deleteCartItem' onClick='deleteCartItems(`".$value["rowid"]."`)' class='btn btn-sm btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+            $output .= "</td>";
             $output .= "</tr>";
         }
         return $output;
     }
-
+    
+    // add item to cart
     public function addCart()
     {
         $datas = array(
@@ -286,6 +293,20 @@ class Main extends CI_Controller
         echo $this->showCart();
     }
 
+    public function getCartItem()
+    {
+        $rowId = $this->uri->segment(3);
+        $jsons = json_encode($this->cart->get_item($rowId));
+        print_r($jsons);
+    }
+
+    public function delCart()
+    {
+        $rowId = $this->uri->segment(3);
+        $this->cart->remove($rowId);
+        echo $this->showCart();
+    }
+    // do pinjam barang func
     public function addPinjam()
     {
         $this->form_validation->set_rules("namatempattxt", "namatempattxt", "required", array('required' => 'Harap masukkan nama tempat peminjam'));
