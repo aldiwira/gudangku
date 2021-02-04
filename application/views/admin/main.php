@@ -53,7 +53,7 @@
         <!-- End Navbar -->
 
         <!-- Content -->
-        <div class="py-2">
+        <div class="overflow-auto p-2">
             <?= $content ?>
         </div>
         <!-- End of Content -->

@@ -8,8 +8,11 @@ class Cruder_model extends CI_Model
     {
         return $this->db->get($table);
     }
-    public function where($table, $filter)
+    public function where($table, $filter, $select = null)
     {
+        if ($select != null) {
+            $this->db->select($select);
+        }
         $this->db->where($filter);
         return $this->db->get($table);
     }

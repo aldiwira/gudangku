@@ -54,7 +54,6 @@
                             $("#detail_cart").html(data);
                             var stockAfter = parseInt(stock.value) - parseInt(jumlah_barang);
                             stock.setAttribute("value", stockAfter);
-
                         }
                     });
                 }
@@ -98,7 +97,7 @@
                     }
                 })
             });
-        }
+        }        
         // end script for pinjam barang
     });
     // end check document ready
@@ -172,6 +171,30 @@
                 }
             })
         }
+    }
+    
+    function deleteCartItems(rowId) {
+        var url = `<?php echo base_url("peminjaman/hapuscart"); ?>/${rowId}`;
+        $.ajax({
+            url: `<?php echo base_url("peminjaman/getcart"); ?>/${rowId}`,
+            method: "GET",
+            success: (data) => {
+                var datas = JSON.parse(data);
+                var stock = document.getElementById("disabledTextInput");
 
+                var stockAfter = parseInt(datas.qty) + parseInt(stock.value);
+                stock.setAttribute("value", stockAfter);
+            }
+        })
+        $.ajax({
+            url: url,
+            method: "DELETE",
+            success: (data) => {
+                $("#detail_cart").html(data);
+            },
+            error: (err) => {
+                toastr.error(err.statusText);
+            }
+        });
     }
 </script>

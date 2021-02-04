@@ -65,14 +65,15 @@
                                     <div class="card-body">
                                         <div class="table-responsive-xl">
                                             <table id="" class="table table-bordered">
-                                                <thead>
+                                                <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">No</th>
                                                         <th scope="col">Nama Barang</th>
                                                         <th scope="col">Kategori Barang</th>
-                                                        <th scope="col">Jumlah Barang</th>
+                                                        <th scope="col">Jumlah</th>
                                                         <th scope="col">Kondisi Barang</th>
                                                         <th scope="col">Aksi</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody id="detail_cart">
