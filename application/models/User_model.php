@@ -75,6 +75,17 @@ class User_model extends CI_Model
         echo $this->cruder->remove('pengguna', $id_check);
         return true;
     }
+
+    public function checkAdmin()
+    {
+        $userID = get_cookie('SID');
+        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
+        if ($check->isAdmin == "0") {
+            return $check;
+        } else {
+            return null;
+        }
+    }
 }
 
 /* End of file User.php */

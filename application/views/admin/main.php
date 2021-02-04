@@ -9,7 +9,7 @@
             <a href="<?= base_url() ?>tambah" class="list-group-item list-group-item-action <?php echo $segment == 'tambah' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-book" style="margin-right: 10px;" aria-hidden=" true"></i></i>Tambah Barang</a>
             <a href="<?= base_url() ?>peminjaman" class="list-group-item list-group-item-action <?php echo $segment == 'peminjaman' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-share" style="margin-right: 10px;" aria-hidden=" true"></i>Peminjaman Barang</a>
             <a href="<?= base_url() ?>pengembalian" class="list-group-item list-group-item-action <?php echo $segment == 'pengembalian' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-reply" style="margin-right: 10px;" aria-hidden=" true"></i>Pengembalian Barang</a>
-            <a class="list-group-item list-group-item-action dropdown <?php echo $segment == 'status' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>" data-toggle="collapse" href="#collapseBarang" role="button" aria-expanded="false" aria-controls="collapseBarang">
+            <a class="list-group-item list-group-item-action dropdown <?php echo $segment == 'status' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"  data-toggle="collapse" href="#collapseBarang" role="button" aria-expanded="false" aria-controls="collapseBarang">
                 <i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List<i class="dropdown-toggle float-right"></i>
             </a>
             <div class="collapse <?php echo $segment == 'status' ? "show" : "a"; ?>" id="collapseBarang">
@@ -17,7 +17,7 @@
                     <a href="<?= base_url() ?>status" class="list-group-item list-group-item-action <?php echo $segment == 'status' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List Barang</a>
                 </div>
             </div>
-            <a class="list-group-item list-group-item-action dropdown <?php echo $segment == 'user' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="list-group-item list-group-item-action dropdown <?php echo $segment == 'user' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>" <?php echo $users_check == '1' ? "hidden" : ""; ?> data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i>User<i class="dropdown-toggle float-right"></i>
             </a>
             <div class="collapse <?php echo $segment == 'user' ? "show" : "a"; ?>" id="collapseExample">
@@ -33,10 +33,10 @@
     <div id="page-content-wrapper">
         <!-- Navbar -->
         <nav class="navbar navbar-dark bg-sidebar border-bottom">
-                <button class="btn btn-white navbar-brand" id="menu-toggle">
-                    <i class="fa fa-bars" style="margin-right: 10px;"></i>
-                    Menu
-                </button>
+            <button class="btn btn-white navbar-brand" id="menu-toggle">
+                <i class="fa fa-bars" style="margin-right: 10px;"></i>
+                Menu
+            </button>
             <div class="user navbar-toggler">
                 <div class="dropdown">
                     <a class="btn btn-white dropdown-toggle text-light" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
