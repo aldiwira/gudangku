@@ -271,7 +271,6 @@ class Main extends CI_Controller
             $output .= "<td>" . $value["qty"] . "</td>";
             $output .= "<td>Baik</td>"; 
             $output .= "<td>";
-            $output .= "<button type='button' value=".$value["rowid"]." id='editCartItem' onClick='editCartItems(`".$value["rowid"]."`)' class='btn btn-sm btn-warning mr-1'><i class='fa fa-pencil' aria-hidden='true'></i></button>";
             $output .= "<button type='button' value=".$value["rowid"]." id='deleteCartItem' onClick='deleteCartItems(`".$value["rowid"]."`)' class='btn btn-sm btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>";
             $output .= "</td>";
             $output .= "</tr>";

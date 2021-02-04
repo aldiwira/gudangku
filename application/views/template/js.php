@@ -172,10 +172,7 @@
             })
         }
     }
-
-    function editCartItems(rowId) {
-        alert("soon");
-    }
+    
     function deleteCartItems(rowId) {
         var url = `<?php echo base_url("peminjaman/hapuscart"); ?>/${rowId}`;
         $.ajax({
