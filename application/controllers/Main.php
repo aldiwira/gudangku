@@ -402,9 +402,9 @@ class Main extends CI_Controller
         $status = json_encode($asdsa);
         if ($status) {
             $this->session->set_flashdata('toast', 'success:Berhasil Mengembalikan barang');
-            print_r(true);
+            print_r(json_encode(true));
         } else {
-            print_r(false);
+            print_r(json_encode(false));
         }
     }
     // end fun pengembalian
