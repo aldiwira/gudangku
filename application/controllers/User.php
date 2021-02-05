@@ -17,7 +17,7 @@ class User extends CI_Controller
 
 
         // Check cookies session
-        if (get_cookie('SID')) {
+        if ($this->user_m->checkAccount()) {
             redirect('/admin');
         }
     }
