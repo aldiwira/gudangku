@@ -20,7 +20,7 @@ class Main extends CI_Controller
         $this->load->model('Log_model', 'log_m');
 
         // Check cookies session
-        if (!get_cookie('SID')) {
+        if (!$this->user_m->checkAccount()) {
             redirect('/');
         }
     }
@@ -28,15 +28,12 @@ class Main extends CI_Controller
     /// end main function
     public function Admin()
     {
-        $userID = get_cookie('SID');
-        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
-
         $data_sec = $this->log_m->getAllCountItems();
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/dashboard', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $check->isAdmin == "0";
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data["title"] = "Admin Dashboard";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -44,10 +41,7 @@ class Main extends CI_Controller
     }
 
     public function Peminjaman()
-    {
-        $userID = get_cookie('SID');
-        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
-        
+    {        
         $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data peminjaman admin
@@ -55,7 +49,7 @@ class Main extends CI_Controller
         $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['content'] = $this->load->view('admin/peminjaman_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $check->isAdmin == "0";
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Peminjaman Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -64,8 +58,6 @@ class Main extends CI_Controller
 
     public function Pengembalian()
     {
-        $userID = get_cookie('SID');
-        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
 
         $data_sec["semuaPinjaman"] = $this->admin_m->getPinjaman();
 
@@ -73,7 +65,7 @@ class Main extends CI_Controller
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/pengembalian_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $check->isAdmin == "0";
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Pengembalian Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -82,9 +74,6 @@ class Main extends CI_Controller
 
     public function Tambah()
     {
-        $userID = get_cookie('SID');
-        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
-
         $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data tambah barang admin
@@ -92,7 +81,7 @@ class Main extends CI_Controller
         $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['content'] = $this->load->view('admin/tambah_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $check->isAdmin == "0";
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Tambah Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -101,9 +90,6 @@ class Main extends CI_Controller
 
     public function Status()
     {
-        $userID = get_cookie('SID');
-        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
-
         $data_sec['availableItems'] = $this->cruder->where("barang", array("status_barang" => "ada"))->result();
         $data_sec['outItems'] = $this->cruder->where("barang", array("status_barang" => "keluar"))->result();
 
@@ -111,7 +97,7 @@ class Main extends CI_Controller
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/status_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $check->isAdmin == "0";
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Status Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -120,21 +106,23 @@ class Main extends CI_Controller
 
     public function User()
     {
-        $userID = get_cookie('SID');
-        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
-
+        if (!$this->user_m->checkAdmin()) {
+            redirect("/");
+        }
         $data_sec['users'] = $this->user_m->getUsers();
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $check->isAdmin == "0";
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         $data_main['content'] = $this->load->view('admin/register', $data_sec, true);
         // Main
         $data["title"] = "Manajemen User";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
+
+
     /// end main function
     /// Form Handler
     /// start Form Handler

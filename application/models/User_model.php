@@ -48,6 +48,17 @@ class User_model extends CI_Model
         return true;
     }
 
+    public function checkAccount()
+    {
+        $userID =  get_cookie('SID');
+        $userDatas = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
+        if ($userID && $userDatas != null)  {            
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public function getUserDatas()
     {
         $userID =  get_cookie('SID');
@@ -80,10 +91,10 @@ class User_model extends CI_Model
     {
         $userID = get_cookie('SID');
         $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
-        if ($check->isAdmin == "0") {
-            return $check;
+        if ($check->isAdmin == 1) {
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 }
