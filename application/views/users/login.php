@@ -1,3 +1,10 @@
+<style>
+    @media screen and (max-width: 768px) {
+        #bg-img {
+            visibility: hidden;
+        }
+    }
+</style>
 <div class="d-flex flex-row position-absolute h-100 w-100">
     <div class="d-flex flex-column align-items-start justify-content-center p-5 w-35 h-100">
         <!-- Left content here -->
@@ -21,8 +28,8 @@
             </form>
         </div>
     </div>
-    <div class="left-wrapper bg-main d-flex w-65">
+    <div class="left-wrapper bg-main d-flex w-65" id="bg-img">
         <!-- Left content here -->
-
+        <img src="<?php base_url() ?>assets/image/register.png" class="w-100" alt="">
     </div>
 </div>

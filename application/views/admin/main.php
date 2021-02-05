@@ -30,7 +30,7 @@
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
-    <div id="page-content-wrapper">
+    <div id="page-content-wrapper" class="bg-light">
         <!-- Navbar -->
         <nav class="navbar navbar-dark bg-sidebar border-bottom">
             <button class="btn btn-white navbar-brand" id="menu-toggle">
