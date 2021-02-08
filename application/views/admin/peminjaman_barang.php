@@ -47,12 +47,10 @@
                                                 <input type="text" id="disabledTextInput" class="form-control avaiableStock" placeholder="Disabled input">
                                             </div>
                                         </fieldset>
-                                        <fieldset id="jumlahDisable" disabled>
-                                            <div class="form-group">
-                                                <label for="jumlahbarangId">Jumlah Barang</label>
-                                                <input name="jmlbrginput" type="number" class="form-control" id="jumlahbarangId" placeholder="Jumlah Barang">
-                                            </div>
-                                        </fieldset>
+                                        <div class="form-group">
+                                            <label for="jumlahbarangId">Jumlah Barang</label>
+                                            <input name="jmlbrginput" type="number" class="form-control" id="jumlahbarangId" placeholder="Jumlah Barang">
+                                        </div>
                                         <button type="button" id="tambahBarangBtn" class="btn btn-primary float-right" name="inputbrg"><i class="fa fa-keyboard" style="margin-right: 10px;" aria-hidden="true"></i>Input Barang</button>
                                     </form>
                                 </div>
@@ -67,14 +65,15 @@
                                     <div class="card-body">
                                         <div class="table-responsive-xl">
                                             <table id="" class="table table-bordered">
-                                                <thead>
+                                                <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col">No</th>
                                                         <th scope="col">Nama Barang</th>
                                                         <th scope="col">Kategori Barang</th>
-                                                        <th scope="col">Jumlah Barang</th>
+                                                        <th scope="col">Jumlah</th>
                                                         <th scope="col">Kondisi Barang</th>
                                                         <th scope="col">Aksi</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody id="detail_cart">

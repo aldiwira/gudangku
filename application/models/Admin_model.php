@@ -189,37 +189,40 @@ class Admin_model extends CI_Model
         );
         $checkBarangNormal = $this->cruder->where("barang", $filter)->row();
 
-        if ($status === "normal") {
-            $newData = array(
-                "kode_barang" => $idBaru,
-                "id_katagori" => $filter["id_katagori"],
-                "nama_barang" => $data["nama_barang"],
-                "jumlah_barang" => $data["jumlah_normal"],
-                "kondisi_barang" => "normal"
-            );
-            $update = array(
-                "jumlah_barang" => (int)$checkBarangNormal->jumlah_barang + (int)$data["jumlah_normal"],
-                "updatedAt" => getDateNow()
-            );
-        } else if ($status === "rusak") {
-            $newData = array(
-                "kode_barang" => $idBaru,
-                "id_katagori" => $filter["id_katagori"],
-                "nama_barang" => $data["nama_barang"],
-                "jumlah_barang" => $data["jumlah_rusak"],
-                "kondisi_barang" => "rusak"
-            );
-            $update = array(
-                "jumlah_barang" => (int)$checkBarangNormal->jumlah_barang + (int)$data["jumlah_rusak"],
-                "updatedAt" => getDateNow()
-            );
-        }
 
         if ($checkBarangNormal == null) {
+            if ($status === "normal") {
+                $newData = array(
+                    "kode_barang" => $idBaru,
+                    "id_katagori" => $filter["id_katagori"],
+                    "nama_barang" => $data["nama_barang"],
+                    "jumlah_barang" => $data["jumlah_normal"],
+                    "kondisi_barang" => "normal"
+                );
+            } else if ($status === "rusak") {
+                $newData = array(
+                    "kode_barang" => $idBaru,
+                    "id_katagori" => $filter["id_katagori"],
+                    "nama_barang" => $data["nama_barang"],
+                    "jumlah_barang" => $data["jumlah_rusak"],
+                    "kondisi_barang" => "rusak"
+                );
+            }
             // // insert data
             $this->cruder->create("barang", $newData);
             return $idBaru;
         } else {
+            if ($status === "normal") {
+                $update = array(
+                    "jumlah_barang" => (int)$checkBarangNormal->jumlah_barang + (int)$data["jumlah_normal"],
+                    "updatedAt" => getDateNow()
+                );
+            } else if ($status === "rusak") {
+                $update = array(
+                    "jumlah_barang" => (int)$checkBarangNormal->jumlah_barang + (int)$data["jumlah_rusak"],
+                    "updatedAt" => getDateNow()
+                );
+            }
             $this->cruder->update("barang", $filter, $update);
             return $checkBarangNormal->kode_barang;
         }

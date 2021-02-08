@@ -63,11 +63,15 @@ $route['status'] = "Main/Status";
 
 // form handling
 $route['tambah/katagori'] = "Main/Katagori";
-$route['tambah/barang'] = "Main/Barang";
+$route['tambah/barang'] = "Main/addBarang";
 $route['user/register'] = "Main/Register";
+$route['user/update/(:any)'] = "Main/updateUser";
+$route['user/delete/(:any)'] = "Main/deleteUser";
 $route['(:any)/changepassword'] = "Main/ChangePassword";
 $route['peminjaman/pinjam'] = "Main/addPinjam";
 $route['peminjaman/tambah'] = "Main/addCart";
+$route['peminjaman/getcart/(:any)'] = "Main/getCartItem";
+$route['peminjaman/hapuscart/(:any)'] = "Main/delCart";
 $route['peminjaman/check/kategori/(:any)'] = "Handling/check";
 $route['peminjaman/check/stok/(:any)'] = "Handling/check";
 $route['pengembalian/tampilkan/(:any)'] = "Main/showkembaliBarang";

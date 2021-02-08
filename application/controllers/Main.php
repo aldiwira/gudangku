@@ -14,21 +14,26 @@ class Main extends CI_Controller
         $this->load->library('cart');
 
         $this->load->helper('cookie');
+        $this->load->model('Cruder_model', 'cruder_m');
         $this->load->model('User_model', 'user_m');
         $this->load->model('Admin_model', 'admin_m');
+        $this->load->model('Log_model', 'log_m');
 
         // Check cookies session
-        if (!get_cookie('SID')) {
+        if (!$this->user_m->checkAccount()) {
             redirect('/');
         }
     }
 
+    /// end main function
     public function Admin()
     {
+        $data_sec = $this->log_m->getAllCountItems();
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
-        $data_main['content'] = $this->load->view('admin/dashboard', '', true);
+        $data_main['content'] = $this->load->view('admin/dashboard', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data["title"] = "Admin Dashboard";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -36,8 +41,7 @@ class Main extends CI_Controller
     }
 
     public function Peminjaman()
-    {
-
+    {        
         $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data peminjaman admin
@@ -45,6 +49,7 @@ class Main extends CI_Controller
         $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['content'] = $this->load->view('admin/peminjaman_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Peminjaman Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -53,12 +58,14 @@ class Main extends CI_Controller
 
     public function Pengembalian()
     {
+
         $data_sec["semuaPinjaman"] = $this->admin_m->getPinjaman();
 
         // Data pengembalian admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/pengembalian_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Pengembalian Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -74,6 +81,7 @@ class Main extends CI_Controller
         $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['content'] = $this->load->view('admin/tambah_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Tambah Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -82,11 +90,14 @@ class Main extends CI_Controller
 
     public function Status()
     {
-        $data_sec['barangDatas'] = $this->admin_m->getBarang();
+        $data_sec['availableItems'] = $this->cruder->where("barang", array("status_barang" => "ada"))->result();
+        $data_sec['outItems'] = $this->cruder->where("barang", array("status_barang" => "keluar"))->result();
+
         // Data status barang admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/status_barang', $data_sec, true);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Status Barang";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -95,17 +106,24 @@ class Main extends CI_Controller
 
     public function User()
     {
+        if (!$this->user_m->checkAdmin()) {
+            redirect("/");
+        }
         $data_sec['users'] = $this->user_m->getUsers();
         // Data dashboard admin
         $data_main['segment'] = $this->uri->segment(1);
         $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
+        $data_main['users_check'] = $this->user_m->checkAdmin();
         $data_main['content'] = $this->load->view('admin/register', $data_sec, true);
         // Main
-        $data["title"] = "Admin Dashboard";
+        $data["title"] = "Manajemen User";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
         $this->load->view('template/main', $data);
     }
+
+
+    /// end main function
     /// Form Handler
     /// start Form Handler
 
@@ -134,7 +152,7 @@ class Main extends CI_Controller
     }
 
     // add barang function
-    public function Barang()
+    public function addBarang()
     {
         $this->form_validation->set_rules('namabarangtxt', 'namabarangtxt', 'required');
         $this->form_validation->set_rules('jumlahbarangtxt', 'jumlahbarangtxt', 'required');
@@ -151,6 +169,7 @@ class Main extends CI_Controller
         }
     }
 
+    // User Function
     public function Register()
     {
         $this->form_validation->set_rules('usernameInput', 'usernameInput', 'required', array('required' => 'Harap isi username terlebih dahulu'));
@@ -164,6 +183,39 @@ class Main extends CI_Controller
             }
         }
     }
+
+    public function updateUser()
+    {
+        $userID = get_cookie('SID');
+        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
+        if ($check->isAdmin == "0") {
+            // print_r($check);die;
+            $this->session->set_flashdata('toast', 'error:Aksi hanya dapat dilakukan oleh admin');
+            redirect('user');
+        } else {
+            $id = $this->uri->segment(3);
+            $data = $this->user_m->updateUserById($id);
+            $this->session->set_flashdata('toast', 'success:Berhasil menjadikan admin');
+            redirect('user', $data);
+        }
+    }
+
+    public function deleteUser()
+    {
+        $userID = get_cookie('SID');
+        $check = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
+        if ($check->isAdmin == "0") {
+            $this->session->set_flashdata('toast', 'error:Aksi hanya dapat dilakukan oleh admin');
+            redirect('user');
+        } else {
+            $id = $this->uri->segment(3);
+            $data = $this->user_m->deleteUserById($id);
+            $this->session->set_flashdata('toast', 'success:Berhasil menghapus user');
+            redirect('user', $data);
+        }
+    }
+
+    // End User Function
 
     // handling page by uri page
     private function handlingPage()
@@ -221,18 +273,23 @@ class Main extends CI_Controller
         $output = '';
         $count = 0;
         foreach ($this->cart->contents() as $key => $value) {
+            
             $count++;
             $output .= "<tr>";
             $output .= "<td>" . $count . "</td>";
-            $output .= "<td>" . $value["name"] . "</td>";
-            $output .= "<td>" . $value["options"]["kategori"] . "</td>";
+            $output .= "<td>" . $this->cruder_m->where("barang", array("kode_barang" => $value["name"]), "nama_barang")->row()->nama_barang . "</td>";
+            $output .= "<td>" . $this->cruder_m->where("kategori", array("id_katagori" => $value["options"]["kategori"]), "nama_katagori")->row()->nama_katagori . "</td>";
             $output .= "<td>" . $value["qty"] . "</td>";
-            $output .= "<td>Baik</td>";
+            $output .= "<td>Baik</td>"; 
+            $output .= "<td>";
+            $output .= "<button type='button' value=".$value["rowid"]." id='deleteCartItem' onClick='deleteCartItems(`".$value["rowid"]."`)' class='btn btn-sm btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+            $output .= "</td>";
             $output .= "</tr>";
         }
         return $output;
     }
-
+    
+    // add item to cart
     public function addCart()
     {
         $datas = array(
@@ -246,6 +303,20 @@ class Main extends CI_Controller
         echo $this->showCart();
     }
 
+    public function getCartItem()
+    {
+        $rowId = $this->uri->segment(3);
+        $jsons = json_encode($this->cart->get_item($rowId));
+        print_r($jsons);
+    }
+
+    public function delCart()
+    {
+        $rowId = $this->uri->segment(3);
+        $this->cart->remove($rowId);
+        echo $this->showCart();
+    }
+    // do pinjam barang func
     public function addPinjam()
     {
         $this->form_validation->set_rules("namatempattxt", "namatempattxt", "required", array('required' => 'Harap masukkan nama tempat peminjam'));
@@ -319,9 +390,9 @@ class Main extends CI_Controller
         $status = json_encode($asdsa);
         if ($status) {
             $this->session->set_flashdata('toast', 'success:Berhasil Mengembalikan barang');
-            print_r(true);
+            print_r(json_encode(true));
         } else {
-            print_r(false);
+            print_r(json_encode(false));
         }
     }
     // end fun pengembalian

@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 -- Database: `gudang_ns`
 --
 
+CREATE DATABASE IF NOT EXISTS gudang_ns;
+
 -- --------------------------------------------------------
 
 --

@@ -12,18 +12,41 @@ class Log_model extends CI_Model
         parent::__construct();
         //Do your magic here
     }
-
-    public function countBarang($select = null, $where = null, $group = null, $sum = null)
+    // for count items at dashboard
+    public function getAllCountItems()
     {
-        $this->db->select($select);
-        // sum anything
+        $json = [];
+        $type = ['baru', 'normal', 'rusak', 'ada', 'keluar'];
+
+        foreach ($type as $key => $value) {
+            if ($value == 'baru' || $value == 'normal' || $value == 'rusak') {
+                $where = array("status_barang" => "ada", "kondisi_barang" => $value);
+                $sum = "jumlah_barang";
+                $group = "kondisi_barang";
+            } else if ($value == 'ada' || $value == 'keluar') {
+                $where = array("status_barang" => $value);
+                $sum = "jumlah_barang";
+                $group = "kondisi_barang";
+            }
+            $query = $this->getCountItems($where, $sum, $group);
+            if ($query != null) {
+                $res = (int) $query->jumlah_barang;
+            } else {
+                $res = (int) "0";
+            }
+            $json[$value] = $res;
+        }
+        return $json;
+    }
+
+    private function getCountItems($where, $sum, $group)
+    {
         $this->db->select_sum($sum);
-        // group by kondisi_barang or status_barang
-        $this->db->group_by($group);
-        // where status_barang, kondisi_barang
         $this->db->where($where);
+        $this->db->group_by($group);
         $this->db->from("barang");
-        return $this->db->get()->row();
+        $datas = $this->db->get()->row();
+        return $datas;
     }
 }
 

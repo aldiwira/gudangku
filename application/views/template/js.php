@@ -1,5 +1,7 @@
 <script type='text/javascript'>
     toastr.options.closeButton = true;
+
+    // start check document ready
     $(document).ready(() => {
         $('#changePassword').on('hidden.bs.modal', function(e) {
             <?php session_destroy() ?>
@@ -52,7 +54,6 @@
                             $("#detail_cart").html(data);
                             var stockAfter = parseInt(stock.value) - parseInt(jumlah_barang);
                             stock.setAttribute("value", stockAfter);
-
                         }
                     });
                 }
@@ -99,6 +100,7 @@
         }
         // end script for pinjam barang
     });
+    // end check document ready
 
     function onModalBarang(idDetail) {
         var url = `<?php echo base_url("pengembalian/tampilkan"); ?>/${idDetail}`;
@@ -157,7 +159,7 @@
                 success: (data) => {
                     //hide modal when success
                     let status = JSON.parse(data);
-                    if (status) {
+                    if (status === true || status === 1) {
                         $("#pinjamModal").modal("hide");
                         setTimeout(() => {
                             location.reload();
@@ -169,6 +171,30 @@
                 }
             })
         }
+    }
 
+    function deleteCartItems(rowId) {
+        var url = `<?php echo base_url("peminjaman/hapuscart"); ?>/${rowId}`;
+        $.ajax({
+            url: `<?php echo base_url("peminjaman/getcart"); ?>/${rowId}`,
+            method: "GET",
+            success: (data) => {
+                var datas = JSON.parse(data);
+                var stock = document.getElementById("disabledTextInput");
+
+                var stockAfter = parseInt(datas.qty) + parseInt(stock.value);
+                stock.setAttribute("value", stockAfter);
+            }
+        })
+        $.ajax({
+            url: url,
+            method: "DELETE",
+            success: (data) => {
+                $("#detail_cart").html(data);
+            },
+            error: (err) => {
+                toastr.error(err.statusText);
+            }
+        });
     }
 </script>

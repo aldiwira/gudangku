@@ -16,23 +16,27 @@
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
                     <table id="listBarang" class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">No ID</th>
-                                <th scope="col">Nama Barang</th>
-                                <th scope="col">Jumlah Barang</th>
-                                <th scope="col">Kondisi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($barangDatas as $key => $value) { ?>
-                                <tr>
-                                    <th scope="row"><?= $key + 1 ?></th>
-                                    <td><?= $value->nama_barang ?></td>
-                                    <td><?= $value->jumlah_barang ?></td>
-                                    <td><?= $value->kondisi_barang ?></td>
-                                </tr>
-                            <?php } ?>
+                            <?php if ($availableItems != null) {?>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No ID</th>
+                                        <th scope="col">Nama Barang</th>
+                                        <th scope="col">Jumlah Barang</th>
+                                        <th scope="col">Kondisi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($availableItems as $key => $value) {?>
+                                    <tr>
+                                        <th scope="row"><?= $key + 1 ?></th>
+                                        <td><?= $value->nama_barang ?></td>
+                                        <td><?= $value->jumlah_barang ?></td>
+                                        <td><?= $value->kondisi_barang ?></td>
+                                    </tr>
+                                <?php } 
+                            } else{
+                                echo "<div class='text-center'><h5 class='font-weight-bold'>Daftar barang keluar masih kosong</h5></div>";
+                            } ?>
                         </tbody>
                     </table>
                 </div>
@@ -46,9 +50,32 @@
                     </button>
                 </h2>
             </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <table id="listBarang" class="table table-striped table-bordered">
+                            <?php if ($outItems != null) {?>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No ID</th>
+                                        <th scope="col">Nama Barang</th>
+                                        <th scope="col">Jumlah Barang</th>
+                                        <th scope="col">Kondisi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($outItems as $key => $value) {?>
+                                    <tr>
+                                        <th scope="row"><?= $key + 1 ?></th>
+                                        <td><?= $value->nama_barang ?></td>
+                                        <td><?= $value->jumlah_barang ?></td>
+                                        <td><?= $value->kondisi_barang ?></td>
+                                    </tr>
+                                <?php } 
+                            } else{
+                                echo "<div class='text-center'><h5 class='font-weight-bold'>Daftar barang keluar masih kosong</h5></div>";
+                            } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -41,42 +41,39 @@
                         <div class="card-header"><i class="fa fa-table" style="margin-right: 10px;" aria-hidden="true"></i>
                             Data User
                         </div>
-                        <form action="" method="post">
-                            <div class="card-body">
-                                <div class="table-responsive-xl">
-                                    <table id="" class="table table-bordered">
-                                        <thead>
+                        <div class="card-body">
+                            <div class="table-responsive-xl">
+                                <table id="" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Admin/User</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($users as $key => $value) { ?>
                                             <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Username</th>
-                                                <th scope="col">Admin/User</th>
-                                                <th scope="col">Aksi</th>
+                                                <th scope="row"><?= $key + 1 ?></th>
+                                                <td><?= $value->username ?></td>
+                                                <?php if ($value->isAdmin == 1) {
+                                                    echo "<td>Admin</td>";
+                                                } else {
+                                                    echo "<td>User</td>";
+                                                } ?>
+                                                <td>
+                                                    <?php if ($value->isAdmin == 0) { ?>
+                                                        <a href="user/update/<?= $value->id_pengguna ?>" class="btn btn-primary"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Angkat jadi Admin</a>
+                                                    <?php } ?>
+                                                    <a href="user/delete/<?= $value->id_pengguna ?>" class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</a>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($users as $key => $value) { ?>
-                                                <tr>
-                                                    <th scope="row"><?= $key + 1 ?></th>
-                                                    <td><?= $value->username ?></td>
-                                                    <?php if ($value->isAdmin == 1) {
-                                                        echo "<td>Admin</td>";
-                                                    } else {
-                                                        echo "<td>User</td>";
-                                                    } ?>
-                                                    <td>
-                                                        <?php if ($value->isAdmin == 0) { ?>
-                                                            <button class="btn btn-primary"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Angkat jadi Admin</button>
-                                                        <?php } ?>
-                                                        <button class="btn btn-warning"><i class="fa fa-pencil" style="margin-right: 10px;" aria-hidden="true"></i>Edit</button>
-                                                        <button class="btn btn-danger"><i class="fa fa-trash" style="margin-right: 10px;" aria-hidden="true"></i>Hapus</button>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
