@@ -10,9 +10,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="peminjaman-barang-list" data-toggle="list" href="#peminjaman-barang" role="tab" aria-controls="home">Peminjaman Barang</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item hidden">
                     <a class="nav-link" id="edit-peminjaman-list" data-toggle="list" href="#edit-peminjaman" role="tab" aria-controls="profile">Booking Barang</a>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div class="card-body">
@@ -73,7 +73,6 @@
                                                         <th scope="col">Jumlah</th>
                                                         <th scope="col">Kondisi Barang</th>
                                                         <th scope="col">Aksi</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody id="detail_cart">

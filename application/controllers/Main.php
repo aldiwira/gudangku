@@ -25,19 +25,28 @@ class Main extends CI_Controller
         }
     }
 
-    /// end main function
+    /// start main function
+
+    private function mainView($data, $data_main)
+    {
+        // add data main help
+        $data_main['userDatas'] = $this->user_m->getUserDatas();
+        $data_main['users_check'] = $this->user_m->checkAdmin();
+        $data_main['segment'] = $this->uri->segment(1);
+        $data_main['stat_segment'] = $this->uri->segment(2);
+        // call main view
+        $data['content'] = $this->load->view('admin/main', $data_main, true);
+        $this->load->view('template/main', $data);
+    }
+
     public function admin()
     {
         $data_sec = $this->log_m->getAllCountItems();
-        // Data dashboard admin
-        $data_main['segment'] = $this->uri->segment(1);
+        // Data dashboard admin        
         $data_main['content'] = $this->load->view('admin/dashboard', $data_sec, true);
-        $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data["title"] = "Admin Dashboard";
-        $data['content'] = $this->load->view('admin/main', $data_main, true);
-        $this->load->view('template/main', $data);
+        $this->mainView($data, $data_main);
     }
 
     public function peminjaman()
@@ -45,31 +54,21 @@ class Main extends CI_Controller
         $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data peminjaman admin
-        $data_main['segment'] = $this->uri->segment(1);
-        $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['content'] = $this->load->view('admin/peminjaman_barang', $data_sec, true);
-        $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Peminjaman Barang";
-        $data['content'] = $this->load->view('admin/main', $data_main, true);
-        $this->load->view('template/main', $data);
+        $this->mainView($data, $data_main);
     }
 
     public function pengembalian()
     {
 
         $data_sec["semuaPinjaman"] = $this->admin_m->getPinjaman();
-
         // Data pengembalian admin
-        $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/pengembalian_barang', $data_sec, true);
-        $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Pengembalian Barang";
-        $data['content'] = $this->load->view('admin/main', $data_main, true);
-        $this->load->view('template/main', $data);
+        $this->mainView($data, $data_main);
     }
 
     public function tambah()
@@ -77,15 +76,10 @@ class Main extends CI_Controller
         $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data tambah barang admin
-        $data_main['segment'] = $this->uri->segment(1);
-        $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['content'] = $this->load->view('admin/tambah_barang', $data_sec, true);
-        $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Tambah Barang";
-        $data['content'] = $this->load->view('admin/main', $data_main, true);
-        $this->load->view('template/main', $data);
+        $this->mainView($data, $data_main);
     }
 
     public function status()
@@ -94,14 +88,10 @@ class Main extends CI_Controller
         $data_sec['outItems'] = $this->cruder->where("barang", array("status_barang" => "keluar"))->result();
 
         // Data status barang admin
-        $data_main['segment'] = $this->uri->segment(1);
         $data_main['content'] = $this->load->view('admin/status_barang', $data_sec, true);
-        $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $this->user_m->checkAdmin();
         // Main
         $data['title'] = "Status Barang";
-        $data['content'] = $this->load->view('admin/main', $data_main, true);
-        $this->load->view('template/main', $data);
+        $this->mainView($data, $data_main);
     }
 
     public function user()
@@ -111,17 +101,20 @@ class Main extends CI_Controller
         }
         $data_sec['users'] = $this->user_m->getUsers();
         // Data dashboard admin
-        $data_main['segment'] = $this->uri->segment(1);
-        $data_main['stat_segment'] = $this->uri->segment(2);
-        $data_main['userDatas'] = $this->user_m->getUserDatas();
-        $data_main['users_check'] = $this->user_m->checkAdmin();
         $data_main['content'] = $this->load->view('admin/register', $data_sec, true);
         // Main
         $data["title"] = "Manajemen User";
-        $data['content'] = $this->load->view('admin/main', $data_main, true);
-        $this->load->view('template/main', $data);
+        $this->mainView($data, $data_main);
     }
 
+    public function riwayat()
+    {
+        $data_sec['logDatas'] = $this->log_m->getLog();
+        $data_main['content'] = $this->load->view('admin/log', $data_sec, true);
+        // Main
+        $data["title"] = "Riwayat";
+        $this->mainView($data, $data_main);
+    }
 
     /// end main function
     /// Form Handler
@@ -344,8 +337,6 @@ class Main extends CI_Controller
         }
     }
     // end fun pengembalian
-
-    /// start Form Handler
 }
     
     /* End of file Main.php */

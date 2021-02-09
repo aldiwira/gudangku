@@ -60,6 +60,7 @@ $route['peminjaman'] = "Main/peminjaman";
 $route['pengembalian'] = "Main/pengembalian";
 $route['tambah'] = "Main/tambah";
 $route['status'] = "Main/status";
+$route['log'] = "Main/riwayat";
 
 // form handling
 $route['tambah/katagori'] = "Main/katagori";

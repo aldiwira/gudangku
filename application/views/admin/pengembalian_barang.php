@@ -15,12 +15,11 @@
                         <table id="listkembaliBarang" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">No Id</th>
-                                    <th scope="col">Nama Tempat</th>
-                                    <th scope="col">Nama Peminjam</th>
-                                    <th scope="col">Petugas</th>
-                                    <th scope="col">Tanggal Kembali</th>
-                                    <th scope="col">Aksi</th>
+                                    <?php
+                                    $colTop = array("No", "Nama Tempat", "Nama Peminjam", "Petugas", "Tanggal Kembali", "Aksi");
+                                    foreach ($colTop as $key => $value) { ?>
+                                        <th scope="col"><?= $value ?></th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody id="tableBarangPinjam">

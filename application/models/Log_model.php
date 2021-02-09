@@ -11,7 +11,28 @@ class Log_model extends CI_Model
     {
         parent::__construct();
         //Do your magic here
+
+        $this->load->model('Cruder_model', 'cruder_m');
     }
+
+
+    // List all your items
+    public function getLog($offset = 0)
+    {
+        $this->db->select("riwayat.id_riwayat, riwayat.nama_riwayat, catatan.nama_catatan, catatan.penanggung, catatan.tipe_catatan, riwayat.createdAt, riwayat.updatedAt");
+        $this->db->from("riwayat");
+        $this->db->join("catatan", "catatan.id_catatan = riwayat.id_catatan");
+        $thisMonth = date("m", time());
+        $this->db->where('month(riwayat.createdAt)', $thisMonth);
+        return $this->db->get()->result();
+    }
+
+    // Add a new item
+    public function addLog($datas)
+    {
+        $this->cruder_m->create("riwayat", $datas);
+    }
+
     // for count items at dashboard
     public function getAllCountItems()
     {

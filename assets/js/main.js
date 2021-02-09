@@ -30,6 +30,9 @@ $(document).ready(function () {
 			"class",
 			"dataTables_filter float-right"
 		);
+	} else if (uri == "log") {
+		$("#listBarang").DataTable();
+		$("#listBarang_filter").attr("class", "dataTables_filter float-right");
 	}
 	// Listener collapse
 	var collapseKategori = document.getElementById("togglekatagori");
