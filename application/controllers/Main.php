@@ -26,7 +26,7 @@ class Main extends CI_Controller
     }
 
     /// end main function
-    public function Admin()
+    public function admin()
     {
         $data_sec = $this->log_m->getAllCountItems();
         // Data dashboard admin
@@ -40,8 +40,8 @@ class Main extends CI_Controller
         $this->load->view('template/main', $data);
     }
 
-    public function Peminjaman()
-    {        
+    public function peminjaman()
+    {
         $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
         // Data peminjaman admin
@@ -56,7 +56,7 @@ class Main extends CI_Controller
         $this->load->view('template/main', $data);
     }
 
-    public function Pengembalian()
+    public function pengembalian()
     {
 
         $data_sec["semuaPinjaman"] = $this->admin_m->getPinjaman();
@@ -72,7 +72,7 @@ class Main extends CI_Controller
         $this->load->view('template/main', $data);
     }
 
-    public function Tambah()
+    public function tambah()
     {
         $data_sec['kategoriDatas'] = $this->admin_m->getKategori();
         $data_sec['barangDatas'] = $this->admin_m->getBarang();
@@ -88,7 +88,7 @@ class Main extends CI_Controller
         $this->load->view('template/main', $data);
     }
 
-    public function Status()
+    public function status()
     {
         $data_sec['availableItems'] = $this->cruder->where("barang", array("status_barang" => "ada"))->result();
         $data_sec['outItems'] = $this->cruder->where("barang", array("status_barang" => "keluar"))->result();
@@ -104,7 +104,7 @@ class Main extends CI_Controller
         $this->load->view('template/main', $data);
     }
 
-    public function User()
+    public function user()
     {
         if (!$this->user_m->checkAdmin()) {
             redirect("/");
@@ -127,7 +127,7 @@ class Main extends CI_Controller
     /// Form Handler
     /// start Form Handler
 
-    public function Katagori()
+    public function katagori()
     {
         $this->form_validation->set_rules('katagoritxt', 'katagoritxt', 'required|callback_katagori_check', array('required' => 'Harap masukan katagori dengan benar'));
         if ($this->form_validation->run() == false) {
@@ -160,7 +160,7 @@ class Main extends CI_Controller
         $this->form_validation->set_rules('katagoribarang', 'katagoribarang', 'required');
 
         if ($this->form_validation->run() == false) {
-            $this->Tambah();
+            $this->tambah();
         } else {
             if ($this->admin_m->addBarang()) {
                 $this->session->set_flashdata('toast', 'success:Berhasil menambahkan barang baru');
@@ -209,19 +209,19 @@ class Main extends CI_Controller
     {
         $uri = $this->uri->segment(1);
         if ($uri == "tambah") {
-            $this->Tambah();
+            $this->tambah();
         } else if ($uri == "admin") {
-            $this->Admin();
+            $this->admin();
         } else if ($uri == "peminjaman") {
-            $this->Peminjaman();
+            $this->peminjaman();
         } else if ($uri == "pengembalian") {
-            $this->Pengembalian();
+            $this->pengembalian();
         } else if ($uri == "status") {
-            $this->Status();
+            $this->status();
         }
     }
     // start change password func
-    public function ChangePassword()
+    public function changePassword()
     {
         $this->form_validation->set_rules("oldpassword", "oldpassword", "required|callback_check_password", array('required' => 'Harap masukan password dengan benar'));
         $this->form_validation->set_rules("newpassword", "newpassword", "required", array('required' => 'Harap masukan password dengan benar'));
@@ -255,27 +255,6 @@ class Main extends CI_Controller
 
     // management items to tempt cart
 
-    private function showCart()
-    {
-        $output = '';
-        $count = 0;
-        foreach ($this->cart->contents() as $key => $value) {
-            
-            $count++;
-            $output .= "<tr>";
-            $output .= "<td>" . $count . "</td>";
-            $output .= "<td>" . $this->cruder_m->where("barang", array("kode_barang" => $value["name"]), "nama_barang")->row()->nama_barang . "</td>";
-            $output .= "<td>" . $this->cruder_m->where("kategori", array("id_katagori" => $value["options"]["kategori"]), "nama_katagori")->row()->nama_katagori . "</td>";
-            $output .= "<td>" . $value["qty"] . "</td>";
-            $output .= "<td>Baik</td>"; 
-            $output .= "<td>";
-            $output .= "<button type='button' value=".$value["rowid"]." id='deleteCartItem' onClick='deleteCartItems(`".$value["rowid"]."`)' class='btn btn-sm btn-danger'><i class='fa fa-trash' aria-hidden='true'></i></button>";
-            $output .= "</td>";
-            $output .= "</tr>";
-        }
-        return $output;
-    }
-    
     // add item to cart
     public function addCart()
     {
@@ -287,7 +266,7 @@ class Main extends CI_Controller
             'options' => array("kategori" => $this->input->post("katbrginput"))
         );
         $this->cart->insert($datas);
-        echo $this->showCart();
+        $this->load->view('components/Table_cart', '', FALSE);
     }
 
     public function getCartItem()
@@ -301,7 +280,7 @@ class Main extends CI_Controller
     {
         $rowId = $this->uri->segment(3);
         $this->cart->remove($rowId);
-        echo $this->showCart();
+        $this->load->view('components/Table_cart', '', FALSE);
     }
     // do pinjam barang func
     public function addPinjam()
@@ -313,7 +292,7 @@ class Main extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata("toast", "warn:Pastikan terdapat barang yang dimasukkan");
-            $this->Peminjaman();
+            $this->peminjaman();
         } else {
             if ($this->cart->contents() != null) {
                 $stat = $this->admin_m->addRecord();
@@ -329,44 +308,13 @@ class Main extends CI_Controller
 
     // start fun pengembalian
 
-    private function printTableBarang($data)
-    {
-        $output = '';
-        $output .= "<label value=" . $data->id_catatan . " id='kodecatatan'><strong>Kode Catatan</strong> : " . $data->id_catatan . "</label><br/>";
-        $output .= "<label> <strong>Nama Peminjam</strong> : " . $data->penanggung . "</label><br/>";
-        $output .= "<label><strong>Nama Tempat</strong> : " . $data->nama_catatan . "</label><p class='text-info'>Informasi : Pastikan untuk memasukkan jumlah barang normal dan rusak, harap mencentang terlebih dahulu</p><form action='' method='post'>";
-        $output .= "<div class='table-responsive-xl'><table id='dataPinjam' class='table table-bordered'><thead><tr>";
-        $rowAtas = array("Kode Barang", "Nama Barang", "Kategori Barang", 'Jumlah Barang', "Kondisi Barang Normal", "Kondisi Barang Rusak");
-        foreach ($rowAtas as $key => $value) {
-            $output .= "<th scope='col'>" . $value . "</th>";
-        }
-        $output .= "</tr></thead><tbody>";
-        $datasBarang = $this->admin_m->getBarangPinjam($data->id_catatan);
-        foreach ($datasBarang as $key => $value) {
-            $output .= "<tr>";
-            $output .= "<td>" . $value->kode_barang . "</td>";
-            $output .= "<td>" . $value->nama_barang . "</td>";
-            $output .= "<td>" . $value->nama_katagori . "</td>";
-            $output .= "<td>" . $value->jumlah . "</td>";
-            $output .= "<td><div class='input-group mb-3'><div class='input-group-prepend'><div class='input-group-text'>";
-            $output .= "<input type='checkbox' aria-label='Checkbox for following text input'>";
-            $output .= "</div></div><input type='number' id='valueNormal" . $key . "' class='form-control' placeholder='Jika ada centang terlebih dahulu' aria-label='Text input with checkbox'>";
-            $output .= "</div></td>";
-            $output .= "<td><div class='input-group mb-3'><div class='input-group-prepend'><div class='input-group-text'>";
-            $output .= "<input type='checkbox' aria-label='Checkbox for following text input'>";
-            $output .= "</div></div><input type='number' id='valueRusak" . $key . "' class='form-control' placeholder='Jika ada centang terlebih dahulu' aria-label='Text input with checkbox'>";
-            $output .= "</div></td>";
-            $output .= "</tr>";
-        }
-        $output .= "</tr></tbody></table></div></form>";
-        return $output;
-    }
-
     public function showKembaliBarang()
     {
         $idDetail = $this->uri->segment(3);
-        $dataPinjaman = $this->admin_m->getPinjaman($idDetail);
-        echo $this->printTableBarang($dataPinjaman);
+        $data["headRow"] = array("Nama Barang", "Kategori barang", 'Jumlah barang', "Kondisi barang yang normal", "Kondisi barang rusak");
+        $data["dataPinjaman"] = $this->admin_m->getPinjaman($idDetail);
+        $data["datas_barang"] = $this->admin_m->getBarangPinjam($data["dataPinjaman"]->id_catatan);
+        $this->load->view('components/Table_item', $data, FALSE);
     }
     public function kembaliBarang()
     {
