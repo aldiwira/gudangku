@@ -159,7 +159,7 @@
                 success: (data) => {
                     //hide modal when success
                     let status = JSON.parse(data);
-                    if (status === true || status === 1) {
+                    if (status === true) {
                         $("#pinjamModal").modal("hide");
                         setTimeout(() => {
                             location.reload();

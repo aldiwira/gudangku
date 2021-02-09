@@ -27,6 +27,7 @@
                     <?php
                     foreach ($datas_barang as $key => $value) { ?>
                         <tr>
+                            <td><?= $value->kode_barang ?></td>
                             <td><?= $value->nama_barang ?></td>
                             <td><?= $value->nama_katagori ?></td>
                             <td><?= $value->jumlah ?></td>
@@ -37,7 +38,7 @@
                                             <input type='checkbox' aria-label='Checkbox for following text input'>
                                         </div>
                                     </div>
-                                    <input type='number' id='valueNormal" . $key . "' class='form-control' placeholder='Jika ada centang terlebih dahulu' aria-label='Text input with checkbox'>
+                                    <input type='number' id='valueNormal<?= $key ?>' class='form-control' placeholder='Jika ada centang terlebih dahulu' aria-label='Text input with checkbox'>
                                 </div>
                             </td>
                             <td>
@@ -47,7 +48,7 @@
                                             <input type='checkbox' aria-label='Checkbox for following text input'>
                                         </div>
                                     </div>
-                                    <input type='number' id='valueRusak" . $key . "' class='form-control' placeholder='Jika ada centang terlebih dahulu' aria-label='Text input with checkbox'>
+                                    <input type='number' id='valueRusak<?= $key ?>' class='form-control' placeholder='Jika ada centang terlebih dahulu' aria-label='Text input with checkbox'>
                                 </div>
                             </td>
                         </tr>
