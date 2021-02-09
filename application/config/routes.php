@@ -61,11 +61,10 @@ $route['pengembalian'] = "Main/pengembalian";
 $route['tambah'] = "Main/tambah";
 $route['status'] = "Main/status";
 $route['log'] = "Main/riwayat";
-
+$route['daftar'] = "User/Register";
 // form handling
 $route['tambah/katagori'] = "Main/katagori";
 $route['tambah/barang'] = "Main/addBarang";
-$route['user/register'] = "Main/register";
 $route['user/update/(:any)'] = "Main/updateUser";
 $route['user/delete/(:any)'] = "Main/deleteUser";
 $route['(:any)/changepassword'] = "Main/changePassword";
