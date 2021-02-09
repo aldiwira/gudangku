@@ -60,11 +60,11 @@ $route['peminjaman'] = "Main/Peminjaman";
 $route['pengembalian'] = "Main/Pengembalian";
 $route['tambah'] = "Main/Tambah";
 $route['status'] = "Main/Status";
+$route['daftar'] = "User/Register";
 
 // form handling
 $route['tambah/katagori'] = "Main/Katagori";
 $route['tambah/barang'] = "Main/addBarang";
-$route['user/register'] = "Main/Register";
 $route['user/update/(:any)'] = "Main/updateUser";
 $route['user/delete/(:any)'] = "Main/deleteUser";
 $route['(:any)/changepassword'] = "Main/ChangePassword";

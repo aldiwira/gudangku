@@ -115,7 +115,7 @@ class Main extends CI_Controller
         $data_main['stat_segment'] = $this->uri->segment(2);
         $data_main['userDatas'] = $this->user_m->getUserDatas();
         $data_main['users_check'] = $this->user_m->checkAdmin();
-        $data_main['content'] = $this->load->view('admin/register', $data_sec, true);
+        $data_main['content'] = $this->load->view('admin/user', $data_sec, true);
         // Main
         $data["title"] = "Manajemen User";
         $data['content'] = $this->load->view('admin/main', $data_main, true);
@@ -170,19 +170,6 @@ class Main extends CI_Controller
     }
 
     // User Function
-    public function Register()
-    {
-        $this->form_validation->set_rules('usernameInput', 'usernameInput', 'required', array('required' => 'Harap isi username terlebih dahulu'));
-        $this->form_validation->set_rules('passwordInput', 'passwordInput', 'required', array('required' => 'Harap isi password terlebih dahulu'));
-        if ($this->form_validation->run() == false) {
-            $this->User();
-        } else {
-            if ($this->user_m->addUser()) {
-                $this->session->set_flashdata('toast', 'success:Berhasil menambahkan user baru');
-                redirect('user');
-            }
-        }
-    }
 
     public function updateUser()
     {

@@ -11,6 +11,7 @@ class User_model extends CI_Model
         //Do your magic here
         $this->load->model('Cruder_model', 'cruder');
         $this->load->helper('Date_Helper');
+        $this->load->helper('Varrand');
     }
 
     private function getDateLocal()

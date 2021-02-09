@@ -22,7 +22,7 @@
             </a>
             <div class="collapse <?php echo $segment == 'user' ? "show" : "a"; ?>" id="collapseExample">
                 <div class="">
-                    <a href="<?= base_url() ?>user" class="list-group-item list-group-item-action <?php echo $segment == 'user' ? "bg-sidebar-active" : "bg-sidebar-item"; ?> "><i class="fa fa-plus" style="margin-right: 10px;" aria-hidden="true"></i>Tambah User</a>
+                    <a href="<?= base_url() ?>user" class="list-group-item list-group-item-action <?php echo $segment == 'user' ? "bg-sidebar-active" : "bg-sidebar-item"; ?> "><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List User</a>
                 </div>
             </div>
         </div>

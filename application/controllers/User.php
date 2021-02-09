@@ -67,6 +67,24 @@ class User extends CI_Controller
             return false;
         }
     }
+    public function Register()
+    {
+        $this->form_validation->set_rules('usernameInput', 'usernameInput', 'required', array('required' => 'Harap isi username terlebih dahulu'));
+        $this->form_validation->set_rules('passwordInput', 'passwordInput', 'required', array('required' => 'Harap isi password terlebih dahulu'));
+        $this->form_validation->set_rules('confpasswordInput', 'confpasswordInput', 'required|matches[passwordInput]', array('required' => 'Harap isi terlebih dahulu', 'matches' => 'Pastikan password yang anda masukan benar'));
+        if ($this->form_validation->run() == false) {
+            $data_main['content'] = $this->load->view('users/register', '', true);
+            // Main
+            $data["title"] = "Daftar Akun";
+            $data['content'] = $this->load->view('template/main', $data_main, true);
+            $this->load->view('template/main', $data);
+        } else {
+            if ($this->user_m->addUser()) {
+                $this->session->set_flashdata('toast', 'success:Berhasil menambahkan user baru');
+                redirect('/ ');
+            }
+        }
+    }
 }
 
 /* End of file User.php */
