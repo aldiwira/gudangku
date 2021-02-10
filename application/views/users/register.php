@@ -30,9 +30,7 @@
                 </div>
                 <button class="btn btn-primary my-4 btn-block"><i class="fas fa-user-plus" style="margin-right: 10px;"></i>Register</button>
             </form>
-
-            <p>Sudah mempunyai akun? log in sekarang!</p>
-            <a href="<?php base_url() ?>login" class="btn btn-success btn-block"><i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i>Login</a>
+            <p>Sudah punya akun? <a href="<?php base_url() ?>login"> <b> Masuk! </b></a></p>
         </div>
     </div>
     <div class="left-wrapper bg-main d-flex w-65" id="bg-img">

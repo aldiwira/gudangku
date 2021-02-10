@@ -27,8 +27,8 @@
                 <button type="submit" class="btn btn-primary my-4 btn-block"><i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i>Login</button>
             </form>
 
-            <p>Belum mempunyai akun? Daftar sekarang!</p>
-            <a href="<?php base_url() ?>daftar" class="btn btn-success btn-block"><i class="fas fa-user-plus" style="margin-right: 10px;"></i>Register</a>
+            <p>Belum punya akun? <a href="<?php base_url() ?>daftar"> <b> Daftar sekarang! </b></a></p>
+
         </div>
     </div>
     <div class="left-wrapper bg-main d-flex w-65" id="bg-img">
