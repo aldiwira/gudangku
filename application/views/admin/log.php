@@ -6,7 +6,7 @@
         <table id="listBarang" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <?php foreach (array("No", "Nama", "Peminjam", "Penanggung", "Tipe Barang") as $key => $value) { ?>
+                    <?php foreach (array("No", "Nama", "Peminjam", "Penanggung", "Tipe Barang", "Tanggal") as $key => $value) { ?>
                         <th scope="col"><?= $value ?></th>
                     <?php } ?>
                 </tr>
@@ -15,7 +15,7 @@
                 <?php foreach ($logDatas as $key => $value) { ?>
                     <tr>
                         <?php
-                        $dataTable = array($key + 1, $value->nama_riwayat, $value->nama_catatan, $value->penanggung, $value->tipe_catatan);
+                        $dataTable = array($key + 1, $value->nama_riwayat, $value->nama_catatan, $value->penanggung, $value->tipe_catatan, date("l, d m Y H:i:s", strtotime($value->createdAt)));
                         foreach ($dataTable as $key => $value) { ?>
                             <td scope="col"><?= $value ?></td>
                         <?php } ?>

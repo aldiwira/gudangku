@@ -9,7 +9,8 @@ class Admin_model extends CI_Model
     {
         parent::__construct();
         //Do your magic here
-        $this->load->model('Cruder_Model', 'cruder');
+        $this->load->model('Cruder_model', 'cruder');
+        $this->load->model('Log_model', 'log_m');
         $this->load->helper('Varrand');
         $this->load->library('cart');
     }
@@ -65,7 +66,6 @@ class Admin_model extends CI_Model
     public function addRecord()
     {
         $id_catatan = randomId(10);
-        $kode_barang_baru = randomId(10);
         // masukkan data pada catatan
         $catatan = array(
             "id_catatan" => $id_catatan,
@@ -141,6 +141,7 @@ class Admin_model extends CI_Model
                 $this->cruder->create("detail_catatan", $detail);
             }
         }
+        $this->log_m->addLog("keluar", $id_catatan);
         return true;
     }
 
@@ -154,8 +155,7 @@ class Admin_model extends CI_Model
         $this->db->join("barang", "barang.kode_barang = detail_catatan.id_barang");
         $this->db->join("pengguna", "pengguna.id_pengguna = catatan.id_pengguna");
         $this->db->where(array("tipe_catatan" => "keluar"));
-        if ($id != 0) {
-
+        if ($id !== 0) {
             $this->db->where(array("id_detail_catatan" => $id));
         }
         $this->db->from("catatan");
@@ -283,12 +283,10 @@ class Admin_model extends CI_Model
                 $this->updateBarangOdd($data);
                 $this->updateCatatan("both", $value, array("normal" => $one, "rusak" =>  $two), $data);
             } else if ($data["kondisi_barang_normal"] == "true") {
-
                 $idCatatan = $this->changeBarang("normal", $data);
                 $this->updateBarangOdd($data);
                 $this->updateCatatan("normal", $value, $idCatatan);
             } else if ($data["kondisi_barang_rusak"] == "true") {
-
                 $idCatatann = $this->changeBarang("rusak", $data);
                 $this->updateBarangOdd($data);
                 $this->updateCatatan("rusak", $value, $idCatatann);

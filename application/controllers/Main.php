@@ -304,7 +304,7 @@ class Main extends CI_Controller
     public function showKembaliBarang()
     {
         $idDetail = $this->uri->segment(3);
-        $data["headRow"] = array("Nama Barang", "Kategori barang", 'Jumlah barang', "Kondisi barang yang normal", "Kondisi barang rusak");
+        $data["headRow"] = array("kode_barang", "Nama Barang", "Kategori barang", 'Jumlah barang', "Kondisi barang normal", "Kondisi barang rusak");
         $data["dataPinjaman"] = $this->admin_m->getPinjaman($idDetail);
         $data["datas_barang"] = $this->admin_m->getBarangPinjam($data["dataPinjaman"]->id_catatan);
         $this->load->view('components/Table_item', $data, FALSE);
@@ -316,11 +316,12 @@ class Main extends CI_Controller
 
         $asdsa = $this->admin_m->doneBarangPinjam($idDetail, $datas);
         $status = json_encode($asdsa);
-        if ($status) {
+
+        if ($status === json_encode(true)) {
             $this->session->set_flashdata('toast', 'success:Berhasil Mengembalikan barang');
-            print_r(json_encode(true));
+            echo json_encode(true);
         } else {
-            print_r(json_encode(false));
+            echo json_encode(false);
         }
     }
     // end fun pengembalian

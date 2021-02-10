@@ -17,7 +17,7 @@ class Log_model extends CI_Model
 
 
     // List all your items
-    public function getLog($offset = 0)
+    public function getLog()
     {
         $this->db->select("riwayat.id_riwayat, riwayat.nama_riwayat, catatan.nama_catatan, catatan.penanggung, catatan.tipe_catatan, riwayat.createdAt, riwayat.updatedAt");
         $this->db->from("riwayat");
@@ -28,9 +28,27 @@ class Log_model extends CI_Model
     }
 
     // Add a new item
-    public function addLog($datas)
+    public function addLog($type, $id_catatan)
     {
-        $this->cruder_m->create("riwayat", $datas);
+        $kodeLog = randomId(10);
+        $checkCatatan = $this->cruder_m->where("catatan", array("id_catatan" => $id_catatan))->row();
+        if ($type == "masuk") {
+            $data = array(
+                "id_riwayat" => $kodeLog,
+                "nama_riwayat" => "Barang masuk dari " . $checkCatatan->penanggung,
+                "id_catatan" => $id_catatan,
+                "status" => "masuk"
+            );
+        } else if ($type == "keluar") {
+            $data = array(
+                "id_riwayat" => $kodeLog,
+                "nama_riwayat" => "Barang keluar ke " . $checkCatatan->penanggung,
+                "id_catatan" => $id_catatan,
+                "status" => "keluar"
+            );
+        }
+        $this->cruder->create("riwayat", $data);
+        return true;
     }
 
     // for count items at dashboard
