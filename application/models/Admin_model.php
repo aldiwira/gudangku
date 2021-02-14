@@ -146,26 +146,28 @@ class Admin_model extends CI_Model
     }
 
     // start peminjaman barang
-    public function getPinjaman($id = 0)
+    public function getPinjaman($id = 0, $type = "keluar")
     {
-
         $this->db->select("catatan.id_catatan, detail_catatan.id_detail_catatan, catatan.nama_catatan, catatan.penanggung, pengguna.username, catatan.tanggal_kembali");
         $this->db->group_by("catatan.id_catatan");
         $this->db->join("detail_catatan", "detail_catatan.id_catatan = catatan.id_catatan", "inner");
         $this->db->join("barang", "barang.kode_barang = detail_catatan.id_barang");
         $this->db->join("pengguna", "pengguna.id_pengguna = catatan.id_pengguna");
-        $this->db->where(array("tipe_catatan" => "keluar"));
+        if ($type === "keluar") {
+            $this->db->where(array("tipe_catatan" => "keluar"));
+        }
         if ($id !== 0) {
             $this->db->where(array("id_detail_catatan" => $id));
         }
         $this->db->from("catatan");
         if ($id !== 0) {
             $data = $this->db->get()->row();
+            return $data;
         } else {
             $this->db->order_by("catatan.tanggal_kembali", "DSC");
             $data = $this->db->get()->result();
+            return $data;
         }
-        return $data;
     }
     public function getBarangPinjam($id = 0)
     {

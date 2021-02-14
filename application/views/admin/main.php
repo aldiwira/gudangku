@@ -17,7 +17,7 @@
                     <a href="<?= base_url("status") ?>" class="list-group-item list-group-item-action <?php echo $segment == 'status' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List Barang</a>
                 </div>
             </div>
-            <a href="<?= base_url("log") ?>" class="list-group-item list-group-item-action dropdown <?php echo $segment == 'log' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>" <?php echo $users_check ? "show" : "hidden"; ?>>
+            <a href="<?= base_url("log") ?>" class="list-group-item list-group-item-action dropdown <?php echo $segment == 'log' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>" ?>
                 <i class="fa fa-user" style="margin-right: 10px;" aria-hidden="true"></i>Log
             </a>
             <a class="list-group-item list-group-item-action dropdown <?php echo $segment == 'user' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>" <?php echo $users_check ? "show" : "hidden"; ?> data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">

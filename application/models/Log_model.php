@@ -17,11 +17,17 @@ class Log_model extends CI_Model
 
 
     // List all your items
-    public function getLog()
+    public function getLog($isAdmin)
     {
-        $this->db->select("riwayat.id_riwayat, riwayat.nama_riwayat, catatan.nama_catatan, catatan.penanggung, catatan.tipe_catatan, riwayat.createdAt, riwayat.updatedAt");
+        $userID = get_cookie('SID');
+        $this->db->select("riwayat.id_riwayat, riwayat.nama_riwayat, detail_catatan.id_detail_catatan, catatan.nama_catatan, catatan.penanggung, catatan.tipe_catatan, pengguna.username ,riwayat.createdAt, riwayat.updatedAt");
         $this->db->from("riwayat");
+        $this->db->join("detail_catatan", "detail_catatan.id_catatan = riwayat.id_catatan");
         $this->db->join("catatan", "catatan.id_catatan = riwayat.id_catatan");
+        $this->db->join("pengguna", "pengguna.id_pengguna = catatan.id_pengguna");
+        if (!$isAdmin) {
+            $this->db->where(array("catatan.id_pengguna" => $userID));
+        }
         $thisMonth = date("m", time());
         $this->db->where('month(riwayat.createdAt)', $thisMonth);
         return $this->db->get()->result();

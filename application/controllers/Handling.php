@@ -79,6 +79,13 @@ class Handling extends CI_Controller
         $res = $this->log_m->countBarang($select, $where, $group, $sum);
         print_r(json_encode($res));
     }
+    public function showDetailLog()
+    {
+        $idDetail = $this->uri->segment(3);
+        $data["dataPinjaman"] = $this->admin_m->getPinjaman($idDetail, "semua");
+        $data["datas_barang"] = $this->admin_m->getBarangPinjam($data["dataPinjaman"]->id_catatan);
+        $this->load->view('components/Table_detail', $data, FALSE);
+    }
 }
     
     /* End of file 404.php */

@@ -51,11 +51,11 @@ class User_model extends CI_Model
 
     public function checkAccount()
     {
-        $userID =  get_cookie('SID');
+        $userID = get_cookie('SID');
         $userDatas = $this->cruder->where('pengguna', array("id_pengguna" => $userID))->row();
-        if ($userID && $userDatas != null)  {            
+        if ($userID && $userDatas != null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

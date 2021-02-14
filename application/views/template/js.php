@@ -197,4 +197,15 @@
             }
         });
     }
+
+    function showDetailLogs(detail_id) {
+        var url = `<?php echo base_url("log/details"); ?>/${detail_id}`;
+        $.ajax({
+            url: url,
+            method: "GET",
+            success: (data) => {
+                $("#modalLogger").html(data);
+            }
+        });
+    }
 </script>

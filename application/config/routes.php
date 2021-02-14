@@ -77,3 +77,4 @@ $route['peminjaman/check/stok/(:any)'] = "Handling/check";
 $route['pengembalian/tampilkan/(:any)'] = "Main/showkembaliBarang";
 $route['pengembalian/kembali/(:any)'] = "Main/kembaliBarang";
 $route['admin/lihatbarang/(:any)'] = "Handling/countItems";
+$route["log/details/(:any)"] = "Handling/showDetailLog";

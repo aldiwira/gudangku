@@ -109,7 +109,9 @@ class Main extends CI_Controller
 
     public function riwayat()
     {
-        $data_sec['logDatas'] = $this->log_m->getLog();
+        $isAdmin = $this->user_m->checkAdmin();
+
+        $data_sec['logDatas'] = $this->log_m->getLog($isAdmin);
         $data_main['content'] = $this->load->view('admin/log', $data_sec, true);
         // Main
         $data["title"] = "Riwayat";
@@ -224,7 +226,6 @@ class Main extends CI_Controller
             $this->handlingPage();
         } else {
             $newpassword = $this->input->post('newpassword');
-
             $check = $this->admin_m->changePassword(array("password" => $newpassword));
             if ($check) {
                 $this->session->set_flashdata("toast", "success:Success change password");
