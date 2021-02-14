@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 22, 2021 at 05:36 AM
+-- Generation Time: Feb 14, 2021 at 06:32 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.2.34
 
@@ -40,6 +40,11 @@ CREATE TABLE `barang` (
   `updatedAt` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `barang`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -65,7 +70,7 @@ CREATE TABLE `booking` (
 CREATE TABLE `catatan` (
   `id_catatan` varchar(10) NOT NULL,
   `nama_catatan` varchar(100) NOT NULL,
-  `penanggung` int(50) NOT NULL,
+  `penanggung` varchar(50) NOT NULL,
   `id_pengguna` varchar(10) NOT NULL,
   `tipe_catatan` enum('masuk','keluar') NOT NULL,
   `tanggal_ambil` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -73,6 +78,10 @@ CREATE TABLE `catatan` (
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updatedAt` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `catatan`
+--
 
 -- --------------------------------------------------------
 
@@ -104,6 +113,10 @@ CREATE TABLE `detail_catatan` (
   `updateAt` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `detail_catatan`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -115,6 +128,9 @@ CREATE TABLE `kategori` (
   `nama_katagori` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `kategori`
+--
 
 -- --------------------------------------------------------
 
@@ -136,7 +152,27 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `username`, `password`, `isAdmin`, `createdAt`, `updatedAt`) VALUES
-('1148011845', 'admin', 'admin', 1, '2021-01-18 08:16:19', '2021-01-21 06:22:58');
+('1148011845', 'admin', 'admin', 1, '2021-01-18 08:16:19', '2021-02-14 17:31:12'),
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `riwayat`
+--
+
+CREATE TABLE `riwayat` (
+  `id_riwayat` varchar(10) NOT NULL,
+  `nama_riwayat` varchar(50) NOT NULL,
+  `id_catatan` varchar(10) NOT NULL,
+  `status` enum('masuk','keluar') NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `riwayat`
+--
 
 --
 -- Indexes for dumped tables
@@ -192,6 +228,13 @@ ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id_pengguna`);
 
 --
+-- Indexes for table `riwayat`
+--
+ALTER TABLE `riwayat`
+  ADD PRIMARY KEY (`id_riwayat`),
+  ADD KEY `id_catatan` (`id_catatan`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -199,7 +242,7 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_katagori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000010;
+  MODIFY `id_katagori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000025;
 
 --
 -- Constraints for dumped tables
@@ -236,6 +279,12 @@ ALTER TABLE `detail_booking`
 ALTER TABLE `detail_catatan`
   ADD CONSTRAINT `detail_catatan_ibfk_1` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`kode_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detail_catatan_ibfk_2` FOREIGN KEY (`id_catatan`) REFERENCES `catatan` (`id_catatan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `riwayat`
+--
+ALTER TABLE `riwayat`
+  ADD CONSTRAINT `riwayat_ibfk_1` FOREIGN KEY (`id_catatan`) REFERENCES `catatan` (`id_catatan`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
