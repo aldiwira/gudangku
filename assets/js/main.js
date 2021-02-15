@@ -33,6 +33,17 @@ $(document).ready(function () {
 	} else if (uri == "log") {
 		$("#listBarang").DataTable();
 		$("#listBarang_filter").attr("class", "dataTables_filter float-right");
+	} else if (uri == "status") {
+		$("#listBarangGudang").DataTable();
+		$("#listBarangGudang_filter").attr(
+			"class",
+			"dataTables_filter float-right"
+		);
+		$("#listBarangKeluar").DataTable();
+		$("#listBarangKeluar_filter").attr(
+			"class",
+			"dataTables_filter float-right"
+		);
 	}
 	// Listener collapse
 	var collapseKategori = document.getElementById("togglekatagori");
