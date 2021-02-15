@@ -86,6 +86,11 @@ class Handling extends CI_Controller
         $data["datas_barang"] = $this->admin_m->getBarangPinjam($data["dataPinjaman"]->id_catatan);
         $this->load->view('components/Table_detail', $data, FALSE);
     }
+    public function clearLogs()
+    {
+        $this->log_m->clearLogDatas();
+        $this->session->set_flashdata('toast', 'success:Berhasil membersihkan log user');
+    }
 }
     
     /* End of file 404.php */

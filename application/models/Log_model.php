@@ -43,6 +43,7 @@ class Log_model extends CI_Model
                 "id_riwayat" => $kodeLog,
                 "nama_riwayat" => "Barang masuk dari " . $checkCatatan->penanggung,
                 "id_catatan" => $id_catatan,
+                "id_pengguna" => get_cookie('SID'),
                 "status" => "masuk"
             );
         } else if ($type == "keluar") {
@@ -50,6 +51,7 @@ class Log_model extends CI_Model
                 "id_riwayat" => $kodeLog,
                 "nama_riwayat" => "Barang keluar ke " . $checkCatatan->penanggung,
                 "id_catatan" => $id_catatan,
+                "id_pengguna" => get_cookie('SID'),
                 "status" => "keluar"
             );
         }
@@ -92,6 +94,13 @@ class Log_model extends CI_Model
         $this->db->from("barang");
         $datas = $this->db->get()->row();
         return $datas;
+    }
+
+    public function clearLogDatas()
+    {
+        $userID = get_cookie('SID');
+        $this->db->where(array("id_pengguna" => $userID));
+        $this->db->delete("riwayat");
     }
 }
 

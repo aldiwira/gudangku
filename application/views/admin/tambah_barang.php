@@ -93,30 +93,38 @@
                         echo "<tr><h4 class='text-center'>Barang digudang masih kosong</h4><p class='text-center'>Tambahkan barang pada menu yang tersedia</p></tr>";
                     } else { ?>
                         <p>Daftar barang yang ada digudang</p>
-                        <table id="listBarang" class="table table-striped table-bordered" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nama Barang</th>
-                                    <th scope="col">Katagori Barang</th>
-                                    <th scope="col">Jumlah Barang</th>
-                                    <th scope="col">Kondisi Barang</th>
-                                    <th scope="col">Status Barang</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($barangDatas as $key => $value) { ?>
+                        <div id="DaftarBarang">
+                            <table id="listBarang" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
                                     <tr>
-                                        <th scope="row"><?= $key + 1 ?></th>
-                                        <td><?= $value->nama_barang ?></td>
-                                        <td><?= $value->nama_katagori ?></td>
-                                        <td><?= $value->jumlah_barang ?></td>
-                                        <td><?= $value->kondisi_barang ?></td>
-                                        <td><?= $value->status_barang ?></td>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nama Barang</th>
+                                        <th scope="col">Katagori Barang</th>
+                                        <th scope="col">Jumlah Barang</th>
+                                        <th scope="col">Kondisi Barang</th>
+                                        <th scope="col">Status Barang</th>
+                                        <th scope="col">Aksi</th>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($barangDatas as $key => $value) { ?>
+                                        <tr>
+                                            <th scope="row"><?= $key + 1 ?></th>
+                                            <td><?= $value->nama_barang ?></td>
+                                            <td><?= $value->nama_katagori ?></td>
+                                            <td><?= $value->jumlah_barang ?></td>
+                                            <td><?= $value->kondisi_barang ?></td>
+                                            <td><?= $value->status_barang ?></td>
+                                            <td>
+                                                <button type='button' value="<?= $value->kode_barang ?>" onClick='deleteItems("<?= $value->kode_barang ?>")' class='btn btn-sm btn-danger'>
+                                                    <i class='fa fa-trash' aria-hidden='true'></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
@@ -124,3 +132,17 @@
     </div>
 </div>
 <!-- End of Content -->
+<script>
+    function deleteItems(idItems) {
+        var url = `<?php echo base_url("tambah/hapus"); ?>/${idItems}`;
+        $.ajax({
+            url: url,
+            method: "DELETE",
+            success: () => {
+                setTimeout(() => {
+                    location.reload();
+                }, 100);
+            }
+        });
+    }
+</script>

@@ -65,6 +65,7 @@ $route['daftar'] = "User/Register";
 // form handling
 $route['tambah/katagori'] = "Main/katagori";
 $route['tambah/barang'] = "Main/addBarang";
+$route['tambah/hapus/(:any)'] = "Main/deleteItem";
 $route['user/update/(:any)'] = "Main/updateUser";
 $route['user/delete/(:any)'] = "Main/deleteUser";
 $route['(:any)/changepassword'] = "Main/changePassword";
@@ -78,3 +79,4 @@ $route['pengembalian/tampilkan/(:any)'] = "Main/showkembaliBarang";
 $route['pengembalian/kembali/(:any)'] = "Main/kembaliBarang";
 $route['admin/lihatbarang/(:any)'] = "Handling/countItems";
 $route["log/details/(:any)"] = "Handling/showDetailLog";
+$route["log/clear"] = "Handling/clearLogs";

@@ -164,6 +164,13 @@ class Main extends CI_Controller
         }
     }
 
+    public function deleteItem()
+    {
+        $idItem = $this->uri->segment(3);
+        $this->cruder_m->remove("barang", array("kode_barang" => $idItem));
+        $this->session->set_flashdata('toast', 'success:Berhasil menghapus barang');
+    }
+
     // User Function
 
     public function updateUser()

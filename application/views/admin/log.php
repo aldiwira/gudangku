@@ -47,3 +47,18 @@
     </div>
 </div>
 <!-- End of Content -->
+
+<script>
+    function clearLog() {
+        var url = `<?php echo base_url("log/clear"); ?>`;
+        $.ajax({
+            url: url,
+            method: "DELETE",
+            success: () => {
+                setTimeout(() => {
+                    location.reload();
+                }, 100);
+            }
+        });
+    }
+</script>

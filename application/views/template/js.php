@@ -26,6 +26,16 @@
             }
         <?php } ?>
 
+        // Sniffing clear log button
+        if (document.URL.split("/")[4] === "log") {
+            var btnClean = document.createElement("button");
+            btnClean.setAttribute("class", "btn btn-sm btn-danger mr-2")
+            btnClean.setAttribute("onClick", "clearLog()");
+            btnClean.append("Clear Log");
+            var parent = document.getElementById("listBarang_filter");
+            parent.insertBefore(btnClean, parent.firstChild);
+        }
+
         // start script for pinjam barang
 
         // start script for tambah barang
