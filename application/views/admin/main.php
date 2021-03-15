@@ -15,6 +15,7 @@
             <div class="collapse <?php echo $segment == 'status' ? "show" : "a"; ?>" id="collapseBarang">
                 <div class="">
                     <a href="<?= base_url("status") ?>" class="list-group-item list-group-item-action <?php echo $segment == 'status' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List Barang</a>
+                    <a href="<?= base_url("kategori") ?>" class="list-group-item list-group-item-action <?php echo $segment == 'kategori' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>"><i class="fa fa-list" style="margin-right: 10px;" aria-hidden="true"></i>List Kategori</a>
                 </div>
             </div>
             <a href="<?= base_url("log") ?>" class="list-group-item list-group-item-action dropdown <?php echo $segment == 'log' ? "bg-sidebar-active" : "bg-sidebar-item"; ?>" ?>

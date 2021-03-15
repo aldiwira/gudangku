@@ -117,6 +117,14 @@ class Main extends CI_Controller
         $data["title"] = "Riwayat";
         $this->mainView($data, $data_main);
     }
+    public function kategori()
+    {
+        $data_sec['kategori'] = $this->cruder_m->get("kategori")->result();
+        $data_main['content'] = $this->load->view('admin/kategori', $data_sec, true);
+        // Main
+        $data["title"] = "Kategori";
+        $this->mainView($data, $data_main);
+    }
 
     /// end main function
     /// Form Handler
@@ -333,6 +341,13 @@ class Main extends CI_Controller
         }
     }
     // end fun pengembalian
+
+    public function removekategori()
+    {
+        $id = $this->uri->segment(3);
+        $this->cruder_m->remove("kategori", array("id_katagori" => $id));
+        redirect('kategori');
+    }
 }
     
     /* End of file Main.php */
